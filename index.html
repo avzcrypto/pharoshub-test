@@ -62,40 +62,43 @@
             <div class="top-stats animate__fadeInUp animate-delay-1">
                 <!-- Карточка 1: Points + Level + Progress -->
                 <div class="stat-card first-card">
-                    <div class="metrics-row">
-                        <div class="metric">
-                            <div class="metric-value" id="totalPoints">15,647</div>
-                            <div class="metric-label">Total Points</div>
+                    <div class="primary-stats">
+                        <div class="primary-stat">
+                            <div class="value" id="totalPoints">15,647</div>
+                            <div class="label">Total Points</div>
                         </div>
-                        <div class="metric">
-                            <div class="metric-value" id="currentLevel">5</div>
-                            <div class="metric-label">Current Level</div>
+                        <div class="primary-stat">
+                            <div class="value" id="currentLevel">5</div>
+                            <div class="label">Current Level</div>
                         </div>
                     </div>
                     <div class="progress-section">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="levelProgress"></div>
-                        </div>
-                        <div class="progress-info">
+                        <div class="progress-header">
                             <span class="progress-label">Progress to Level 6</span>
                             <span class="progress-value">4,353 / 20,000</span>
                         </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="levelProgress"></div>
+                        </div>
+                        <div class="progress-status">650 points until next level</div>
                     </div>
                 </div>
 
                 <!-- Карточка 2: Active Days + Rank -->
                 <div class="stat-card second-card">
-                    <div class="metrics-row">
-                        <div class="metric">
-                            <div class="metric-value" id="activeDays">87</div>
-                            <div class="metric-label">Active Days</div>
-                            <div class="metric-sub" id="memberSince">Member Since Nov 15, 2024</div>
+                    <div class="secondary-stats">
+                        <div class="secondary-stat">
+                            <div class="value" id="activeDays">87</div>
+                            <div class="label">Active Days</div>
                         </div>
-                        <div class="metric">
-                            <div class="metric-value" id="currentRank">#1,234</div>
-                            <div class="metric-label">Current Rank</div>
-                            <div class="metric-sub">of <span id="totalUsers">270,456</span> users on PharosHub</div>
+                        <div class="secondary-stat">
+                            <div class="value" id="currentRank">#1,234</div>
+                            <div class="label">PharosHub Rank</div>
                         </div>
+                    </div>
+                    <div class="meta-info">
+                        <div class="primary-text" id="memberSince">Member Since → Nov 15, 2024</div>
+                        <div class="secondary-text">of <span id="totalUsers">270,456</span> users on PharosHub</div>
                     </div>
                 </div>
             </div>
