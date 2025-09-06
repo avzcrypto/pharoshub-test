@@ -38,18 +38,17 @@ const DOMElements = {
     error: document.getElementById('error'),
     results: document.getElementById('results'),
     
-    // Stats elements - UPDATED STRUCTURE
+    // Stats elements - UPDATED for new structure
     totalPoints: document.getElementById('totalPoints'),
     currentLevel: document.getElementById('currentLevel'),
     levelProgress: document.getElementById('levelProgress'),
     currentRank: document.getElementById('currentRank'),
     totalUsers: document.getElementById('totalUsers'),
-    
-    // New combined card elements
     activeDays: document.getElementById('activeDays'),
     memberSince: document.getElementById('memberSince'),
     progressLabel: document.querySelector('.progress-label'),
     progressValue: document.querySelector('.progress-value'),
+    progressStatus: document.querySelector('.progress-status'),
     
     // Season 1 task elements
     sendCount: document.getElementById('sendCount'),
@@ -82,28 +81,7 @@ const Analytics = {
         gtag('event', 'page_view', {
             page_title: 'Pharos Stats Checker',
             page_location: window.location.href
-        },
-
-    // NEW: Calculate active days from member since date
-    calculateActiveDays(memberSince) {
-        if (!memberSince) return 0;
-        const startDate = new Date(memberSince);
-        const currentDate = new Date();
-        const diffTime = Math.abs(currentDate - startDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
-    },
-
-    // NEW: Format member since date
-    formatMemberSince(memberSince) {
-        if (!memberSince) return 'Unknown';
-        const date = new Date(memberSince);
-        return date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
         });
-    });
     },
 
     trackWalletSearch(address) {
@@ -357,12 +335,13 @@ const LevelCalculator = {
     },
 
     addPointsNeededInfo(data) {
-        const currentLevel = Math.min(data.current_level, 5);
-        const nextLevel = Math.min(currentLevel + 1, 5);
-        const currentLevelPoints = this.levels[currentLevel] || 0;
+        const currentLevelPoints = this.levels[data.current_level] || 0;
+        const maxLevel = 5;
+        const nextLevel = Math.min(data.current_level + 1, maxLevel);
         const nextLevelPoints = this.levels[nextLevel] || 20001;
         
-        const isMaxLevel = currentLevel >= 5;
+        const isMaxLevel = data.current_level >= maxLevel;
+        const pointsNeeded = isMaxLevel ? 0 : nextLevelPoints - data.total_points;
         const progressInLevel = data.total_points - currentLevelPoints;
         const pointsForLevel = nextLevelPoints - currentLevelPoints;
 
@@ -370,6 +349,40 @@ const LevelCalculator = {
             const percentage = isMaxLevel ? 100 : (pointsForLevel > 0 ? (progressInLevel / pointsForLevel) * 100 : 100);
             if (DOMElements.levelProgress) {
                 DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
+            }
+            
+            // Update new progress structure elements
+            if (DOMElements.progressLabel) {
+                DOMElements.progressLabel.textContent = isMaxLevel ? 
+                    'Level Progress' : 
+                    `Progress to Level ${nextLevel}`;
+            }
+            
+            if (DOMElements.progressValue) {
+                if (isMaxLevel) {
+                    DOMElements.progressValue.textContent = 'MAX LEVEL';
+                } else {
+                    DOMElements.progressValue.textContent = 
+                        `${Utils.formatNumber(progressInLevel)} / ${Utils.formatNumber(pointsForLevel)}`;
+                }
+            }
+
+            if (DOMElements.progressStatus) {
+                if (isMaxLevel) {
+                    DOMElements.progressStatus.textContent = '🎉 Maximum level achieved!';
+                    DOMElements.progressStatus.className = 'progress-status max-level';
+                    // Apply max level style to progress bar
+                    if (DOMElements.levelProgress) {
+                        DOMElements.levelProgress.className = 'progress-fill max-level';
+                    }
+                } else {
+                    DOMElements.progressStatus.textContent = `${Utils.formatNumber(pointsNeeded)} points until next level`;
+                    DOMElements.progressStatus.className = 'progress-status in-progress';
+                    // Apply in-progress style to progress bar
+                    if (DOMElements.levelProgress) {
+                        DOMElements.levelProgress.className = 'progress-fill in-progress';
+                    }
+                }
             }
         }, 500);
     }
@@ -458,9 +471,6 @@ const PharosAPI = {
             const formattedDate = this.formatMemberSince(data.member_since);
             DOMElements.memberSince.textContent = `Member Since → ${formattedDate}`;
         }
-
-        // NEW: Update progress info text
-        this.updateProgressInfo(data);
         
         // Season 1 tasks with progress bars
         TaskProgress.updateTaskWithProgress('send_count', DOMElements.sendCount, data.send_count || 0);
@@ -519,33 +529,6 @@ const PharosAPI = {
             month: 'short', 
             day: 'numeric' 
         });
-    },
-
-    // NEW: Update progress bar info text
-    updateProgressInfo(data) {
-        const currentLevel = Math.min(data.current_level, 5);
-        const nextLevel = Math.min(currentLevel + 1, 5);
-        const isMaxLevel = currentLevel >= 5;
-        
-        if (DOMElements.progressLabel) {
-            DOMElements.progressLabel.textContent = isMaxLevel ? 
-                'Maximum Level Reached!' : 
-                `Progress to Level ${nextLevel}`;
-        }
-        
-        if (DOMElements.progressValue) {
-            if (isMaxLevel) {
-                DOMElements.progressValue.textContent = 'MAX LEVEL';
-            } else {
-                const currentLevelPoints = LevelCalculator.levels[currentLevel] || 0;
-                const nextLevelPoints = LevelCalculator.levels[nextLevel] || 20001;
-                const progressInLevel = data.total_points - currentLevelPoints;
-                const pointsForLevel = nextLevelPoints - currentLevelPoints;
-                
-                DOMElements.progressValue.textContent = 
-                    `${Utils.formatNumber(progressInLevel)} / ${Utils.formatNumber(pointsForLevel)}`;
-            }
-        }
     }
 };
 
