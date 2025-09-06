@@ -1074,6 +1074,16 @@ body {
         font-size: 28px;
     }
 
+    .primary-stats,
+    .secondary-stats {
+        gap: 16px;
+    }
+
+    .primary-stats .primary-stat:not(:last-child)::after,
+    .secondary-stats .secondary-stat:not(:last-child)::after {
+        height: 40px;
+    }
+
     .cache-disclaimer {
         padding: 12px;
         gap: 10px;
