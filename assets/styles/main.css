@@ -240,51 +240,218 @@ body {
     box-shadow: var(--shadow-card-hover);
 }
 
-.stat-value {
-    font-size: 36px;
-    font-weight: 900;
-    color: var(--pharos-blue-800);
-    margin-bottom: 8px;
-    font-family: 'Inter', 'SF Mono', monospace;
-    letter-spacing: -1.5px;
-    line-height: 1;
+/* === УБИРАЕМ ВСЕ СТАРЫЕ СТИЛИ === */
+.stat-value,
+.stat-label,
+.rank-context,
+.level-progress,
+.level-progress-bar,
+.points-needed,
+.metric-value,
+.metric-label,
+.metric-sub,
+.metrics-row,
+.metric {
+    display: none !important;
 }
 
-.stat-label {
-    font-size: 14px;
-    color: var(--pharos-gray-500);
-    font-weight: 600;
-    letter-spacing: 0.025em;
+/* === НОВАЯ СТРУКТУРА КАРТОЧЕК === */
+
+/* === ПЕРВАЯ КАРТОЧКА === */
+.first-card {
+    justify-content: flex-start !important;
+    text-align: left !important;
 }
 
-.rank-context {
-    font-size: 12px;
-    color: var(--pharos-gray-500);
-    font-weight: 500;
-    margin-top: 4px;
+/* === ВТОРАЯ КАРТОЧКА === */
+.second-card {
+    justify-content: flex-start !important;
+    text-align: left !important;
 }
 
-.level-progress {
-    width: 100%;
-    height: 6px;
-    background: rgba(203, 213, 225, 0.3);
-    border-radius: 3px;
-    margin-top: 12px;
-    overflow: hidden;
+/* === ОСНОВНЫЕ СТАТИСТИКИ (ПЕРВАЯ КАРТОЧКА) === */
+.primary-stats {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-bottom: 20px !important;
+    gap: 20px !important;
 }
 
-.level-progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--pharos-orange-500), var(--pharos-orange-600));
-    border-radius: 3px;
-    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+.primary-stat {
+    text-align: center !important;
+    flex: 1 !important;
+    position: relative !important;
 }
 
-.points-needed {
-    font-size: 12px;
-    color: var(--pharos-gray-500);
-    margin-top: 4px;
-    font-weight: 500;
+.primary-stat .value {
+    font-size: 36px !important;
+    font-weight: 900 !important;
+    color: #1e3a8a !important;
+    margin-bottom: 8px !important;
+    font-family: 'Inter', 'SF Mono', monospace !important;
+    letter-spacing: -1.5px !important;
+    line-height: 1 !important;
+    display: block !important;
+}
+
+.primary-stat .label {
+    font-size: 14px !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.025em !important;
+    display: block !important;
+}
+
+/* === ВТОРИЧНЫЕ СТАТИСТИКИ (ВТОРАЯ КАРТОЧКА) === */
+.secondary-stats {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.secondary-stat {
+    text-align: center !important;
+    flex: 1 !important;
+    position: relative !important;
+}
+
+.secondary-stat .value {
+    font-size: 36px !important;
+    font-weight: 900 !important;
+    color: #1e3a8a !important;
+    margin-bottom: 8px !important;
+    font-family: 'Inter', 'SF Mono', monospace !important;
+    letter-spacing: -1.5px !important;
+    line-height: 1 !important;
+    display: block !important;
+}
+
+.secondary-stat .label {
+    font-size: 14px !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.025em !important;
+    display: block !important;
+}
+
+/* === НОВЫЙ ПРОГРЕСС БАР === */
+.progress-section {
+    margin-top: 20px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid rgba(100, 116, 139, 0.15) !important;
+    display: block !important;
+}
+
+.progress-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 12px !important;
+}
+
+.progress-label {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    display: block !important;
+}
+
+.progress-value {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #64748b !important;
+    font-family: 'Inter', 'SF Mono', monospace !important;
+    display: block !important;
+}
+
+.progress-bar {
+    width: 100% !important;
+    height: 6px !important;
+    background: rgba(203, 213, 225, 0.3) !important;
+    border-radius: 3px !important;
+    overflow: hidden !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+.progress-fill {
+    height: 100% !important;
+    background: linear-gradient(90deg, #f97316, #fb923c) !important;
+    border-radius: 3px !important;
+    width: 0% !important;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: block !important;
+}
+
+/* Состояния прогресс-бара */
+.progress-fill.max-level {
+    background: linear-gradient(90deg, #22c55e, #16a34a) !important;
+}
+
+.progress-fill.in-progress {
+    background: linear-gradient(90deg, #f97316, #fb923c) !important;
+}
+
+.progress-fill.early-stage {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6) !important;
+}
+
+.progress-status {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    color: #64748b !important;
+    display: block !important;
+}
+
+.progress-status.max-level {
+    color: #16a34a !important;
+}
+
+.progress-status.in-progress {
+    color: #ea580c !important;
+}
+
+.progress-status.early-stage {
+    color: #7c3aed !important;
+}
+
+/* === МЕТАИНФОРМАЦИЯ === */
+.meta-info {
+    margin-top: auto !important;
+    display: block !important;
+}
+
+.meta-info .primary-text {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    margin-bottom: 4px !important;
+    text-align: center !important;
+    display: block !important;
+}
+
+.meta-info .secondary-text {
+    font-size: 12px !important;
+    color: #64748b !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    display: block !important;
+}
+
+/* === РАЗДЕЛИТЕЛИ === */
+.primary-stats .primary-stat:not(:last-child)::after,
+.secondary-stats .secondary-stat:not(:last-child)::after {
+    content: '' !important;
+    position: absolute !important;
+    right: -10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 1px !important;
+    height: 50px !important;
+    background: rgba(100, 116, 139, 0.2) !important;
+    display: block !important;
 }
 
 /* === НОВАЯ СТРУКТУРА КАРТОЧЕК === */
