@@ -1,7 +1,7 @@
 /* 
  * Pharos Hub - Main Stylesheet
  * Author: @avzcrypto
- * Version: 2.0 - Restructured and Optimized
+ * Version: 2.1 - Updated with New Card Structure
  */
 
 /* === CSS CUSTOM PROPERTIES === */
@@ -287,6 +287,8 @@ body {
     font-weight: 500;
 }
 
+/* === НОВАЯ СТРУКТУРА КАРТОЧЕК === */
+
 /* === ПЕРВАЯ КАРТОЧКА === */
 .first-card {
     justify-content: flex-start;
@@ -309,6 +311,23 @@ body {
     text-align: center;
     flex: 1;
     min-width: 0;
+}
+
+.metric-value {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--pharos-blue-800);
+    margin-bottom: 8px;
+    font-family: 'Inter', 'SF Mono', monospace;
+    letter-spacing: -1.5px;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 14px;
+    color: var(--pharos-gray-500);
+    font-weight: 600;
+    letter-spacing: 0.025em;
 }
 
 .metric-sub {
@@ -1050,7 +1069,7 @@ body {
         font-size: 14px;
     }
 
-    .stat-value {
+    .stat-value, .metric-value {
         font-size: 28px;
     }
 
@@ -1105,212 +1124,4 @@ body {
         font-size: 13px;
         text-align: center;
     }
-}
-
-/* === TOP.HTML SPECIFIC STYLES === */
-
-/* Container for leaderboard */
-.leaderboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Header for leaderboard */
-.header {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 32px;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-card);
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-}
-
-.header-logo {
-    width: 500px;
-    height: auto;
-    object-fit: contain;
-}
-
-.header-text h1 {
-    font-size: 42px;
-    font-weight: 900;
-    color: #0f172a;
-    margin-bottom: 6px;
-    letter-spacing: -0.025em;
-    line-height: 1.1;
-    background: linear-gradient(135deg, #0f172a 0%, #374151 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.header-text p {
-    color: var(--pharos-gray-500);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.4;
-}
-
-.header-stats {
-    display: flex;
-    gap: 40px;
-}
-
-.stat-item {
-    text-align: center;
-    position: relative;
-}
-
-.stat-item::after {
-    content: '';
-    position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 50px;
-    background: #e5e7eb;
-}
-
-.stat-item:last-child::after {
-    display: none;
-}
-
-/* Table styles for leaderboard */
-.table-section {
-    display: none;
-}
-
-.table-section.show {
-    display: block;
-}
-
-.table-header {
-    margin-bottom: 20px;
-}
-
-.table-title {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--pharos-gray-900);
-    text-align: center;
-}
-
-.table-container {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow-card);
-    border: 1px solid #e5e7eb;
-}
-
-.leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    position: relative;
-}
-
-.leaderboard-table thead th {
-    background: #f9fafb;
-    padding: 12px 8px;
-    text-align: center;
-    font-weight: 600;
-    color: #374151;
-    border-right: 1px solid #e5e7eb;
-    border-bottom: 2px solid #e5e7eb;
-    text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    line-height: 1.3;
-}
-
-.leaderboard-table thead th:last-child {
-    border-right: none;
-}
-
-.leaderboard-table tbody tr:nth-child(odd) {
-    background: white;
-}
-
-.leaderboard-table tbody tr:nth-child(even) {
-    background: #fbfcfd;
-}
-
-.leaderboard-table tbody tr {
-    border-bottom: 1px solid #f3f4f6;
-    transition: var(--transition-smooth);
-    height: 54px;
-}
-
-.leaderboard-table tbody tr:hover {
-    background: #f1f5f9;
-}
-
-.leaderboard-table tbody tr:last-child {
-    border-bottom: none;
-}
-
-.leaderboard-table td {
-    padding: 10px 6px;
-    text-align: center;
-    border-right: 1px solid #f3f4f6;
-    vertical-align: middle;
-}
-
-.leaderboard-table td:last-child {
-    border-right: none;
-}
-
-/* Protocol group colors for leaderboard headers */
-.header-send { 
-    background: linear-gradient(135deg, #fef3c7, #fde68a); 
-}
-
-.header-zenith { 
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe); 
-}
-
-.header-faroswap { 
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0); 
-}
-
-.header-domains { 
-    background: linear-gradient(135deg, #ede9fe, #ddd6fe); 
-}
-
-.header-season2 { 
-    background: linear-gradient(135deg, #fce7f3, #fbcfe8); 
-}
-
-/* Rank styling in leaderboard */
-.rank {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 14px;
-    width: 34px;
-    height: 34px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    transition: transform 0.2s ease;
-}
-
-.rank:hover {
-    transform: scale(1.1);
 }
