@@ -435,7 +435,7 @@ const PharosAPI = {
         // NEW: Update member since text
         if (DOMElements.memberSince && data.member_since) {
             const formattedDate = this.formatMemberSince(data.member_since);
-            DOMElements.memberSince.textContent = `Member Since ${formattedDate}`;
+            DOMElements.memberSince.textContent = `Member Since → ${formattedDate}`;
         }
 
         // NEW: Update progress info text
