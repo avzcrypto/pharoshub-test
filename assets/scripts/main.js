@@ -82,7 +82,28 @@ const Analytics = {
         gtag('event', 'page_view', {
             page_title: 'Pharos Stats Checker',
             page_location: window.location.href
+        },
+
+    // NEW: Calculate active days from member since date
+    calculateActiveDays(memberSince) {
+        if (!memberSince) return 0;
+        const startDate = new Date(memberSince);
+        const currentDate = new Date();
+        const diffTime = Math.abs(currentDate - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    },
+
+    // NEW: Format member since date
+    formatMemberSince(memberSince) {
+        if (!memberSince) return 'Unknown';
+        const date = new Date(memberSince);
+        return date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
         });
+    });
     },
 
     trackWalletSearch(address) {
