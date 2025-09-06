@@ -1,7 +1,7 @@
 /**
  * Pharos Hub - Main JavaScript
  * Author: @avzcrypto
- * Version: 2.0 - Restructured and Optimized
+ * Version: 2.1 - Updated with New Card Structure
  */
 
 // === CONFIGURATION ===
@@ -38,7 +38,7 @@ const DOMElements = {
     error: document.getElementById('error'),
     results: document.getElementById('results'),
     
-    // Stats elements - NEW STRUCTURE
+    // Stats elements - UPDATED STRUCTURE
     totalPoints: document.getElementById('totalPoints'),
     currentLevel: document.getElementById('currentLevel'),
     levelProgress: document.getElementById('levelProgress'),
