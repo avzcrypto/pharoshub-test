@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "assets/api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "*.{html,webp,png,jpg,jpeg,gif,svg,ico,css,js}",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/assets/api/(.*)",
+      "dest": "/assets/api/index.py"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000"
+      }
+    },
+    {
+      "src": "/(.*\\.(webp|png|jpg|jpeg|gif|svg|ico|css|js))",
+      "dest": "/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000"
+      }
+    },
+    {
+      "src": "/top",
+      "dest": "/top.html"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/(.*\\.html)",
+      "dest": "/$1"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/assets/api/refresh-leaderboard",
+      "schedule": "0 * * * *"
+    }
+  ]
+}
