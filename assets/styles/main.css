@@ -240,12 +240,10 @@ body {
     box-shadow: var(--shadow-card-hover);
 }
 
-/* === УБИРАЕМ ВСЕ СТАРЫЕ СТИЛИ === */
+/* === УБИРАЕМ ВСЕ СТАРЫЕ СТИЛИ КРОМЕ ПРОГРЕСС-БАРА === */
 .stat-value,
 .stat-label,
 .rank-context,
-.level-progress,
-.level-progress-bar,
 .points-needed,
 .metric-value,
 .metric-label,
@@ -253,6 +251,12 @@ body {
 .metrics-row,
 .metric {
     display: none !important;
+}
+
+/* Оставляем прогресс-бар видимым */
+.level-progress,
+.level-progress-bar {
+    display: block !important;
 }
 
 /* === НОВАЯ СТРУКТУРА КАРТОЧЕК === */
