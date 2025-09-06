@@ -1069,7 +1069,8 @@ body {
         font-size: 14px;
     }
 
-    .stat-value, .metric-value {
+    .primary-stat .value,
+    .secondary-stat .value {
         font-size: 28px;
     }
 
