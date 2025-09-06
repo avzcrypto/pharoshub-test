@@ -1071,7 +1071,7 @@ body {
 
     .primary-stat .value,
     .secondary-stat .value {
-        font-size: 28px;
+        font-size: 28px !important;
     }
 
     .primary-stats,
