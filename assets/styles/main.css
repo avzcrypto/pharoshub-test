@@ -1,756 +1,1305 @@
-/**
- * Pharos Hub - Main JavaScript
+/* 
+ * Pharos Hub - Main Stylesheet
  * Author: @avzcrypto
  * Version: 2.1 - Updated with New Card Structure
  */
 
-// === CONFIGURATION ===
-const TASK_LIMITS = {
-    // Season 1 Tasks 
-    'send_count': 91,
-    'swap_count': 91,           // Zenith Swaps
-    'lp_count': 91,             // Zenith LP  
-    'faroswap_swaps': 91,
-    'faroswap_lp': 91,
-    'mint_domain': 91,
-    'mint_nft': 1, 
+/* === CSS CUSTOM PROPERTIES === */
+:root {
+    /* Pharos Brand Colors */
+    --pharos-blue-500: #3b82f6;
+    --pharos-blue-600: #2563eb;
+    --pharos-blue-700: #1d4ed8;
+    --pharos-blue-800: #1e3a8a;
+    --pharos-blue-900: #1e40af;
+    --pharos-orange-500: #f97316;
+    --pharos-orange-600: #fb923c;
+    --pharos-green-500: #22c55e;
+    --pharos-green-600: #16a34a;
+    --pharos-purple-500: #a855f7;
+    --pharos-purple-600: #9333ea;
+    --pharos-gray-500: #64748b;
+    --pharos-gray-700: #374151;
+    --pharos-gray-900: #1f2937;
 
-    // Season 2 Tasks 
-    'primuslabs_send': 91,
-    'autostaking': 91,          // Stake
-    'lend_borrow': 91,
-    'r2_swap': 91,
-    'r2_earn': 91,
-    'spout': 91,
-    'bitverse': 91,
-    'brokex': 91,               // CFD Trading
-    'aquaflux': 1    
-};
+    /* Common Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-// === DOM ELEMENTS ===
-const DOMElements = {
-    // Input elements
-    walletInput: document.getElementById('walletAddress'),
-    checkButton: document.getElementById('checkButton'),
+    /* Shadows */
+    --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+    --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08);
+    --shadow-button: 0 8px 16px rgba(0, 7, 185, 0.3), 0 4px 8px rgba(0, 7, 185, 0.2);
+
+    /* Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+    --glass-blur: blur(20px);
+}
+
+/* === RESET & BASE STYLES === */
+a, body, footer, h1, header, html, img, li, nav, ol, span, ul {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #f5f2ed 0%, #e8eaf6 30%, #e3f2fd 60%, #bbdefb 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* === LAYOUT === */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* === HEADER SECTION === */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.header-left {
+    flex: 0 0 480px;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo-main {
+    width: 460px;
+    height: 230px;
+    object-fit: contain;
+}
+
+.top-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.main-title {
+    font-size: 46px;
+    font-weight: 900;
+    color: #1f2937;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 5px 0 0 0;
+}
+
+.main-subtitle {
+    color: var(--pharos-gray-500);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+    width: 100%;
+}
+
+.header-right {
+    flex: 0 0 370px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 20px;
+    padding: 16px 20px 20px 20px;
+    box-shadow: var(--shadow-card);
+    border: var(--glass-border);
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pharos-gray-900);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* === INPUT SECTION === */
+.input-section {
+    margin-bottom: 16px;
+}
+
+.input-group {
+    display: flex;
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.input-group:focus-within {
+    border-color: var(--pharos-blue-500);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+}
+
+.wallet-input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Inter', 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    color: var(--pharos-gray-900);
+    width: 100%;
+    background: transparent;
+    font-weight: 500;
+}
+
+.wallet-input::placeholder {
+    color: var(--pharos-gray-500);
+    font-weight: 400;
+}
+
+/* === BUTTONS === */
+.check-button {
+    width: 100%;
+    padding: 12px;
+    background: rgb(0, 7, 185);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-button);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.025em;
+}
+
+.check-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 7, 185, 0.4), 0 6px 12px rgba(0, 7, 185, 0.3);
+}
+
+.check-button:disabled {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* === RESULTS SECTION === */
+.results-section {
+    display: none;
+}
+
+.results-section.show {
+    display: block;
+}
+
+/* === STATS CARDS === */
+.top-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    border: var(--glass-border);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-card);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* === УБИРАЕМ ВСЕ СТАРЫЕ СТИЛИ === */
+.stat-value,
+.stat-label,
+.rank-context,
+.level-progress,
+.level-progress-bar,
+.points-needed,
+.metric-value,
+.metric-label,
+.metric-sub,
+.metrics-row,
+.metric {
+    display: none !important;
+}
+
+/* === НОВАЯ СТРУКТУРА КАРТОЧЕК === */
+
+/* === ПЕРВАЯ КАРТОЧКА === */
+.first-card {
+    justify-content: flex-start !important;
+    text-align: left !important;
+}
+
+/* === ВТОРАЯ КАРТОЧКА === */
+.second-card {
+    justify-content: flex-start !important;
+    text-align: left !important;
+}
+
+/* === ОСНОВНЫЕ СТАТИСТИКИ (ПЕРВАЯ КАРТОЧКА) === */
+.primary-stats {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-bottom: 20px !important;
+    gap: 20px !important;
+}
+
+.primary-stat {
+    text-align: center !important;
+    flex: 1 !important;
+    position: relative !important;
+}
+
+.primary-stat .value {
+    font-size: 36px !important;
+    font-weight: 900 !important;
+    color: #1e3a8a !important;
+    margin-bottom: 8px !important;
+    font-family: 'Inter', 'SF Mono', monospace !important;
+    letter-spacing: -1.5px !important;
+    line-height: 1 !important;
+    display: block !important;
+}
+
+.primary-stat .label {
+    font-size: 14px !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.025em !important;
+    display: block !important;
+}
+
+/* === ВТОРИЧНЫЕ СТАТИСТИКИ (ВТОРАЯ КАРТОЧКА) === */
+.secondary-stats {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.secondary-stat {
+    text-align: center !important;
+    flex: 1 !important;
+    position: relative !important;
+}
+
+.secondary-stat .value {
+    font-size: 36px !important;
+    font-weight: 900 !important;
+    color: #1e3a8a !important;
+    margin-bottom: 8px !important;
+    font-family: 'Inter', 'SF Mono', monospace !important;
+    letter-spacing: -1.5px !important;
+    line-height: 1 !important;
+    display: block !important;
+}
+
+.secondary-stat .label {
+    font-size: 14px !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.025em !important;
+    display: block !important;
+}
+
+/* === НОВЫЙ ПРОГРЕСС БАР === */
+.progress-section {
+    margin-top: 20px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid rgba(100, 116, 139, 0.15) !important;
+    display: block !important;
+}
+
+.progress-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 12px !important;
+}
+
+.progress-label {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    display: block !important;
+}
+
+.progress-value {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #64748b !important;
+    font-family: 'Inter', 'SF Mono', monospace !important;
+    display: block !important;
+}
+
+.progress-bar {
+    width: 100% !important;
+    height: 6px !important;
+    background: rgba(203, 213, 225, 0.3) !important;
+    border-radius: 3px !important;
+    overflow: hidden !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+.progress-fill {
+    height: 100% !important;
+    background: linear-gradient(90deg, #f97316, #fb923c) !important;
+    border-radius: 3px !important;
+    width: 0% !important;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: block !important;
+}
+
+/* Состояния прогресс-бара */
+.progress-fill.max-level {
+    background: linear-gradient(90deg, #22c55e, #16a34a) !important;
+}
+
+.progress-fill.in-progress {
+    background: linear-gradient(90deg, #f97316, #fb923c) !important;
+}
+
+.progress-fill.early-stage {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6) !important;
+}
+
+.progress-status {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    color: #64748b !important;
+    display: block !important;
+}
+
+.progress-status.max-level {
+    color: #16a34a !important;
+}
+
+.progress-status.in-progress {
+    color: #ea580c !important;
+}
+
+.progress-status.early-stage {
+    color: #7c3aed !important;
+}
+
+/* === МЕТАИНФОРМАЦИЯ === */
+.meta-info {
+    margin-top: auto !important;
+    display: block !important;
+}
+
+.meta-info .primary-text {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    margin-bottom: 4px !important;
+    text-align: center !important;
+    display: block !important;
+}
+
+.meta-info .secondary-text {
+    font-size: 12px !important;
+    color: #64748b !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    display: block !important;
+}
+
+/* === РАЗДЕЛИТЕЛИ === */
+.primary-stats .primary-stat:not(:last-child)::after,
+.secondary-stats .secondary-stat:not(:last-child)::after {
+    content: '' !important;
+    position: absolute !important;
+    right: -10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 1px !important;
+    height: 50px !important;
+    background: rgba(100, 116, 139, 0.2) !important;
+    display: block !important;
+}
+
+/* === НОВАЯ СТРУКТУРА КАРТОЧЕК === */
+
+/* === ПЕРВАЯ КАРТОЧКА === */
+.first-card {
+    justify-content: flex-start;
+}
+
+/* === ВТОРАЯ КАРТОЧКА === */
+.second-card {
+    justify-content: center;
+}
+
+/* === ОБЩИЕ СТИЛИ ДЛЯ МЕТРИК === */
+.metrics-row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 16px;
+    gap: 10px;
+}
+
+.metric {
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.metric-value {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--pharos-blue-800);
+    margin-bottom: 8px;
+    font-family: 'Inter', 'SF Mono', monospace;
+    letter-spacing: -1.5px;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 14px;
+    color: var(--pharos-gray-500);
+    font-weight: 600;
+    letter-spacing: 0.025em;
+}
+
+.metric-sub {
+    font-size: 12px;
+    color: var(--pharos-gray-500);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* === ПРОГРЕСС БАР === */
+.progress-section {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(100, 116, 139, 0.15);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(203, 213, 225, 0.3);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pharos-orange-500), var(--pharos-orange-600));
+    border-radius: 3px;
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--pharos-gray-500);
+    font-weight: 500;
+}
+
+/* === РАЗДЕЛИТЕЛЬ ДЛЯ ВТОРОЙ КАРТОЧКИ === */
+.second-card .metrics-row::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(100, 116, 139, 0.15);
+    transform: translateX(-50%);
+}
+
+.second-card .metrics-row {
+    position: relative;
+}
+
+/* === SEASON SWITCHER === */
+.season-switcher-container {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.season-switcher {
+    display: flex;
+    list-style: none;
+    box-sizing: border-box;
+    height: 42px;
+    border-radius: 10px;
+    background-color: rgb(240, 242, 245);
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.season-tab {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 130px;
+    height: 100%;
+    font-family: Inter18pt-Medium, 'Inter', sans-serif;
+    font-size: 16px;
+    color: rgb(34, 34, 34);
+    font-weight: 600;
+    background-color: rgb(255, 255, 255);
+    gap: 10px;
+    padding: 0 20px;
+    transition: var(--transition-smooth);
+}
+
+.season-tab:first-child {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.season-tab:last-child {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.season-tab:hover,
+.season-tab.select {
+    background-color: rgb(0, 7, 185);
+    color: rgb(255, 255, 255);
+}
+
+.live-badge {
+    width: 60px;
+    height: 24px;
+    box-sizing: border-box;
+    margin-left: 12px;
+    border-radius: 12px;
+    background-image: linear-gradient(to right, rgb(54, 220, 109), rgb(255, 195, 3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -12px;
+    left: -30px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: livePulse 2s infinite;
+}
+
+.live-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+}
+
+/* === AUTHOR SECTION === */
+.author-footer {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.author-block-final {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(16, 185, 129, 0.08));
+    backdrop-filter: blur(30px);
+    border-radius: 24px;
+    padding: 28px 32px;
+    border: 2px solid rgba(34, 197, 94, 0.25);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 15px 40px rgba(34, 197, 94, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.author-block-final:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(34, 197, 94, 0.22), inset 0 1px 0 rgba(255, 255, 255, 1);
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.gradient-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #22c55e 0%, #3b82f6 25%, #8b5cf6 50%, #f59e0b 75%, #22c55e 100%);
+    background-size: 300% 100%;
+    animation: gradient-flow 4s ease-in-out infinite;
+}
+
+.author-left-final {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.author-icon-final {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.author-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.author-icon-final::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #22c55e, #3b82f6, #22c55e);
+    background-size: 200% 200%;
+    border-radius: 18px;
+    opacity: 0;
+    z-index: -1;
+    animation: icon-glow 3s ease-in-out infinite;
+}
+
+.author-block-final:hover .author-icon-final {
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 15px 35px rgba(34, 197, 94, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.author-text-final {
+    flex: 1;
+    text-align: left;
+}
+
+.author-name-final {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--pharos-gray-900);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: -0.025em;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    justify-content: flex-start;
+}
+
+.author-subtitle-final {
+    font-size: 16px;
+    color: #15803d;
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-align: left;
+}
+
+.cta-neomorphic {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    padding: 16px 28px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 15px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: 0.025em;
+}
+
+.cta-neomorphic:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(34, 197, 94, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.cta-neomorphic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.cta-neomorphic:hover::before {
+    left: 100%;
+}
+
+/* === TASKS SECTION === */
+.tasks-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--pharos-gray-900);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.025em;
+}
+
+.protocol-icon-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    margin-right: 12px;
+    object-fit: cover;
+}
+
+.task-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border: var(--glass-border);
+    box-shadow: var(--shadow-card);
+    min-height: 80px;
+    transition: var(--transition-bounce);
+    margin-bottom: 12px;
+    flex-direction: column;
+    gap: 0;
+}
+
+.task-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.task-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.task-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.task-icon {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
+}
+
+.task-card:hover .task-icon {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+.task-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--pharos-gray-900);
+    letter-spacing: -0.025em;
+}
+
+.task-count {
+    background: transparent;
+    color: var(--pharos-gray-900);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 24px;
+    font-weight: 900;
+    min-width: 70px;
+    text-align: center;
+    font-family: 'Inter', 'SF Mono', monospace;
+    letter-spacing: -1px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.task-card:hover .task-count {
+    transform: scale(1.05);
+}
+
+.protocol-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+/* === PROGRESS BARS === */
+.task-progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+    width: 100%;
+}
+
+.task-progress {
+    width: 100%;
+    height: 6px;
+    background: rgba(203, 213, 225, 0.3);
+    border-radius: 3px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.task-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pharos-orange-500), var(--pharos-orange-600));
+    border-radius: 3px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-completed {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pharos-green-500), var(--pharos-green-600));
+    border-radius: 3px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-label {
+    font-size: 12px;
+    color: var(--pharos-gray-500);
+    font-weight: 500;
+}
+
+.progress-value {
+    font-size: 12px;
+    color: var(--pharos-gray-500);
+    font-weight: 600;
+    font-family: 'Inter', 'SF Mono', monospace;
+}
+
+.max-indicator {
+    color: var(--pharos-green-500);
+    font-weight: 700;
+}
+
+.progress-completed-label {
+    color: var(--pharos-green-500);
+    font-weight: 600;
+}
+
+/* === LOADING & ERROR STATES === */
+.loading {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.loading.show {
+    display: block;
+}
+
+.loading-emoji {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+.loading-text {
+    color: var(--pharos-gray-500);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.error {
+    background: rgba(255, 255, 255, 0.9);
+    color: #dc2626;
+    padding: 16px;
+    border-radius: 16px;
+    margin-top: 16px;
+    display: none;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    font-weight: 600;
+    backdrop-filter: var(--glass-blur);
+}
+
+.error.show {
+    display: block;
+}
+
+/* === DISCLAIMERS === */
+.cache-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    backdrop-filter: var(--glass-blur);
+}
+
+.disclaimer-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.disclaimer-content {
+    flex: 1;
+}
+
+.disclaimer-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--pharos-orange-600);
+    margin-bottom: 4px;
+    letter-spacing: 0.025em;
+}
+
+.disclaimer-text {
+    font-size: 13px;
+    color: var(--pharos-gray-700);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.disclaimer-text strong {
+    color: var(--pharos-orange-600);
+    font-weight: 700;
+}
+
+/* === SEASON HEADERS === */
+.season-header {
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+.season-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--pharos-gray-900);
+    letter-spacing: -0.025em;
+    text-align: center;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 16px;
+    backdrop-filter: var(--glass-blur);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.season2-live .season-title {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(34, 197, 94, 0.1) 25%, rgba(34, 197, 94, 0.2) 50%, rgba(34, 197, 94, 0.1) 75%, rgba(255, 255, 255, 0.9) 100%);
+    border: 2px solid #22c55e;
+    animation: streaming 3s linear infinite;
+    background-size: 200% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.live-badge-header {
+    display: inline-flex;
+    align-items: center;
+    background: #22c55e;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.live-dot-header {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    margin-right: 4px;
+    animation: pulse 2s infinite;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { 
+        transform: translateY(0px);
+    }
+    50% { 
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes icon-glow {
+    0%, 100% { opacity: 0; background-position: 0% 50%; }
+    50% { opacity: 0.3; background-position: 100% 50%; }
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes streaming {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* === ANIMATION UTILITIES === */
+.animate__fadeInUp {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+.animate-delay-4 { animation-delay: 0.4s; }
+.animate-delay-5 { animation-delay: 0.5s; }
+.animate-delay-6 { animation-delay: 0.6s; }
+.animate-delay-7 { animation-delay: 0.7s; }
+.animate-delay-8 { animation-delay: 0.8s; }
+.animate-delay-9 { animation-delay: 0.9s; }
+.animate-delay-10 { animation-delay: 1.0s; }
+.animate-delay-11 { animation-delay: 1.1s; }
+.animate-delay-12 { animation-delay: 1.2s; }
+.animate-delay-13 { animation-delay: 1.3s; }
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 1000px;
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .header-section {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .header-left {
+        flex: none;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .header-right {
+        flex: none;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .header-logo-main {
+        width: 70%;
+        max-width: 450px;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-logo-main {
+        width: 95%;
+        max-width: none;
+        height: auto;
+    }
+
+    .header-right {
+        max-width: 400px;
+        padding: 20px;
+    }
+
+    .container {
+        padding: 20px 16px;
+    }
+
+    .main-title {
+        font-size: 28px;
+    }
+
+    .top-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .protocol-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .task-left {
+        gap: 12px;
+    }
+
+    .task-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .task-count {
+        font-size: 20px;
+        padding: 8px 16px;
+        min-width: 60px;
+    }
+
+    .task-name {
+        font-size: 14px;
+    }
+
+    .primary-stat .value,
+    .secondary-stat .value {
+        font-size: 28px !important;
+    }
+
+    .primary-stats,
+    .secondary-stats {
+        gap: 16px;
+    }
+
+    .primary-stats .primary-stat:not(:last-child)::after,
+    .secondary-stats .secondary-stat:not(:last-child)::after {
+        height: 40px;
+    }
+
+    .cache-disclaimer {
+        padding: 12px;
+        gap: 10px;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+
+    .disclaimer-icon {
+        font-size: 18px;
+    }
+
+    .disclaimer-title {
+        font-size: 13px;
+    }
+
+    .disclaimer-text {
+        font-size: 12px;
+    }
+
+    .author-footer {
+        margin: 4px 0;
+    }
+
+    .author-block-final {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding: 20px 16px;
+        margin: 4px 0;
+    }
     
-    // State elements
-    loading: document.getElementById('loading'),
-    error: document.getElementById('error'),
-    results: document.getElementById('results'),
+    .author-left-final {
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
     
-    // Stats elements - UPDATED STRUCTURE
-    totalPoints: document.getElementById('totalPoints'),
-    currentLevel: document.getElementById('currentLevel'),
-    levelProgress: document.getElementById('levelProgress'),
-    currentRank: document.getElementById('currentRank'),
-    totalUsers: document.getElementById('totalUsers'),
+    .author-text-final {
+        text-align: center;
+    }
     
-    // New combined card elements
-    activeDays: document.getElementById('activeDays'),
-    memberSince: document.getElementById('memberSince'),
-    progressLabel: document.querySelector('.progress-label'),
-    progressValue: document.querySelector('.progress-value'),
+    .author-name-final {
+        font-size: 16px;
+        justify-content: center;
+    }
     
-    // Season 1 task elements
-    sendCount: document.getElementById('sendCount'),
-    zenithSwaps: document.getElementById('zenithSwaps'),
-    zenithLP: document.getElementById('zenithLP'),
-    faroswapSwaps: document.getElementById('faroswapSwaps'),
-    faroswapLP: document.getElementById('faroswapLP'),
-    mintDomain: document.getElementById('mintDomain'),
-    mintNFT: document.getElementById('mintNFT'),
-    
-    // Season 2 task elements
-    primuslabsSend: document.getElementById('primuslabsSend'),
-    rwafi: document.getElementById('rwafi'),
-    stake: document.getElementById('stake'),
-    cfdTrading: document.getElementById('cfdTrading'),
-    bitverse: document.getElementById('bitverse'),
-    spout: document.getElementById('spout'),
-    lendBorrow: document.getElementById('lendBorrow'),
-    r2Swap: document.getElementById('r2Swap'),
-    r2Earn: document.getElementById('r2Earn'),
-    
-    // UI elements
-    mainPageFooter: document.getElementById('mainPageFooter'),
-    headerSection: document.querySelector('.header-section')
-};
-
-// === ANALYTICS FUNCTIONS ===
-const Analytics = {
-    trackPageView() {
-        gtag('event', 'page_view', {
-            page_title: 'Pharos Stats Checker',
-            page_location: window.location.href
-        },
-
-    // NEW: Calculate active days from member since date
-    calculateActiveDays(memberSince) {
-        if (!memberSince) return 0;
-        const startDate = new Date(memberSince);
-        const currentDate = new Date();
-        const diffTime = Math.abs(currentDate - startDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
-    },
-
-    // NEW: Format member since date
-    formatMemberSince(memberSince) {
-        if (!memberSince) return 'Unknown';
-        const date = new Date(memberSince);
-        return date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-    });
-    },
-
-    trackWalletSearch(address) {
-        gtag('event', 'wallet_search', {
-            event_category: 'engagement',
-            event_label: 'wallet_check',
-            wallet_address: address.substring(0, 6) + '...' + address.substring(address.length - 4)
-        });
-    },
-
-    trackStatsLoaded(data) {
-        gtag('event', 'stats_loaded', {
-            event_category: 'engagement',
-            event_label: 'successful_check',
-            total_points: data.total_points,
-            user_level: data.current_level,
-            user_rank: data.exact_rank,
-            custom_parameters: {
-                send_count: data.send_count,
-                zenith_swaps: data.zenith_swaps || data.swap_count || 0,
-                faroswap_swaps: data.faroswap_swaps || 0
-            }
-        });
-    },
-
-    trackAuthorClick() {
-        gtag('event', 'author_follow_click_neomorphic', {
-            event_category: 'engagement',
-            event_label: 'neomorphic_cta_button',
-            link_url: 'https://x.com/avzcrypto',
-            button_style: 'neomorphic_follow_me'
-        });
-    },
-
-    trackSeasonSwitch(season) {
-        gtag('event', 'season_switch', {
-            event_category: 'engagement',
-            event_label: 'season_switcher',
-            season: season
-        });
-    },
-
-    trackError(errorMessage) {
-        gtag('event', 'error_occurred', {
-            event_category: 'error',
-            event_label: 'wallet_check_failed',
-            error_message: errorMessage
-        });
+    .author-subtitle-final {
+        font-size: 13px;
+        text-align: center;
     }
-};
-
-// === UTILITY FUNCTIONS ===
-const Utils = {
-    isValidAddress(address) {
-        return /^0x[a-fA-F0-9]{40}$/.test(address);
-    },
-
-    formatNumber(num) {
-        return new Intl.NumberFormat('en-US').format(num);
-    },
-
-    animateValue(element, start, end, duration = 1000) {
-        const startTime = performance.now();
-        const range = end - start;
-
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            const current = start + (range * progress);
-            element.textContent = Utils.formatNumber(Math.floor(current));
-            
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
-        }
-        
-        requestAnimationFrame(update);
-    },
-
-    animateRank(element, start, end, duration = 1000) {
-        const startTime = performance.now();
-        const range = end - start;
-
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            const current = start + (range * progress);
-            element.textContent = '#' + Utils.formatNumber(Math.floor(current));
-            
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
-        }
-        
-        requestAnimationFrame(update);
-    }
-};
-
-// === TASK PROGRESS FUNCTIONS ===
-const TaskProgress = {
-    getTaskProgress(taskKey, currentValue) {
-        const maxValue = TASK_LIMITS[taskKey] || 91;
-        const progress = Math.min((currentValue / maxValue) * 100, 100);
-        const isMaxed = currentValue >= maxValue;
-        
-        return {
-            current: currentValue,
-            max: maxValue,
-            progress: progress,
-            isMaxed: isMaxed,
-            progressText: isMaxed ? 'Max points achieved!' : 'Progress to max points',
-            valueText: isMaxed ? 'MAXED' : `${currentValue}/${maxValue}`
-        };
-    },
-
-    updateTaskWithProgress(taskKey, element, value) {
-        // Animate number
-        Utils.animateValue(element, 0, value);
-        
-        // Add progress bar to parent card
-        const taskCard = element.closest('.task-card');
-        if (taskCard) {
-            // Remove existing progress bar if exists
-            const existingProgress = taskCard.querySelector('.task-progress-container');
-            if (existingProgress) {
-                existingProgress.remove();
-            }
-            
-            // Get progress data
-            const progress = this.getTaskProgress(taskKey, value);
-            
-            // Create progress bar HTML
-            const progressHTML = `
-                <div class="task-progress-container">
-                    <div class="task-progress">
-                        <div class="task-progress-bar ${progress.isMaxed ? 'progress-completed' : ''}" style="width: 0%"></div>
-                    </div>
-                    <div class="task-progress-info">
-                        <div class="progress-label ${progress.isMaxed ? 'progress-completed-label' : ''}">${progress.progressText}</div>
-                        <div class="progress-value ${progress.isMaxed ? 'max-indicator' : ''}">${progress.valueText}</div>
-                    </div>
-                </div>
-            `;
-            
-            // Insert progress bar into card
-            taskCard.insertAdjacentHTML('beforeend', progressHTML);
-            
-            // Animate progress bar with delay
-            setTimeout(() => {
-                const progressBar = taskCard.querySelector('.task-progress-bar');
-                if (progressBar) {
-                    progressBar.style.width = `${progress.progress}%`;
-                }
-            }, 700);
-        }
-    }
-};
-
-// === UI STATE MANAGEMENT ===
-const UIState = {
-    showError(message) {
-        DOMElements.error.textContent = message;
-        DOMElements.error.classList.add('show');
-        DOMElements.loading.classList.remove('show');
-        DOMElements.results.classList.remove('show');
-        
-        // Show footer on main page when error occurs
-        if (DOMElements.mainPageFooter) {
-            DOMElements.mainPageFooter.style.display = 'block';
-        }
-        
-        // Track error
-        Analytics.trackError(message);
-    },
-
-    hideError() {
-        DOMElements.error.classList.remove('show');
-    },
-
-    showLoading() {
-        DOMElements.loading.classList.add('show');
-        DOMElements.results.classList.remove('show');
-        this.hideError();
-        DOMElements.checkButton.disabled = true;
-        DOMElements.checkButton.textContent = 'Checking...';
-        
-        // Hide header section and footer during loading
-        if (DOMElements.headerSection) {
-            DOMElements.headerSection.style.display = 'none';
-        }
-        if (DOMElements.mainPageFooter) {
-            DOMElements.mainPageFooter.style.display = 'none';
-        }
-    },
-
-    hideLoading() {
-        DOMElements.loading.classList.remove('show');
-        DOMElements.checkButton.disabled = false;
-        DOMElements.checkButton.textContent = 'Check Statistics';
-        
-        // Show header section back
-        if (DOMElements.headerSection) {
-            DOMElements.headerSection.style.display = 'flex';
-        }
-    }
-};
-
-// === SEASON SWITCHER ===
-const SeasonSwitcher = {
-    switchSeason(season) {
-        // Track season switch
-        Analytics.trackSeasonSwitch(season);
-
-        // Update active tab
-        document.querySelectorAll('.season-tab').forEach(tab => {
-            tab.classList.remove('select');
-        });
-        
-        const activeTab = document.querySelector(`[data-season="${season}"]`);
-        if (activeTab) {
-            activeTab.classList.add('select');
-        }
-
-        // Show/hide content
-        const season1Content = document.getElementById('season1-content');
-        const season2Content = document.getElementById('season2-content');
-        
-        if (season === 'season1') {
-            if (season1Content) season1Content.style.display = 'block';
-            if (season2Content) season2Content.style.display = 'none';
-        } else {
-            if (season1Content) season1Content.style.display = 'none';
-            if (season2Content) season2Content.style.display = 'block';
-        }
-    }
-};
-
-// === LEVEL PROGRESS CALCULATOR ===
-const LevelCalculator = {
-    levels: {
-        1: 0, 2: 1001, 3: 3501, 4: 6001, 5: 10001
-    },
-
-    updateLevelProgress(current, total) {
-        const percentage = total > 0 ? (current / total) * 100 : 0;
-        if (DOMElements.levelProgress) {
-            DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
-        }
-    },
-
-    addPointsNeededInfo(data) {
-        const currentLevel = Math.min(data.current_level, 5);
-        const nextLevel = Math.min(currentLevel + 1, 5);
-        const currentLevelPoints = this.levels[currentLevel] || 0;
-        const nextLevelPoints = this.levels[nextLevel] || 20001;
-        
-        const isMaxLevel = currentLevel >= 5;
-        const progressInLevel = data.total_points - currentLevelPoints;
-        const pointsForLevel = nextLevelPoints - currentLevelPoints;
-
-        setTimeout(() => {
-            const percentage = isMaxLevel ? 100 : (pointsForLevel > 0 ? (progressInLevel / pointsForLevel) * 100 : 100);
-            if (DOMElements.levelProgress) {
-                DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
-            }
-        }, 500);
-    }
-};
-
-// === MAIN API FUNCTIONS ===
-const PharosAPI = {
-    async checkWalletStats() {
-        const address = DOMElements.walletInput.value.trim();
-
-        if (!address) {
-            UIState.showError('Please enter a wallet address');
-            return;
-        }
-
-        if (!Utils.isValidAddress(address)) {
-            UIState.showError('Please enter a valid Ethereum address');
-            return;
-        }
-
-        // Track wallet search attempt
-        Analytics.trackWalletSearch(address);
-
-        UIState.showLoading();
-
-        try {
-            const response = await fetch('/assets/api/check-wallet', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    wallet_address: address
-                })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || `HTTP error! status: ${response.status}`);
-            }
-
-            if (!data.success) {
-                throw new Error(data.error || 'Failed to fetch wallet statistics');
-            }
-
-            // Track successful stats loading
-            Analytics.trackStatsLoaded(data);
-            
-            this.displayResults(data);
-
-        } catch (err) {
-            console.error('Error:', err);
-            UIState.showError(err.message || 'Failed to fetch wallet statistics. Please try again.');
-        } finally {
-            UIState.hideLoading();
-        }
-    },
-
-    displayResults(data) {
-        UIState.hideError();
-
-        const maxLevel = 5;
-
-        // Animate main stats with level cap
-        Utils.animateValue(DOMElements.totalPoints, 0, data.total_points);
-        Utils.animateValue(DOMElements.currentLevel, 1, Math.min(data.current_level, maxLevel));
-        
-        // Animate rank
-        if (data.exact_rank && DOMElements.currentRank) {
-            Utils.animateRank(DOMElements.currentRank, 1, data.exact_rank);
-            Utils.animateValue(DOMElements.totalUsers, 1, data.total_users_count || 270000);
-        } else if (DOMElements.currentRank) {
-            DOMElements.currentRank.textContent = 'Unranked';
-            Utils.animateValue(DOMElements.totalUsers, 1, data.total_users_count || 270000);
-        }
-
-        // NEW: Calculate and update active days
-        const activeDays = this.calculateActiveDays(data.member_since);
-        if (DOMElements.activeDays) {
-            Utils.animateValue(DOMElements.activeDays, 0, activeDays);
-        }
-
-        // NEW: Update member since text
-        if (DOMElements.memberSince && data.member_since) {
-            const formattedDate = this.formatMemberSince(data.member_since);
-            DOMElements.memberSince.textContent = `Member Since → ${formattedDate}`;
-        }
-
-        // NEW: Update progress info text
-        this.updateProgressInfo(data);
-        
-        // Season 1 tasks with progress bars
-        TaskProgress.updateTaskWithProgress('send_count', DOMElements.sendCount, data.send_count || 0);
-        TaskProgress.updateTaskWithProgress('swap_count', DOMElements.zenithSwaps, data.swap_count || 0);
-        TaskProgress.updateTaskWithProgress('lp_count', DOMElements.zenithLP, data.lp_count || 0);
-        TaskProgress.updateTaskWithProgress('faroswap_swaps', DOMElements.faroswapSwaps, data.faroswap_swaps || 0);
-        TaskProgress.updateTaskWithProgress('faroswap_lp', DOMElements.faroswapLP, data.faroswap_lp || 0);
-        TaskProgress.updateTaskWithProgress('mint_domain', DOMElements.mintDomain, data.mint_domain || 0);
-        TaskProgress.updateTaskWithProgress('mint_nft', DOMElements.mintNFT, data.mint_nft || 0);
-
-        // Season 2 tasks with progress bars
-        if (DOMElements.primuslabsSend) TaskProgress.updateTaskWithProgress('primuslabs_send', DOMElements.primuslabsSend, data.primuslabs_send || 0);
-        if (DOMElements.stake) TaskProgress.updateTaskWithProgress('autostaking', DOMElements.stake, data.autostaking || 0);
-        if (DOMElements.lendBorrow) TaskProgress.updateTaskWithProgress('lend_borrow', DOMElements.lendBorrow, data.lend_borrow || 0);
-        if (DOMElements.rwafi) TaskProgress.updateTaskWithProgress('aquaflux', DOMElements.rwafi, data.aquaflux || 0);
-        if (DOMElements.r2Swap) TaskProgress.updateTaskWithProgress('r2_swap', DOMElements.r2Swap, data.r2_swap || 0);
-        if (DOMElements.r2Earn) TaskProgress.updateTaskWithProgress('r2_earn', DOMElements.r2Earn, data.r2_earn || 0);
-        if (DOMElements.spout) TaskProgress.updateTaskWithProgress('spout', DOMElements.spout, data.spout || 0);
-        if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
-        if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
-
-        // Update level progress and points needed info
-        LevelCalculator.addPointsNeededInfo(data);
-
-        // Show results with animation
-        DOMElements.results.classList.add('show');
-        
-        // Hide footer on main page when showing results
-        if (DOMElements.mainPageFooter) {
-            DOMElements.mainPageFooter.style.display = 'none';
-        }
-        
-        // Trigger animations for result sections
-        const animatedElements = DOMElements.results.querySelectorAll('.animate__fadeInUp');
-        animatedElements.forEach((el, index) => {
-            el.style.animationDelay = `${(index + 1) * 0.1}s`;
-        });
-    },
-
-    // NEW: Calculate active days from member since date
-    calculateActiveDays(memberSince) {
-        if (!memberSince) return 0;
-        const startDate = new Date(memberSince);
-        const currentDate = new Date();
-        const diffTime = Math.abs(currentDate - startDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
-    },
-
-    // NEW: Format member since date
-    formatMemberSince(memberSince) {
-        if (!memberSince) return 'Unknown';
-        const date = new Date(memberSince);
-        return date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-    },
-
-    // NEW: Update progress bar info text
-    updateProgressInfo(data) {
-        const currentLevel = Math.min(data.current_level, 5);
-        const nextLevel = Math.min(currentLevel + 1, 5);
-        const isMaxLevel = currentLevel >= 5;
-        
-        if (DOMElements.progressLabel) {
-            DOMElements.progressLabel.textContent = isMaxLevel ? 
-                'Maximum Level Reached!' : 
-                `Progress to Level ${nextLevel}`;
-        }
-        
-        if (DOMElements.progressValue) {
-            if (isMaxLevel) {
-                DOMElements.progressValue.textContent = 'MAX LEVEL';
-            } else {
-                const currentLevelPoints = LevelCalculator.levels[currentLevel] || 0;
-                const nextLevelPoints = LevelCalculator.levels[nextLevel] || 20001;
-                const progressInLevel = data.total_points - currentLevelPoints;
-                const pointsForLevel = nextLevelPoints - currentLevelPoints;
-                
-                DOMElements.progressValue.textContent = 
-                    `${Utils.formatNumber(progressInLevel)} / ${Utils.formatNumber(pointsForLevel)}`;
-            }
-        }
-    }
-};
-
-// === EVENT LISTENERS ===
-const EventHandlers = {
-    init() {
-        // Main wallet check functionality
-        if (DOMElements.checkButton) {
-            DOMElements.checkButton.addEventListener('click', () => PharosAPI.checkWalletStats());
-        }
-
-        if (DOMElements.walletInput) {
-            DOMElements.walletInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    PharosAPI.checkWalletStats();
-                }
-            });
-
-            DOMElements.walletInput.addEventListener('input', () => {
-                UIState.hideError();
-            });
-        }
-
-        // Season switcher event listeners
-        document.querySelectorAll('.season-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const season = tab.getAttribute('data-season');
-                if (season) {
-                    SeasonSwitcher.switchSeason(season);
-                }
-            });
-        });
-
-        // Author link tracking
-        const resultsAuthorLink = document.getElementById('resultsAuthorLink');
-        const authorLink = document.getElementById('authorLink');
-        
-        if (resultsAuthorLink) {
-            resultsAuthorLink.addEventListener('click', Analytics.trackAuthorClick);
-        }
-        if (authorLink) {
-            authorLink.addEventListener('click', Analytics.trackAuthorClick);
-        }
-    }
-};
-
-// === INITIALIZATION ===
-const PharosApp = {
-    init() {
-        // Initialize event handlers
-        EventHandlers.init();
-
-        // Auto-focus input if it exists
-        if (DOMElements.walletInput) {
-            DOMElements.walletInput.focus();
-        }
-
-        // Track page view
-        Analytics.trackPageView();
-        
-        // Initialize Season 2 by default
-        SeasonSwitcher.switchSeason('season2');
-        
-        // Show footer on main page when loading
-        if (DOMElements.mainPageFooter) {
-            DOMElements.mainPageFooter.style.display = 'block';
-        }
-
-        console.log('✅ Pharos Hub initialized successfully');
-    }
-};
-
-// === LEADERBOARD SPECIFIC CODE (for top.html) ===
-const LeaderboardApp = {
-    // State management for leaderboard
-    state: {
-        currentPage: 1,
-        allUsers: [],
-        lastUpdated: null,
-        updateTimer: null,
-        isLoading: false
-    },
-
-    constants: {
-        USERS_PER_PAGE: 10,
-        TOTAL_PAGES: 10,
-        CACHE_DURATION: 60 * 60 * 1000, // 1 hour
-        LEVEL_STRUCTURE: [
-            { name: "Lv.1", min: 0, max: 1000, icon: "./assets/images/level-badges/level1.png" },
-            { name: "Lv.2", min: 1001, max: 3500, icon: "./assets/images/level-badges/level2.png" },
-            { name: "Lv.3", min: 3501, max: 6000, icon: "./assets/images/level-badges/level3.png" },
-            { name: "Lv.4", min: 6001, max: 10000, icon: "./assets/images/level-badges/level4.png" },
-            { name: "Lv.5", min: 10001, max: Infinity, icon: "./assets/images/level-badges/level5.png" }
-        ]
-    },
-
-    // Initialize leaderboard if we're on top.html
-    init() {
-        if (window.location.pathname.includes('/top') || document.getElementById('leaderboardBody')) {
-            console.log('🚀 Initializing Pharos Leaderboard...');
-            this.setupEventListeners();
-            this.loadLeaderboard();
-            console.log('✅ Leaderboard initialized');
-        }
-    },
-
-    async loadLeaderboard() {
-        if (this.state.isLoading) return;
-        
-        this.state.isLoading = true;
-        this.showLoading();
-
-        try {
-            const response = await fetch('/assets/api/admin/stats');
-            const data = await response.json();
-            
-            if (!response.ok || !data.success) {
-                throw new Error(data.error || 'Failed to load data');
-            }
-
-            this.state.allUsers = data.leaderboard || [];
-            this.state.lastUpdated = Date.now();
-            
-            this.updateStatistics(data);
-            this.updateLevelDistribution(data.level_distribution);
-            this.renderTable();
-            this.startUpdateTimer();
-            this.showTable();
-
-            console.log(`✅ Loaded ${this.state.allUsers.length} users`);
-
-        } catch (error) {
-            console.error('❌ Error loading leaderboard:', error);
-            this.showError();
-        } finally {
-            this.state.isLoading = false;
-        }
-    },
-
-    setupEventListeners() {
-        // Pagination event listeners would go here
-        // Implementation depends on your specific leaderboard HTML structure
-    },
-
-    showLoading() {
-        const loading = document.getElementById('loading');
-        if (loading) loading.classList.add('show');
-    },
-
-    showTable() {
-        const tableSection = document.getElementById('tableSection');
-        if (tableSection) tableSection.style.display = 'block';
-    },
-
-    showError() {
-        const errorState = document.getElementById('errorState');
-        if (errorState) errorState.style.display = 'block';
-    },
-
-    updateStatistics(data) {
-        // Update leaderboard statistics
-        const totalUsers = document.getElementById('totalUsers');
-        const totalChecks = document.getElementById('totalChecks');
-        const topScore = document.getElementById('topScore');
-
-        if (totalUsers) totalUsers.textContent = Utils.formatNumber(data.total_users || 0);
-        if (totalChecks) totalChecks.textContent = Utils.formatNumber(data.total_checks || 0);
-        if (topScore) topScore.textContent = Utils.formatNumber(data.leaderboard?.[0]?.total_points || 0);
-    },
-
-    updateLevelDistribution(distribution) {
-        // Update level distribution if needed
-        console.log('Level distribution:', distribution);
-    },
-
-    renderTable() {
-        // Render leaderboard table
-        // Implementation would depend on your specific table structure
-    },
-
-    startUpdateTimer() {
-        // Start timer for periodic updates
-        if (this.state.updateTimer) {
-            clearInterval(this.state.updateTimer);
-        }
-        
-        this.state.updateTimer = setInterval(() => {
-            this.loadLeaderboard();
-        }, 5 * 60 * 1000); // Update every 5 minutes
-    }
-};
-
-// === AUTO INITIALIZATION ===
-// Initialize the appropriate app based on page context
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.pathname.includes('/top') || document.getElementById('leaderboardBody')) {
-        LeaderboardApp.init();
-    } else {
-        PharosApp.init();
-    }
-});
-
-// Cleanup on page unload
-window.addEventListener('beforeunload', () => {
-    if (LeaderboardApp.state.updateTimer) {
-        clearInterval(LeaderboardApp.state.updateTimer);
-    }
-});
+}
