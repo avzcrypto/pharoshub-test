@@ -383,6 +383,7 @@ const LevelCalculator = {
             DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
         }
     },
+};
 
 // === MAIN API FUNCTIONS ===
 const PharosAPI = {
