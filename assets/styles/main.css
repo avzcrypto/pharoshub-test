@@ -977,11 +977,6 @@ body {
         grid-template-columns: 1fr;
         gap: 16px;
     }
-
-    .combined-values {
-        flex-direction: column;
-        gap: 20px;
-    }
     
     .stat-divider {
         display: none;
