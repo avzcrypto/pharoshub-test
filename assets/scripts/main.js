@@ -27,6 +27,57 @@ const TASK_LIMITS = {
     'aquaflux': 1    
 };
 
+// === MEMBER SINCE UTILITIES ===
+const MemberSinceUtils = {
+    formatMemberSince(memberSinceString) {
+        if (!memberSinceString) {
+            return {
+                days: 0,
+                formattedDate: 'Unknown'
+            };
+        }
+
+        try {
+            let memberDate;
+            
+            if (memberSinceString.includes('T')) {
+                memberDate = new Date(memberSinceString);
+            } else {
+                memberDate = new Date(memberSinceString);
+            }
+
+            if (isNaN(memberDate.getTime())) {
+                return {
+                    days: 0,
+                    formattedDate: 'Unknown'
+                };
+            }
+
+            const now = new Date();
+            const diffTime = Math.abs(now - memberDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            const options = { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            };
+            const formattedDate = memberDate.toLocaleDateString('en-US', options);
+
+            return {
+                days: diffDays,
+                formattedDate: formattedDate
+            };
+        } catch (error) {
+            console.warn('Error parsing member_since date:', error);
+            return {
+                days: 0,
+                formattedDate: 'Unknown'
+            };
+        }
+    }
+};
+
 // === DOM ELEMENTS ===
 const DOMElements = {
     // Input elements
@@ -37,6 +88,10 @@ const DOMElements = {
     loading: document.getElementById('loading'),
     error: document.getElementById('error'),
     results: document.getElementById('results'),
+
+    // Member since elements
+    testnetDays: document.getElementById('testnetDays'),
+    memberSinceDate: document.getElementById('memberSinceDate'),
     
     // Stats elements
     totalPoints: document.getElementById('totalPoints'),
@@ -443,6 +498,13 @@ const PharosAPI = {
             Utils.animateValue(DOMElements.totalUsers, 1, data.total_users_count || 270000);
         }
         
+        // Update member since display
+        if (DOMElements.testnetDays && DOMElements.memberSinceDate) {
+        const memberData = MemberSinceUtils.formatMemberSince(data.member_since);
+        Utils.animateValue(DOMElements.testnetDays, 0, memberData.days);
+        DOMElements.memberSinceDate.textContent = `Since ${memberData.formattedDate}`;
+        }
+
         // Season 1 tasks with progress bars
         TaskProgress.updateTaskWithProgress('send_count', DOMElements.sendCount, data.send_count || 0);
         TaskProgress.updateTaskWithProgress('swap_count', DOMElements.zenithSwaps, data.swap_count || 0);
