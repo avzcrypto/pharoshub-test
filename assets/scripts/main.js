@@ -464,6 +464,24 @@ const PharosAPI = {
         DOMElements.memberSinceDate.textContent = `Since ${memberData.formattedDate}`;
         }
 
+        // Update level progress bar
+if (DOMElements.levelProgress) {
+    const currentLevelPoints = LevelCalculator.levels[data.current_level] || 0;
+    const maxLevel = 5;
+    const nextLevel = Math.min(data.current_level + 1, maxLevel);
+    const nextLevelPoints = LevelCalculator.levels[nextLevel] || 20001;
+    
+    const isMaxLevel = data.current_level >= maxLevel;
+    const progressInLevel = data.total_points - currentLevelPoints;
+    const pointsForLevel = nextLevelPoints - currentLevelPoints;
+    
+    const percentage = isMaxLevel ? 100 : (pointsForLevel > 0 ? (progressInLevel / pointsForLevel) * 100 : 100);
+    
+    setTimeout(() => {
+        DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
+    }, 500);
+}
+
         // Season 1 tasks with progress bars
         TaskProgress.updateTaskWithProgress('send_count', DOMElements.sendCount, data.send_count || 0);
         TaskProgress.updateTaskWithProgress('swap_count', DOMElements.zenithSwaps, data.swap_count || 0);
