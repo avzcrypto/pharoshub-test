@@ -384,48 +384,6 @@ const LevelCalculator = {
         }
     },
 
-    addPointsNeededInfo(data) {
-        const currentLevelPoints = this.levels[data.current_level] || 0;
-        const maxLevel = 5;
-        const nextLevel = Math.min(data.current_level + 1, maxLevel);
-        const nextLevelPoints = this.levels[nextLevel] || 20001;
-        
-        const isMaxLevel = data.current_level >= maxLevel;
-        const pointsNeeded = isMaxLevel ? 0 : nextLevelPoints - data.total_points;
-        const progressInLevel = data.total_points - currentLevelPoints;
-        const pointsForLevel = nextLevelPoints - currentLevelPoints;
-
-        setTimeout(() => {
-            const percentage = isMaxLevel ? 100 : (pointsForLevel > 0 ? (progressInLevel / pointsForLevel) * 100 : 100);
-            if (DOMElements.levelProgress) {
-                DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
-            }
-            
-            // Add points needed text under current level
-            const levelCard = DOMElements.currentLevel?.closest('.stat-card');
-            if (levelCard) {
-                let pointsNeededText = levelCard.querySelector('.points-needed');
-                
-                if (!pointsNeededText) {
-                    pointsNeededText = document.createElement('div');
-                    pointsNeededText.className = 'points-needed';
-                    levelCard.appendChild(pointsNeededText);
-                }
-                
-                if (isMaxLevel) {
-                    pointsNeededText.innerHTML = 'MAX LVL. Congrats!';
-                    pointsNeededText.style.color = 'var(--pharos-green-500)';
-                    pointsNeededText.style.fontWeight = '600';
-                } else {
-                    pointsNeededText.textContent = `${pointsNeeded.toLocaleString()} points to Level ${nextLevel}`;
-                    pointsNeededText.style.color = 'var(--pharos-gray-500)';
-                    pointsNeededText.style.fontWeight = '500';
-                }
-            }
-        }, 500);
-    }
-};
-
 // === MAIN API FUNCTIONS ===
 const PharosAPI = {
     async checkWalletStats() {
@@ -524,9 +482,6 @@ const PharosAPI = {
         if (DOMElements.spout) TaskProgress.updateTaskWithProgress('spout', DOMElements.spout, data.spout || 0);
         if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
         if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
-
-        // Update level progress and points needed info
-        LevelCalculator.addPointsNeededInfo(data);
 
         // Show results with animation
         DOMElements.results.classList.add('show');
