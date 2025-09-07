@@ -215,7 +215,7 @@ body {
 /* === STATS CARDS === */
 .top-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-bottom: 30px;
 }
@@ -262,6 +262,44 @@ body {
     color: var(--pharos-gray-500);
     font-weight: 500;
     margin-top: 4px;
+}
+
+/* === COMBINED LAYOUT STYLES === */
+.combined-values {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+}
+
+.stat-divider {
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(59, 130, 246, 0.2) 20%, 
+        rgba(59, 130, 246, 0.4) 50%, 
+        rgba(59, 130, 246, 0.2) 80%, 
+        transparent 100%
+    );
+    border-radius: 1px;
+    flex-shrink: 0;
+}
+
+.member-since-details {
+    font-size: 12px;
+    color: var(--pharos-gray-500);
+    margin-top: 4px;
+    font-weight: 500;
 }
 
 .level-progress {
@@ -945,6 +983,19 @@ body {
     .top-stats {
         grid-template-columns: 1fr;
         gap: 16px;
+    }
+
+    .combined-values {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .stat-divider {
+        display: none;
+    }
+    
+    .stat-card {
+        min-height: 140px;
     }
 
     .protocol-grid {
