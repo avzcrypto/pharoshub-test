@@ -374,7 +374,11 @@ const SeasonSwitcher = {
 // === LEVEL PROGRESS CALCULATOR ===
 const LevelCalculator = {
     levels: {
-        1: 0, 2: 1001, 3: 3501, 4: 6001, 5: 10001
+        1: { min: 0, max: 1000 },
+        2: { min: 1001, max: 3500 },
+        3: { min: 3501, max: 6000 },
+        4: { min: 6001, max: 10000 },
+        5: { min: 10001, max: 20000 }
     },
 
     updateLevelProgress(current, total) {
@@ -382,7 +386,7 @@ const LevelCalculator = {
         if (DOMElements.levelProgress) {
             DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
         }
-    },
+    }
 };
 
 // === MAIN API FUNCTIONS ===
@@ -464,22 +468,20 @@ const PharosAPI = {
         DOMElements.memberSinceDate.textContent = `Since ${memberData.formattedDate}`;
         }
 
-        // Update level progress bar
+       // Update level progress bar
 if (DOMElements.levelProgress) {
-    const currentLevelPoints = LevelCalculator.levels[data.current_level] || 0;
-    const maxLevel = 5;
-    const nextLevel = Math.min(data.current_level + 1, maxLevel);
-    const nextLevelPoints = LevelCalculator.levels[nextLevel] || 20001;
+    const currentLevel = Math.min(data.current_level, 5);
+    const levelData = LevelCalculator.levels[currentLevel];
     
-    const isMaxLevel = data.current_level >= maxLevel;
-    const progressInLevel = data.total_points - currentLevelPoints;
-    const pointsForLevel = nextLevelPoints - currentLevelPoints;
-    
-    const percentage = isMaxLevel ? 100 : (pointsForLevel > 0 ? (progressInLevel / pointsForLevel) * 100 : 100);
-    
-    setTimeout(() => {
-        DOMElements.levelProgress.style.width = `${Math.min(percentage, 100)}%`;
-    }, 500);
+    if (levelData) {
+        const progressInLevel = data.total_points - levelData.min;
+        const pointsForLevel = levelData.max - levelData.min;
+        const percentage = Math.min((progressInLevel / pointsForLevel) * 100, 100);
+        
+        setTimeout(() => {
+            DOMElements.levelProgress.style.width = `${Math.max(0, percentage)}%`;
+        }, 500);
+    }
 }
 
         // Season 1 tasks with progress bars
