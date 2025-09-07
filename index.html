@@ -59,24 +59,40 @@
 
         <div class="results-section" id="results">
             <!-- STATS ALL -->
-            <div class="top-stats animate__fadeInUp animate-delay-1">
-                <div class="stat-card">
-                    <div class="stat-value" id="totalPoints">15,647</div>
-                    <div class="stat-label">Total Points</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="currentLevel">6</div>
-                    <div class="stat-label">Current Level</div>
-                    <div class="level-progress">
-                        <div class="level-progress-bar" id="levelProgress" style="width: 65%"></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="currentRank">#1,234</div>
-                    <div class="stat-label">Current Rank</div>
-                    <div class="rank-context">of <span id="totalUsers">270,456</span> users on PharosHub</div>
+<div class="top-stats animate__fadeInUp animate-delay-1">
+    <div class="stat-card">
+        <div class="combined-values">
+            <div class="stat-group">
+                <div class="stat-value" id="totalPoints">15,647</div>
+                <div class="stat-label">Total Points</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-group">
+                <div class="stat-value" id="currentLevel">6</div>
+                <div class="stat-label">Current Level</div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" id="levelProgress" style="width: 65%"></div>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="combined-values">
+            <div class="stat-group">
+                <div class="stat-value" id="currentRank">#1,234</div>
+                <div class="stat-label">PharosHub Rank</div>
+                <div class="rank-context">of <span id="totalUsers">270,456</span> users</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-group">
+                <div class="stat-value" id="testnetDays">125</div>
+                <div class="stat-label">Testnet Days</div>
+                <div class="member-since-details" id="memberSinceDate">Since Nov 15, 2024</div>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- author - result page -->
             <div class="author-footer animate__fadeInUp animate-delay-2">
