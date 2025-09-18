@@ -72,7 +72,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
     font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #e0eaa9 0%, #fcd6cf 50%, #247fc3 100%);
+    background: linear-gradient(135deg, #e0eaa9 0%, #fcd6cf 40%, rgba(36, 127, 195, 0.7) 100%);
     min-height: 100vh;
     overflow-x: hidden;
 }
