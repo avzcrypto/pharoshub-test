@@ -5,6 +5,34 @@
  */
 
 /* === CSS CUSTOM PROPERTIES === */
+
+/* UTO FONTS - ДОБАВИТЬ В НАЧАЛО main.css */
+@font-face {
+    font-family: 'Uto';
+    src: url('../fonts/Uto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Uto';
+    src: url('../fonts/Uto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Uto';
+    src: url('../fonts/Uto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Uto';
+    src: url('../fonts/Uto-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+}
+
+
 :root {
     /* Pharos Brand Colors */
     --pharos-blue-500: #3b82f6;
