@@ -526,7 +526,7 @@ body {
     align-items: center;
     gap: 6px;
     letter-spacing: -0.025em;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     justify-content: flex-start;
 }
 
@@ -535,7 +535,7 @@ body {
     color: #15803d;
     font-weight: 700;
     margin-bottom: 2px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     text-align: left;
 }
 
@@ -556,7 +556,7 @@ body {
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     letter-spacing: 0.025em;
 }
 
