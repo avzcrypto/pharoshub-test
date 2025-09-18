@@ -86,7 +86,7 @@ body {
 
 .header-logo-main {
     width: 460px;
-    height: 230px;
+    height: 175px;
     object-fit: contain;
 }
 
@@ -123,6 +123,10 @@ body {
     padding: 16px 20px 20px 20px;
     box-shadow: var(--shadow-card);
     border: var(--glass-border);
+    min-height: 175px;   /* ДОБАВИТЬ - та же высота что логотип */
+    display: flex;       /* ДОБАВИТЬ */
+    flex-direction: column; /* ДОБАВИТЬ */
+    justify-content: center; /* ДОБАВИТЬ - центрирует содержимое */
 }
 
 .form-title {
