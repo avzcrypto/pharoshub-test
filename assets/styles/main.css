@@ -531,7 +531,7 @@ body {
 }
 
 .author-subtitle-final {
-    font-size: 16px;
+    font-size: 20px;
     color: #15803d;
     font-weight: 700;
     margin-bottom: 2px;
@@ -1082,12 +1082,12 @@ body {
     }
     
     .author-name-final {
-        font-size: 16px;
+        font-size: 20px;
         justify-content: center;
     }
     
     .author-subtitle-final {
-        font-size: 13px;
+        font-size: 16px;
         text-align: center;
     }
 }
