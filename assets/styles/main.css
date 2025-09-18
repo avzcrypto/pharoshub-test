@@ -6,32 +6,23 @@
 
 /* === CSS CUSTOM PROPERTIES === */
 
-/* UTO FONTS - ДОБАВИТЬ В НАЧАЛО main.css */
-@font-face {
-    font-family: 'Uto';
-    src: url('../fonts/Uto-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Uto';
-    src: url('../fonts/Uto-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Uto';
-    src: url('../fonts/Uto-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Uto';
-    src: url('../fonts/Uto-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-display: swap;
-}
-
+/* UTO FONTS */
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraLight.ttf') format('truetype'); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraLightItalic.ttf') format('truetype'); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-LightItalic.ttf') format('truetype'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-MediumItalic.ttf') format('truetype'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-SemiBoldItalic.ttf') format('truetype'); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-BoldItalic.ttf') format('truetype'); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraBoldItalic.ttf') format('truetype'); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Black.ttf') format('truetype'); font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Uto'; src: url('../fonts/Uto-BlackItalic.ttf') format('truetype'); font-weight: 900; font-style: italic; font-display: swap; }
 
 :root {
     /* Pharos Brand Colors */
@@ -80,7 +71,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: linear-gradient(135deg, #e0eaa9 0%, #fcd6cf 30%, #247fc3 70%, #2c4375 100%);
     min-height: 100vh;
     overflow-x: hidden;
@@ -194,7 +185,7 @@ body {
     border: none;
     outline: none;
     font-size: 14px;
-    font-family: 'Inter', 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-family: 'Uto', 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     color: var(--pharos-gray-900);
     width: 100%;
     background: transparent;
@@ -216,7 +207,7 @@ body {
     border-radius: 12px;
     font-size: 16px;
     font-weight: 600;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segue UI', Roboto, sans-serif;
     cursor: pointer;
     transition: var(--transition-smooth);
     box-shadow: var(--shadow-button);
@@ -279,7 +270,7 @@ body {
     font-weight: 900;
     color: var(--pharos-blue-800);
     margin-bottom: 8px;
-    font-family: 'Inter', 'SF Mono', monospace;
+    font-family: 'Uto', 'SF Mono', monospace;
     letter-spacing: -1.5px;
     line-height: 1;
 }
@@ -378,7 +369,7 @@ body {
     justify-content: center;
     min-width: 130px;
     height: 100%;
-    font-family: Inter18pt-Medium, 'Inter', sans-serif;
+    font-family: 'Uto', sans-serif;
     font-size: 16px;
     color: rgb(34, 34, 34);
     font-weight: 600;
@@ -676,7 +667,7 @@ body {
     font-weight: 900;
     min-width: 70px;
     text-align: center;
-    font-family: 'Inter', 'SF Mono', monospace;
+    font-family: 'Uto', 'SF Mono', monospace;
     letter-spacing: -1px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -740,7 +731,7 @@ body {
     font-size: 12px;
     color: var(--pharos-gray-500);
     font-weight: 600;
-    font-family: 'Inter', 'SF Mono', monospace;
+    font-family: 'Uto', 'SF Mono', monospace;
 }
 
 .max-indicator {
