@@ -126,7 +126,7 @@ body {
     min-height: 175px;   /* ДОБАВИТЬ - та же высота что логотип */
     display: flex;       /* ДОБАВИТЬ */
     flex-direction: column; /* ДОБАВИТЬ */
-    justify-content: center; /* ДОБАВИТЬ - центрирует содержимое */
+    justify-content: flex-end /* ДОБАВИТЬ - центрирует содержимое */
 }
 
 .form-title {
