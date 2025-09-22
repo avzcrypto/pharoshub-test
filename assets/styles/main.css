@@ -114,6 +114,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .tab-btn.active {
