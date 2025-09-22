@@ -776,11 +776,26 @@ function updateLevelDistribution(levelDistribution) {
     
     const levels = ['level-1', 'level-2', 'level-3', 'level-4', 'level-5'];
     const levelBars = document.querySelectorAll('#levelBars .level-count');
+    const progressBars = document.querySelectorAll('#levelBars .level-progress-bar');
+    
+    // Calculate total for percentages
+    const totalUsers = Object.values(levelDistribution).reduce((sum, count) => sum + (parseInt(count) || 0), 0);
+    const maxCount = Math.max(...Object.values(levelDistribution).map(count => parseInt(count) || 0));
     
     levels.forEach((level, index) => {
         const count = levelDistribution[level] || 0;
+        
+        // Update count
         if (levelBars[index]) {
             levelBars[index].textContent = formatNumber(count);
+        }
+        
+        // Update progress bar
+        if (progressBars[index] && maxCount > 0) {
+            const percentage = (count / maxCount) * 100;
+            setTimeout(() => {
+                progressBars[index].style.width = `${percentage}%`;
+            }, index * 200); // Staggered animation
         }
     });
 }
