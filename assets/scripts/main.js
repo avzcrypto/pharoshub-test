@@ -745,6 +745,107 @@ function switchTab(tabName) {
     // Show selected tab instantly
     document.getElementById(`tab-${tabName}`).classList.add('active');
 }
+// Dashboard functionality
+async function loadDashboardData() {
+    try {
+        const response = await fetch('/assets/api/admin/stats');
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Failed to load dashboard data');
+        }
 
+        updateDashboardStats(data);
+        updateLevelDistribution(data.level_distribution);
+        updateTopUsersTable(data.leaderboard);
+
+    } catch (error) {
+        console.error('Error loading dashboard:', error);
+        showDashboardError();
+    }
+}
+
+function updateDashboardStats(data) {
+    document.getElementById('dashboardTotalUsers').textContent = formatNumber(data.total_users || 0);
+    document.getElementById('dashboardTotalChecks').textContent = formatNumber(data.total_checks || 0);
+    document.getElementById('dashboardTopScore').textContent = formatNumber(data.leaderboard?.[0]?.total_points || 0);
+}
+
+function updateLevelDistribution(levelDistribution) {
+    if (!levelDistribution) return;
+    
+    const levels = ['level-1', 'level-2', 'level-3', 'level-4', 'level-5'];
+    const levelBars = document.querySelectorAll('#levelBars .level-count');
+    
+    levels.forEach((level, index) => {
+        const count = levelDistribution[level] || 0;
+        if (levelBars[index]) {
+            levelBars[index].textContent = formatNumber(count);
+        }
+    });
+}
+
+function updateTopUsersTable(leaderboard) {
+    const tbody = document.getElementById('dashboardUsersTable');
+    if (!leaderboard || leaderboard.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No data available</td></tr>';
+        return;
+    }
+    
+    const topUsers = leaderboard.slice(0, 10);
+    tbody.innerHTML = topUsers.map((user, index) => {
+        const rank = index + 1;
+        const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-default';
+        
+        return `
+            <tr>
+                <td><div class="rank-badge ${rankClass}">${rank}</div></td>
+                <td><div class="user-address">${formatAddress(user.address)}</div></td>
+                <td>
+                    <div class="points-level">
+                        <div class="points">${formatNumber(user.total_points)}</div>
+                        <div class="level-badge">LVL ${user.current_level}</div>
+                    </div>
+                </td>
+                <td><div class="member-since">${formatDate(user.member_since)}</div></td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function formatAddress(address) {
+    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'Unknown';
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch {
+        return 'Unknown';
+    }
+}
+
+function formatNumber(num) {
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
+}
+
+function showDashboardError() {
+    document.getElementById('dashboardUsersTable').innerHTML = 
+        '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #dc2626;">Failed to load dashboard data</td></tr>';
+}
+
+// Load dashboard data when tab is switched
+const originalSwitchTab = switchTab;
+switchTab = function(tabName) {
+    originalSwitchTab.call(this, tabName);
+    
+    if (tabName === 'dashboard') {
+        loadDashboardData();
+    }
+};
 
 
