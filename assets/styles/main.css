@@ -89,10 +89,6 @@ body {
     justify-content: center;
 }
 
-.container.dashboard-mode {
-    max-width: 1200px;
-}
-
 /* Tab System */
 .tab-navigation {
     display: flex;
