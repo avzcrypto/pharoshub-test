@@ -997,12 +997,16 @@ body {
 .dashboard-stat-card {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 20px;
+    padding: 24px;
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
 }
 
 .dashboard-stat-card:hover {
@@ -1010,11 +1014,13 @@ body {
 }
 
 .dashboard-stat-value {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 900;
     color: #1e40af;
     margin-bottom: 8px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Uto', 'JetBrains Mono', monospace;
+    letter-spacing: -1.5px;
+    line-height: 1;
 }
 
 .dashboard-stat-label {
@@ -1036,20 +1042,21 @@ body {
 .level-distribution {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 24px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .distribution-title {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 800;
     color: #1f2937;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
+    letter-spacing: -0.025em;
 }
 
 .level-bar {
@@ -1102,7 +1109,7 @@ body {
 }
 
 .level-count {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Uto', 'JetBrains Mono', monospace;
     font-weight: 700;
     color: #1e40af;
     font-size: 16px;
@@ -1112,21 +1119,22 @@ body {
 .top-users {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 24px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.5);
     margin-top: 24px;
 }
 
 .top-users-title {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 800;
     color: #1f2937;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
+    letter-spacing: -0.025em;
 }
 
 .users-table {
@@ -1173,7 +1181,7 @@ body {
 .rank-default { background: linear-gradient(135deg, #e5e7eb, #d1d5db); color: #6b7280; }
 
 .user-address {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Uto', 'JetBrains Mono', monospace;
     font-size: 13px;
     color: #1e293b;
     font-weight: 600;
@@ -1186,7 +1194,7 @@ body {
 }
 
 .points {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Uto', 'JetBrains Mono', monospace;
     font-weight: 700;
     color: #1e40af;
     font-size: 16px;
