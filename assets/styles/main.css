@@ -89,6 +89,50 @@ body {
     justify-content: center;
 }
 
+.container.dashboard-mode {
+    max-width: 1200px;
+}
+
+/* Tab System */
+.tab-navigation {
+    display: flex;
+    background: rgba(240, 242, 245, 0.9);
+    border-radius: 10px;
+    height: 42px;
+    margin: 30px 0 20px 0;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    color: #374151;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab-btn.active {
+    background: rgb(0, 7, 185);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
 /* === HEADER SECTION === */
 .header-section {
     display: flex;
