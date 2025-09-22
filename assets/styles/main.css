@@ -1354,6 +1354,58 @@ body {
         font-size: 16px;
         text-align: center;
     }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .level-bar {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .level-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .level-name {
+        font-size: 13px;
+    }
+
+    .level-range {
+        font-size: 11px;
+    }
+
+    .level-count {
+        font-size: 14px;
+    }
+
+    .users-table th,
+    .users-table td {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+
+    .rank-badge {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .user-address {
+        font-size: 12px;
+    }
+
+    .points {
+        font-size: 14px;
+    }
+
+    .member-since {
+        font-size: 11px;
+    }
 }
 
 /* === TOP.HTML SPECIFIC STYLES === */
