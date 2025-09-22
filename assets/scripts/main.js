@@ -512,12 +512,6 @@ const tabNavigation = document.getElementById('tabNavigation');
 if (tabNavigation) {
     tabNavigation.style.display = 'flex';
 }
-
-// Update container for tab system
-const container = document.querySelector('.container');
-if (container) {
-    container.id = 'container';
-}
         
         // Hide footer on main page when showing results
         if (DOMElements.mainPageFooter) {
@@ -739,8 +733,6 @@ window.addEventListener('beforeunload', () => {
 });
 // Tab functionality
 function switchTab(tabName) {
-    const container = document.getElementById('container');
-    
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
@@ -752,12 +744,7 @@ function switchTab(tabName) {
     
     // Show selected tab instantly
     document.getElementById(`tab-${tabName}`).classList.add('active');
-
-    // Change container width based on tab
-    if (tabName === 'dashboard') {
-        container.classList.add('dashboard-mode');
-    } else {
-        container.classList.remove('dashboard-mode');
-    }
 }
+
+
 
