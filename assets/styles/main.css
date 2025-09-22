@@ -1016,7 +1016,7 @@ body {
 .dashboard-stat-value {
     font-size: 36px;
     font-weight: 900;
-    color: #1e40af;
+    color: var(--pharos-blue-800);
     margin-bottom: 8px;
     font-family: 'Uto', 'JetBrains Mono', monospace;
     letter-spacing: -1.5px;
@@ -1111,7 +1111,7 @@ body {
 .level-count {
     font-family: 'Uto', 'JetBrains Mono', monospace;
     font-weight: 700;
-    color: #1e40af;
+    color: var(--pharos-blue-800);
     font-size: 16px;
 }
 
@@ -1196,7 +1196,7 @@ body {
 .points {
     font-family: 'Uto', 'JetBrains Mono', monospace;
     font-weight: 700;
-    color: #1e40af;
+    color: var(--pharos-blue-800);
     font-size: 16px;
 }
 
