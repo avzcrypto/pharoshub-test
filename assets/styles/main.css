@@ -1612,6 +1612,145 @@ body {
     .member-since {
         font-size: 11px;
     }
+
+    /* === КОНТЕЙНЕР ТАБЛИЦЫ === */
+    .top-users {
+        padding: 16px; /* Уменьшаем padding */
+        margin-top: 20px;
+    }
+    
+    .top-users-title {
+        font-size: 20px; /* Уменьшаем заголовок */
+        margin-bottom: 16px;
+    }
+
+    /* === ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ === */
+    .table-container {
+        overflow-x: auto; /* Включаем горизонтальный скролл */
+        -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+        margin: 0 -16px; /* Компенсируем padding контейнера */
+        padding: 0 16px;
+    }
+
+    /* === ТАБЛИЦА === */
+    .users-table {
+        min-width: 600px; /* Минимальная ширина для читаемости */
+        font-size: 12px; /* Уменьшаем общий размер шрифта */
+    }
+
+    /* === ЗАГОЛОВКИ === */
+    .users-table th {
+        padding: 8px 6px; /* Уменьшаем padding */
+        font-size: 10px;  /* Меньше шрифт */
+        letter-spacing: 0.03em;
+        line-height: 1.2;
+    }
+
+    /* Адаптируем ширины столбцов для мобильных */
+    .users-table th:nth-child(1) { width: 60px;  } /* Rank */
+    .users-table th:nth-child(2) { width: 120px; } /* User */
+    .users-table th:nth-child(3) { width: 140px; } /* Points & Level */
+    .users-table th:nth-child(4) { width: 100px; } /* Member Since */
+
+    /* === ЯЧЕЙКИ === */
+    .users-table td {
+        padding: 10px 6px; /* Уменьшаем padding */
+        vertical-align: middle;
+    }
+
+    /* === RANK BADGE === */
+    .rank-badge {
+        width: 28px;  /* Уменьшаем */
+        height: 28px;
+        font-size: 11px;
+        border-radius: 6px;
+    }
+
+    /* === USER ADDRESS === */
+    .user-address {
+        font-size: 11px; /* Уменьшаем */
+        font-weight: 600;
+        letter-spacing: -0.3px;
+    }
+
+    /* === POINTS & LEVEL STACK === */
+    .points-level-stack {
+        gap: 6px;
+        min-height: 50px; /* Уменьшаем высоту */
+    }
+
+    .points-level-stack .points {
+        font-size: 14px; /* Уменьшаем с 18px */
+        letter-spacing: -0.3px;
+        line-height: 1;
+    }
+
+    .points-level-stack .level-badge {
+        padding: 3px 8px; /* Уменьшаем */
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 600;
+        min-width: 45px; /* Уменьшаем */
+    }
+
+    /* === MEMBER SINCE === */
+    .member-since {
+        font-size: 11px; /* Уменьшаем */
+        font-weight: 500;
+        letter-spacing: -0.2px;
+        line-height: 1.2;
+    }
+
+    /* === ПАГИНАЦИЯ === */
+    .pagination-info-top {
+        padding: 0 12px;
+        font-size: 13px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .users-pagination {
+        padding: 16px 12px 0;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pagination-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+        min-width: 36px;
+        border-radius: 6px;
+    }
+
+    /* === УЛУЧШЕНИЕ UX === */
+    
+    /* Sticky заголовки при скролле */
+    .users-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Индикатор скролла */
+    .table-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 100%;
+        background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+        pointer-events: none;
+    }
+
+    /* Улучшенный hover для touch */
+    .users-table tr:hover {
+        background: #f8fafc;
+    }
 }
 
 /* === TOP.HTML SPECIFIC STYLES === */
