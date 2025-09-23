@@ -496,22 +496,35 @@
     </div>
     
     <table class="users-table">
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>User</th>
-                <th>Points & Level</th>
-                <th>Member Since</th>
-            </tr>
-        </thead>
-        <tbody id="dashboardUsersTable">
-            <tr>
-                <td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">
-                    Loading dashboard data...
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <thead>
+        <tr>
+            <th style="width: 80px;">Rank</th>
+            <th style="width: 180px;">User</th>
+            <th style="width: 200px;">Points & Level</th>
+            <th style="width: 160px;">Member Since</th>
+        </tr>
+    </thead>
+    <tbody id="dashboardUsersTable">
+        <!-- Пример структуры строки - это будет генерироваться JavaScript -->
+        <tr>
+            <td>
+                <div class="rank-badge rank-1">1</div>
+            </td>
+            <td>
+                <div class="user-address">0x1234...5678</div>
+            </td>
+            <td>
+                <div class="points-level-stack">
+                    <div class="points">15,647</div>
+                    <div class="level-badge">LVL 5</div>
+                </div>
+            </td>
+            <td>
+                <div class="member-since">Nov 15, 2024</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
     
     <!-- Pagination Controls -->
     <div class="users-pagination">
