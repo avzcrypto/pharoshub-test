@@ -1158,13 +1158,11 @@ body {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     border-radius: 20px;
-    padding: 24px 8px; /* ИЗМЕНЕНО: добавлены боковые отступы */
+    padding: 24px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.5);
     margin-top: 24px;
-    overflow: hidden; /* ДОБАВЛЕНО */
 }
-
 .top-users-title {
     font-size: 24px;
     font-weight: 700;
@@ -1174,16 +1172,14 @@ body {
     align-items: center;
     gap: 8px;
     letter-spacing: -0.025em;
-    padding: 0 16px; /* ДОБАВЛЕНО: отступ для заголовка */
 }
-
 .users-table {
     width: 100%;
     border-collapse: collapse;
 }
-
 .users-table th {
-    background: #f8fafc;
+    background: 
+#f8fafc;
     padding: 12px 8px;
     text-align: left;
     font-size: 16px;
@@ -1191,51 +1187,19 @@ body {
     color: var(--pharos-gray-700);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid 
+#e5e7eb;
 }
-
-/* ИСПРАВЛЕНО: убираем старый hover */
 .users-table td {
     padding: 10px 0px;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid 
+#f3f4f6;
     vertical-align: middle;
 }
-
-/* НОВЫЙ HOVER КАК У LEVEL-BAR */
-.users-table tbody tr {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 0;
-    margin: 0;
+.users-table tr:hover {
+    background: 
+#f8fafc;
 }
-
-.users-table tbody tr:hover {
-    background: #e0eaa9 !important; /* ТОТ ЖЕ ЦВЕТ */
-    transform: translateX(4px);
-    transition: all 0.2s ease;
-    border-radius: 20px; /* ТО ЖЕ СКРУГЛЕНИЕ */
-    margin: 0 16px; /* ТЕ ЖЕ ОТСТУПЫ */
-}
-
-.users-table tbody tr:hover td {
-    padding-left: 12px; /* ВНУТРЕННИЕ ОТСТУПЫ */
-    padding-right: 12px;
-    border-right: none; /* УБИРАЕМ ГРАНИЦЫ */
-    border-bottom: none;
-}
-
-/* ЗАГОЛОВКИ НЕ ДОЛЖНЫ ИМЕТЬ HOVER */
-.users-table thead tr:hover {
-    background: #f8fafc !important; /* ЗАГОЛОВКИ ОСТАЮТСЯ КАК ЕСТЬ */
-    transform: none !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-}
-
-.users-table thead tr:hover th {
-    padding-left: 8px !important; /* ЗАГОЛОВКИ БЕЗ ДОПОЛНИТЕЛЬНЫХ ОТСТУПОВ */
-    padding-right: 8px !important;
-}
-
 .rank-badge {
     width: 34px;
     height: 34px;
@@ -1246,34 +1210,44 @@ body {
     font-weight: 700;
     font-size: 12px;
 }
-
-.rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #92400e; }
-.rank-2 { background: linear-gradient(135deg, #d1d5db, #9ca3af); color: #374151; }
-.rank-3 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #92400e; }
-.rank-default { background: linear-gradient(135deg, #e5e7eb, #d1d5db); color: #6b7280; }
-
+.rank-1 { background: linear-gradient(135deg, 
+#fbbf24, 
+#f59e0b); color: 
+#92400e; }
+.rank-2 { background: linear-gradient(135deg, 
+#d1d5db, 
+#9ca3af); color: 
+#374151; }
+.rank-3 { background: linear-gradient(135deg, 
+#f59e0b, 
+#d97706); color: 
+#92400e; }
+.rank-default { background: linear-gradient(135deg, 
+#e5e7eb, 
+#d1d5db); color: 
+#6b7280; }
 .user-address {
     font-family: 'Uto', 'JetBrains Mono', monospace;
     font-size: 14px;
     color: var(--pharos-gray-700);
     font-weight: 600;
 }
-
 .points-level {
     display: flex;
     gap: 10px;
 }
-
 .points {
     font-family: 'Uto', 'JetBrains Mono', monospace;
     font-weight: 600;
-    color: #2c4375;
+    color: 
+#2c4375;
     font-size: 18px;
     letter-spacing: -0.5px;
 }
-
 .level-badge {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
+    background: linear-gradient(135deg, 
+#22c55e, 
+#16a34a);
     color: white;
     padding: 4px 6px;
     border-radius: 4px;
@@ -1281,7 +1255,6 @@ body {
     font-weight: 600;
     width: fit-content;
 }
-
 .member-since {
     font-family: 'Uto', 'JetBrains Mono', monospace;
     font-size: 14px;
