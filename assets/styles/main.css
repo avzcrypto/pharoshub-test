@@ -1424,13 +1424,6 @@ body {
 .level-5 { background: linear-gradient(90deg, #fbbf24, #f59e0b); box-shadow: 0 1px 3px rgba(251, 191, 36, 0.3); }
 
 /* === RESPONSIVE DESIGN === */
-@media (max-width: 1200px) {
-    .container {
-        max-width: 1000px;
-        padding: 30px 20px;
-    }
-}
-
 @media (max-width: 1024px) {
     .header-section {
         flex-direction: column;
