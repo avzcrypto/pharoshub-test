@@ -767,26 +767,28 @@ body {
 }
 
 .progress-label {
-    font-size: 12px;
-    color: var(--pharos-gray-500);
+    font-size: 14px;
     font-weight: 500;
+    color: var(--pharos-gray-500);
 }
 
 .progress-value {
-    font-size: 12px;
-    color: var(--pharos-gray-500);
+    font-size: 14px;
     font-weight: 600;
+    color: var(--pharos-gray-500);
     font-family: 'Uto', 'SF Mono', monospace;
 }
 
 .max-indicator {
-    color: var(--pharos-green-500);
+    font-size: 14px;
     font-weight: 700;
+    color: var(--pharos-green-500);
 }
 
 .progress-completed-label {
-    color: var(--pharos-green-500);
+    font-size: 14px;
     font-weight: 600;
+    color: var(--pharos-green-500);
 }
 
 /* === LOADING & ERROR STATES === */
