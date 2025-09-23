@@ -1698,3 +1698,76 @@ body {
 .rank:hover {
     transform: scale(1.1);
 }
+
+/* === PAGINATION FOR TOP USERS === */
+.pagination-info-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.users-per-page {
+    font-family: 'Uto', monospace;
+    font-weight: 600;
+}
+
+.users-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 16px 0;
+    margin-top: 16px;
+    border-top: 1px solid #f3f4f6;
+    flex-wrap: wrap;
+}
+
+.pagination-btn {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 40px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.pagination-btn:hover:not(:disabled):not(.active) {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+    transform: translateY(-1px);
+}
+
+.pagination-btn.active {
+    background: #2c4375;
+    border-color: #2c4375;
+    color: white;
+    box-shadow: 0 2px 6px rgba(44, 67, 117, 0.3);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.page-dots {
+    padding: 8px 4px;
+    color: #9ca3af;
+}
