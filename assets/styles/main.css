@@ -1191,11 +1191,11 @@ body {
 /* Заголовки таблицы */
 .users-table th {
     background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-    padding: 16px 20px 20px 20px; /* Увеличен нижний padding */
+    padding: 10px 10px 10px 10px; /* Увеличен нижний padding */
     text-align: center;
-    font-size: 14px;
-    font-weight: 700;
-    color: #374151;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c4375;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: 3px solid #e5e7eb; /* Увеличена толщина */
@@ -1215,16 +1215,11 @@ body {
 
 /* Ячейки таблицы */
 .users-table td {
-    padding: 22px 20px; /* Увеличено с 14px 16px */
+    padding: 10px 10px; /* Увеличено с 14px 16px */
     border-bottom: 1px solid #f3f4f6;
     vertical-align: middle;
     text-align: center;
     position: relative;
-}
-
-/* Дополнительный отступ для первой строки */
-.users-table tbody tr:first-child td {
-    padding-top: 26px;
 }
 
 /* Разделители между столбцами в ячейках */
