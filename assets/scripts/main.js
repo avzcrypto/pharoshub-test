@@ -816,7 +816,7 @@ function updateLevelDistribution(levelDistribution) {
                 }, index * 200);
             }
             
-            console.log(`Level ${index + 1}: ${count} users (${percentage}%) - bar width: ${barWidth}%`);
+            console.log(`Level ${index + 1}: ${count} (${percentage}%) - bar width: ${barWidth}%`);
         } else {
             console.log(`Level bar ${index} not found`);
         }
