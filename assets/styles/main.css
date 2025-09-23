@@ -1062,24 +1062,30 @@ body {
 
 .level-bar {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
-    padding: 12px;
-    background: rgba(248, 250, 252, 0.8);
-    border-radius: 12px;
-    transition: all 0.3s ease;
+    align-items: center;
+    gap: 16px;
+    height: 60px;
+    padding: 16px 8px;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s ease;
 }
 
-.level-bar-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.level-bar:nth-child(odd) {
+    background: white;
+}
+
+.level-bar:nth-child(even) {
+    background: #fbfcfd;
 }
 
 .level-bar:hover {
-    background: rgba(241, 245, 249, 0.9);
+    background: #f1f5f9 !important;
     transform: translateX(4px);
+    transition: all 0.2s ease;
+}
+
+.level-bar:last-child {
+    border-bottom: none;
 }
 
 .level-icon {
@@ -1090,28 +1096,62 @@ body {
 }
 
 .level-info {
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.level-text {
     flex: 1;
 }
 
 .level-name {
     font-weight: 600;
     color: #1f2937;
-    font-size: 14px;
+    font-size: 15px;
+    letter-spacing: -0.01em;
 }
 
 .level-range {
-    font-size: 16px;
+    font-size: 14px;
     color: #64748b;
     font-weight: 500;
 }
 
-.level-count {
-    font-family: 'Uto', 'JetBrains Mono', monospace;
-    font-weight: 800;
-    color: var(--pharos-blue-800);
-    font-size: 22px;
+.bar-container {
+    flex: 1;
+    height: 32px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    align-self: stretch;
+}
+
+.level-stats {
+    min-width: 160px;
     text-align: right;
-    min-width: 100px;
+    font-size: 13px;
+    color: #64748b;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+}
+
+.level-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 15px;
 }
 
 /* Top Users Table */
@@ -1236,6 +1276,13 @@ body {
 .level-3-bar { background: linear-gradient(90deg, #06b6d4, #0891b2); }
 .level-4-bar { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
 .level-5-bar { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+
+/* Level Colors for bar-fill */
+.level-1 { background: linear-gradient(90deg, #6b7280, #4b5563); box-shadow: 0 1px 3px rgba(107, 114, 128, 0.3); }
+.level-2 { background: linear-gradient(90deg, #84cc16, #65a30d); box-shadow: 0 1px 3px rgba(132, 204, 22, 0.3); }
+.level-3 { background: linear-gradient(90deg, #06b6d4, #0891b2); box-shadow: 0 1px 3px rgba(6, 182, 212, 0.3); }
+.level-4 { background: linear-gradient(90deg, #8b5cf6, #7c3aed); box-shadow: 0 1px 3px rgba(139, 92, 246, 0.3); }
+.level-5 { background: linear-gradient(90deg, #fbbf24, #f59e0b); box-shadow: 0 1px 3px rgba(251, 191, 36, 0.3); }
 
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 1200px) {
