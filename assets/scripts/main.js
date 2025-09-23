@@ -775,8 +775,6 @@ function updateLevelDistribution(levelDistribution) {
     if (!levelDistribution) return;
     
     const levels = ['level-1', 'level-2', 'level-3', 'level-4', 'level-5'];
-    const levelBars = document.querySelectorAll('#levelBars .level-count');
-    const progressBars = document.querySelectorAll('#levelBars .level-progress-bar');
     
     // Calculate total for percentages
     const totalUsers = Object.values(levelDistribution).reduce((sum, count) => sum + (parseInt(count) || 0), 0);
@@ -784,18 +782,31 @@ function updateLevelDistribution(levelDistribution) {
     
     levels.forEach((level, index) => {
         const count = levelDistribution[level] || 0;
+        const percentage = totalUsers > 0 ? ((count / totalUsers) * 100).toFixed(1) : '0.0';
         
-        // Update count
+        // Find the level bar container
+        const levelBars = document.querySelectorAll('#levelBars .level-bar');
         if (levelBars[index]) {
-            levelBars[index].textContent = formatNumber(count);
-        }
-        
-        // Update progress bar
-        if (progressBars[index] && maxCount > 0) {
-            const percentage = (count / maxCount) * 100;
-            setTimeout(() => {
-                progressBars[index].style.width = `${percentage}%`;
-            }, index * 200); // Staggered animation
+            // Update count number
+            const countElement = levelBars[index].querySelector('.level-count');
+            if (countElement) {
+                countElement.textContent = formatNumber(count);
+            }
+            
+            // Update full stats text with percentage
+            const statsElement = levelBars[index].querySelector('.level-stats');
+            if (statsElement) {
+                statsElement.innerHTML = `<span class="level-count">${formatNumber(count)}</span> users (${percentage}%)`;
+            }
+            
+            // Update progress bar
+            const progressBar = levelBars[index].querySelector('.level-progress-bar');
+            if (progressBar && maxCount > 0) {
+                const barWidth = (count / maxCount) * 100;
+                setTimeout(() => {
+                    progressBar.style.width = `${barWidth}%`;
+                }, index * 200);
+            }
         }
     });
 }
