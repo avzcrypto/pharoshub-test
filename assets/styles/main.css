@@ -1426,27 +1426,25 @@ body {
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 1024px) {
     .header-section {
-        flex-direction: column;
-        gap: 20px;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
+        gap: 20px;
     }
 
     .header-left {
-        flex: none;
-        width: 100%;
-        justify-content: center;
+        flex: 0 0 auto;
+        width: auto;
     }
 
     .header-right {
-        flex: none;
-        width: 100%;
-        max-width: 500px;
+        flex: 0 0 380px;
+        padding: 20px;
     }
 
     .header-logo-main {
-        width: 70%;
-        max-width: 450px;
-        height: auto;
+        width: 420px;
+        height: 220px;
     }
 }
 
