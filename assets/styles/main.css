@@ -191,9 +191,10 @@ body {
 }
 
 .form-title {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--pharos-gray-900);
+    letter-spacing: -0.025em;
     margin-bottom: 12px;
     margin-top: 0;
     text-align: center;
@@ -631,7 +632,7 @@ body {
 
 .section-title {
     font-size: 24px;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--pharos-gray-900);
     margin-bottom: 16px;
     display: flex;
@@ -1055,8 +1056,8 @@ body {
 
 .distribution-title {
     font-size: 24px;
-    font-weight: 800;
-    color: #1f2937;
+    font-weight: 700;
+    color: var(--pharos-gray-900);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -1171,8 +1172,8 @@ body {
 
 .top-users-title {
     font-size: 24px;
-    font-weight: 800;
-    color: #1f2937;
+    font-weight: 700;
+    color: var(--pharos-gray-900);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
