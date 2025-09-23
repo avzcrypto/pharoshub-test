@@ -1268,8 +1268,9 @@ body {
     height: 20px;
     background: rgba(203, 213, 225, 0.3);
     border-radius: 10px;
-    margin-top: 8px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
 .level-progress-bar {
