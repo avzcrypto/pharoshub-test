@@ -861,8 +861,8 @@ body {
 }
 
 .disclaimer-text strong {
-    color: var(--pharos-orange-600);
-    font-weight: 700;
+    color: #2c4375;
+    font-weight: 800;
 }
 
 /* === SEASON HEADERS === */
