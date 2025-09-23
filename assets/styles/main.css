@@ -1238,36 +1238,13 @@ body {
     background: #f1f5f9;
 }
 
-/* Hover эффекты как в User Distribution by Level */
-.users-table tr {
-    transition: all 0.2s ease;
-}
-
+/* Простые hover эффекты без анимации */
 .users-table tr:hover {
-    background: #e0eaa9 !important; /* Ваш цвет из фона */
-    transform: translateX(4px);
-    border-radius: 12px;
-    margin: 0 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #f8fafc;
 }
 
 .users-table tr:hover td {
     background: transparent;
-    padding-left: 28px; /* Компенсируем сдвиг */
-    padding-right: 28px;
-}
-
-/* Увеличиваем padding при hover для первой строки */
-.users-table tbody tr:first-child:hover td {
-    padding-top: 30px;
-}
-
-.users-table tr:hover td:first-child {
-    border-radius: 12px 0 0 12px;
-}
-
-.users-table tr:hover td:last-child {
-    border-radius: 0 12px 12px 0;
 }
 
 .users-table tr:last-child td {
