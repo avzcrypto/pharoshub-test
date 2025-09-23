@@ -698,7 +698,7 @@ body {
 
 .task-name {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--pharos-gray-900);
     letter-spacing: -0.01em;
 }
