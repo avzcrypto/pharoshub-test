@@ -823,6 +823,14 @@ function updateLevelDistribution(levelDistribution) {
     });
 }
 
+// === DASHBOARD PAGINATION STATE ===
+let dashboardState = {
+    currentPage: 1,
+    totalPages: 10,
+    usersPerPage: 10,
+    allUsers: []
+};
+
 function updateTopUsersTable(leaderboard) {
     const tbody = document.getElementById('dashboardUsersTable');
     if (!leaderboard || leaderboard.length === 0) {
@@ -830,14 +838,29 @@ function updateTopUsersTable(leaderboard) {
         return;
     }
     
-    const topUsers = leaderboard.slice(0, 10);
-    tbody.innerHTML = topUsers.map((user, index) => {
-        const rank = index + 1;
-        const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-default';
+    // Сохраняем топ 100 пользователей
+    dashboardState.allUsers = leaderboard.slice(0, 100);
+    dashboardState.totalPages = Math.ceil(dashboardState.allUsers.length / dashboardState.usersPerPage);
+    
+    renderUsersPage();
+    updatePaginationControls();
+}
+
+function renderUsersPage() {
+    const tbody = document.getElementById('dashboardUsersTable');
+    const { currentPage, usersPerPage, allUsers } = dashboardState;
+    
+    const startIndex = (currentPage - 1) * usersPerPage;
+    const endIndex = startIndex + usersPerPage;
+    const currentPageUsers = allUsers.slice(startIndex, endIndex);
+    
+    tbody.innerHTML = currentPageUsers.map((user, localIndex) => {
+        const globalRank = startIndex + localIndex + 1;
+        const rankClass = globalRank === 1 ? 'rank-1' : globalRank === 2 ? 'rank-2' : globalRank === 3 ? 'rank-3' : 'rank-default';
         
         return `
             <tr>
-                <td><div class="rank-badge ${rankClass}">${rank}</div></td>
+                <td><div class="rank-badge ${rankClass}">${globalRank}</div></td>
                 <td><div class="user-address">${formatAddress(user.address)}</div></td>
                 <td>
                     <div class="points-level">
@@ -849,6 +872,44 @@ function updateTopUsersTable(leaderboard) {
             </tr>
         `;
     }).join('');
+    
+    updateRangeInfo();
+}
+
+function updateRangeInfo() {
+    const { currentPage, usersPerPage, allUsers } = dashboardState;
+    const startRank = (currentPage - 1) * usersPerPage + 1;
+    const endRank = Math.min(currentPage * usersPerPage, allUsers.length);
+    
+    const rangeInfo = document.getElementById('usersRangeInfo');
+    const currentPageDisplay = document.getElementById('currentPageDisplay');
+    const totalPagesDisplay = document.getElementById('totalPagesDisplay');
+    
+    if (rangeInfo) rangeInfo.textContent = `Showing ${startRank}-${endRank} of ${allUsers.length}`;
+    if (currentPageDisplay) currentPageDisplay.textContent = currentPage;
+    if (totalPagesDisplay) totalPagesDisplay.textContent = dashboardState.totalPages;
+}
+
+function updatePaginationControls() {
+    const { currentPage, totalPages } = dashboardState;
+    
+    const firstBtn = document.getElementById('firstPageBtn');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    const lastBtn = document.getElementById('lastPageBtn');
+    
+    if (firstBtn) firstBtn.disabled = currentPage === 1;
+    if (prevBtn) prevBtn.disabled = currentPage === 1;
+    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+    if (lastBtn) lastBtn.disabled = currentPage === totalPages;
+}
+
+function goToPage(page) {
+    if (page < 1 || page > dashboardState.totalPages || page === dashboardState.currentPage) return;
+    
+    dashboardState.currentPage = page;
+    renderUsersPage();
+    updatePaginationControls();
 }
 
 function formatAddress(address) {
@@ -884,6 +945,21 @@ switchTab = function(tabName) {
     if (tabName === 'dashboard') {
         loadDashboardData();
     }
-};
+}; // ← ДОБАВИТЬ ТОЧКУ С ЗАПЯТОЙ ЗДЕСЬ
+
+// Event listeners для пагинации
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработчики пагинации
+    document.addEventListener('click', function(e) {
+        if (e.target.id === 'firstPageBtn') goToPage(1);
+        if (e.target.id === 'prevPageBtn') goToPage(dashboardState.currentPage - 1);
+        if (e.target.id === 'nextPageBtn') goToPage(dashboardState.currentPage + 1);
+        if (e.target.id === 'lastPageBtn') goToPage(dashboardState.totalPages);
+        if (e.target.classList.contains('page-number')) {
+            const page = parseInt(e.target.dataset.page);
+            if (!isNaN(page)) goToPage(page);
+        }
+    });
+});
 
 
