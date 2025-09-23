@@ -879,7 +879,7 @@ function renderUsersPage() {
     const endIndex = startIndex + usersPerPage;
     const pageUsers = allUsers.slice(startIndex, endIndex);
     
-    // Generate HTML for current page users
+    // Generate HTML for current page users - ИСПОЛЬЗУЕМ STACK LAYOUT
     const rowsHtml = pageUsers.map((user, localIndex) => {
         const globalRank = startIndex + localIndex + 1;
         const rankClass = getRankClass(globalRank);
@@ -893,9 +893,9 @@ function renderUsersPage() {
                     <div class="user-address">${formatAddress(user.address)}</div>
                 </td>
                 <td>
-                    <div class="points-level">
-                        <span class="points">${formatNumber(user.total_points)}</span>
-                        <span class="level-badge">LVL ${user.current_level}</span>
+                    <div class="points-level-stack">
+                        <div class="points">${formatNumber(user.total_points)}</div>
+                        <div class="level-badge">LVL ${user.current_level}</div>
                     </div>
                 </td>
                 <td>
