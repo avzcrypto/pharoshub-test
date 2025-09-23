@@ -325,7 +325,7 @@ body {
 .rank-context {
     font-family: 'Uto', sans-serif;  /* ← добавить */
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: #64748b;  /* ← изменить с var(--pharos-gray-500) */
     margin-top: 4px;
 }
@@ -359,7 +359,7 @@ body {
     font-size: 14px;
     color: var(--pharos-gray-500);
     margin-top: 4px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .level-progress {
