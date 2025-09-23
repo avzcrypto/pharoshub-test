@@ -118,7 +118,7 @@ body {
 }
 
 .tab-btn.active {
-    background: rgb(0, 7, 185);
+    background: #2c4375;
     color: white;
 }
 
@@ -311,7 +311,7 @@ body {
     font-family: 'Uto', monospace;  /* ← добавить */
     font-size: 36px;
     font-weight: 900;
-    color: var(--pharos-blue-800);
+    color: #2c4375;
     margin-bottom: 8px;
     letter-spacing: -1.5px;
     line-height: 1;
@@ -434,7 +434,7 @@ body {
 
 .season-tab:hover,
 .season-tab.select {
-    background-color: rgb(0, 7, 185);
+    background-color: #2c4375;
     color: rgb(255, 255, 255);
 }
 
@@ -1024,7 +1024,7 @@ body {
     font-family: 'Uto', monospace;  /* ← добавить */
     font-size: 36px;
     font-weight: 900;
-    color: var(--pharos-blue-800);
+    color: #2c4375;
     margin-bottom: 8px;
     letter-spacing: -1.5px;
     line-height: 1;
@@ -1149,7 +1149,7 @@ body {
 .level-count {
     font-family: 'Uto', monospace;
     font-weight: 600;
-    color: var(--pharos-blue-800);
+    color: #2c4375;
     font-size: 18px;
     letter-spacing: -0.5px;
 }
@@ -1234,7 +1234,7 @@ body {
 .points {
     font-family: 'Uto', 'JetBrains Mono', monospace;
     font-weight: 600;
-    color: var(--pharos-blue-800);
+    color: #2c4375;
     font-size: 18px;
     letter-spacing: -0.5px;
 }
