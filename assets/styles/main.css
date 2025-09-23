@@ -182,13 +182,8 @@ body {
     backdrop-filter: var(--glass-blur);
     border-radius: 20px;
     padding: 16px 20px 20px 20px;
-    margin-top: 10px
     box-shadow: var(--shadow-card);
     border: var(--glass-border);
-    min-height: 175px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: flex-end 
 }
 
 .form-title {
