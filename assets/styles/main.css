@@ -826,7 +826,7 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: rgba(249, 115, 22, 0.1);
+    background: #e0eaa9;
     border: 1px solid rgba(249, 115, 22, 0.2);
     border-radius: 16px;
     padding: 16px;
@@ -836,7 +836,7 @@ body {
 }
 
 .disclaimer-icon {
-    font-size: 20px;
+    font-size: 25px;
     flex-shrink: 0;
     margin-top: 2px;
 }
@@ -847,16 +847,16 @@ body {
 
 .disclaimer-title {
     font-size: 14px;
-    font-weight: 700;
-    color: var(--pharos-orange-600);
+    font-weight: 800;
+    color: #2c4375;
     margin-bottom: 4px;
     letter-spacing: 0.025em;
 }
 
 .disclaimer-text {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--pharos-gray-700);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.4;
 }
 
