@@ -772,41 +772,53 @@ function updateDashboardStats(data) {
 }
 
 function updateLevelDistribution(levelDistribution) {
-    if (!levelDistribution) return;
+    if (!levelDistribution || typeof levelDistribution !== 'object') {
+        console.log('No level distribution data received');
+        return;
+    }
     
     const levels = ['level-1', 'level-2', 'level-3', 'level-4', 'level-5'];
     
     // Calculate total for percentages
     const totalUsers = Object.values(levelDistribution).reduce((sum, count) => sum + (parseInt(count) || 0), 0);
+    
+    if (totalUsers === 0) {
+        console.log('Total users is 0, skipping update');
+        return;
+    }
+    
+    // Find maximum count for bar width calculation
     const maxCount = Math.max(...Object.values(levelDistribution).map(count => parseInt(count) || 0));
     
+    console.log('Updating level distribution:', { totalUsers, maxCount, levelDistribution });
+    
     levels.forEach((level, index) => {
-        const count = levelDistribution[level] || 0;
-        const percentage = totalUsers > 0 ? ((count / totalUsers) * 100).toFixed(1) : '0.0';
+        const count = parseInt(levelDistribution[level]) || 0;
+        const percentage = ((count / totalUsers) * 100).toFixed(1);
+        const barWidth = maxCount > 0 ? (count / maxCount) * 100 : 0;
         
-        // Find the level bar container
+        // Find the level bar container for Dashboard
         const levelBars = document.querySelectorAll('#levelBars .level-bar');
+        
         if (levelBars[index]) {
-            // Update count number
+            // Update count with percentage - это основное исправление!
             const countElement = levelBars[index].querySelector('.level-count');
             if (countElement) {
-                countElement.textContent = formatNumber(count);
-            }
-            
-            // Update full stats text with percentage
-            const statsElement = levelBars[index].querySelector('.level-stats');
-            if (statsElement) {
-                statsElement.innerHTML = `<span class="level-count">${formatNumber(count)}</span> users (${percentage}%)`;
+                // Меняем текст чтобы включить проценты
+                countElement.textContent = `${formatNumber(count)} users (${percentage}%)`;
             }
             
             // Update progress bar
             const progressBar = levelBars[index].querySelector('.level-progress-bar');
             if (progressBar && maxCount > 0) {
-                const barWidth = (count / maxCount) * 100;
                 setTimeout(() => {
                     progressBar.style.width = `${barWidth}%`;
                 }, index * 200);
             }
+            
+            console.log(`Level ${index + 1}: ${count} users (${percentage}%) - bar width: ${barWidth}%`);
+        } else {
+            console.log(`Level bar ${index} not found`);
         }
     });
 }
