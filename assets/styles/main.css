@@ -1154,6 +1154,7 @@ body {
     font-size: 18px;
     letter-spacing: -0.5px;
     min-width: 160px;
+    text-align: right;
     white-space: nowrap;
     flex-shrink: 0;
 }
