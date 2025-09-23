@@ -278,55 +278,31 @@ body {
     display: block;
 }
 
-/* === STATS CARDS === */
-.top-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.stat-card {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border-radius: 20px;
-    padding: 24px;
-    text-align: center;
-    border: var(--glass-border);
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: var(--transition-bounce);
-    box-shadow: var(--shadow-card);
-}
-
-.stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
-}
-
+/* === STATS CARDS UNIFIED TYPOGRAPHY === */
 .stat-value {
+    font-family: 'Uto', monospace;
     font-size: 36px;
     font-weight: 900;
-    color: var(--pharos-blue-800);
+    color: #0f172a;
     margin-bottom: 8px;
-    font-family: 'Uto', 'SF Mono', monospace;
     letter-spacing: -1.5px;
     line-height: 1;
 }
 
 .stat-label {
+    font-family: 'Uto', sans-serif;
     font-size: 14px;
-    color: var(--pharos-gray-500);
     font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
     letter-spacing: 0.025em;
 }
 
 .rank-context {
+    font-family: 'Uto', sans-serif;
     font-size: 12px;
-    color: var(--pharos-gray-500);
     font-weight: 500;
+    color: #64748b;
     margin-top: 4px;
 }
 
@@ -1015,21 +991,22 @@ body {
 }
 
 .dashboard-stat-value {
+    font-family: 'Uto', monospace;  /* ← добавить */
     font-size: 36px;
     font-weight: 900;
-    color: var(--pharos-blue-800);
+    color: #0f172a;  /* ← изменить с var(--pharos-blue-800) */
     margin-bottom: 8px;
-    font-family: 'Uto', 'JetBrains Mono', monospace;
     letter-spacing: -1.5px;
     line-height: 1;
 }
 
 .dashboard-stat-label {
+    font-family: 'Uto', sans-serif;  /* ← добавить */
     font-size: 14px;
-    color: #64748b;
     font-weight: 600;
+    color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.025em;  /* ← изменить с 0.05em */
 }
 
 /* Dashboard Grid */
