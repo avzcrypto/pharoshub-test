@@ -849,6 +849,79 @@ function updateTopUsersTable(leaderboard) {
     updatePaginationControls();
 }
 
+function updateTopUsersTable(leaderboard) {
+    const tbody = document.getElementById('dashboardUsersTable');
+    if (!leaderboard || leaderboard.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No data available</td></tr>';
+        return;
+    }
+    
+    // Сохраняем топ 100 пользователей
+    dashboardState.allUsers = leaderboard.slice(0, 100);
+    dashboardState.totalPages = Math.ceil(dashboardState.allUsers.length / dashboardState.usersPerPage);
+    
+    // ДОБАВИТЬ: Создаем номера страниц динамически
+    updatePageNumbers();
+    
+    renderUsersPage(); // ← эта строка вызывает функцию
+    updatePaginationControls();
+}
+
+// ВОТ СЮДА ДОБАВЬТЕ ФУНКЦИЮ renderUsersPage:
+function renderUsersPage() {
+    const { currentPage, usersPerPage, allUsers } = dashboardState;
+    const tbody = document.getElementById('dashboardUsersTable');
+    
+    if (!tbody || !allUsers.length) return;
+    
+    // Calculate page bounds
+    const startIndex = (currentPage - 1) * usersPerPage;
+    const endIndex = startIndex + usersPerPage;
+    const pageUsers = allUsers.slice(startIndex, endIndex);
+    
+    // Generate HTML for current page users
+    const rowsHtml = pageUsers.map((user, localIndex) => {
+        const globalRank = startIndex + localIndex + 1;
+        const rankClass = getRankClass(globalRank);
+        
+        return `
+            <tr>
+                <td>
+                    <div class="rank-badge ${rankClass}">${globalRank}</div>
+                </td>
+                <td>
+                    <div class="user-address">${formatAddress(user.address)}</div>
+                </td>
+                <td>
+                    <div class="points-level">
+                        <span class="points">${formatNumber(user.total_points)}</span>
+                        <span class="level-badge">LVL ${user.current_level}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="member-since">${formatDate(user.member_since)}</div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+    
+    tbody.innerHTML = rowsHtml;
+    updateRangeInfo();
+}
+
+// Helper function to get rank CSS class
+function getRankClass(rank) {
+    if (rank === 1) return 'rank-1';
+    if (rank === 2) return 'rank-2';
+    if (rank === 3) return 'rank-3';
+    return 'rank-default';
+}
+
+// ДОБАВИТЬ: Новая функция для создания номеров страниц
+function updatePageNumbers() {
+    // остальной код...
+}
+
 // ДОБАВИТЬ: Новая функция для создания номеров страниц
 function updatePageNumbers() {
     const pageNumbers = document.getElementById('pageNumbers');
