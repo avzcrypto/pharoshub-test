@@ -805,7 +805,7 @@ function updateLevelDistribution(levelDistribution) {
             const countElement = levelBars[index].querySelector('.level-count');
             if (countElement) {
                 // Меняем текст чтобы включить проценты
-                countElement.textContent = `${formatNumber(count)} users (${percentage}%)`;
+                countElement.textContent = `${formatNumber(count)} (${percentage}%)`;
             }
             
             // Update progress bar
