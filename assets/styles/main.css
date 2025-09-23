@@ -278,31 +278,58 @@ body {
     display: block;
 }
 
-/* === STATS CARDS UNIFIED TYPOGRAPHY === */
+/* === STATS CARDS === */
+.top-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    border: var(--glass-border);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-card);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+
 .stat-value {
-    font-family: 'Uto', monospace;
+    font-family: 'Uto', monospace;  /* ← добавить */
     font-size: 36px;
     font-weight: 900;
-    color: #0f172a;
+    color: #0f172a;  /* ← изменить с var(--pharos-blue-800) */
     margin-bottom: 8px;
     letter-spacing: -1.5px;
     line-height: 1;
 }
 
 .stat-label {
-    font-family: 'Uto', sans-serif;
+    font-family: 'Uto', sans-serif;  /* ← добавить */
     font-size: 14px;
     font-weight: 600;
-    color: #64748b;
-    text-transform: uppercase;
+    color: #64748b;  /* ← изменить с var(--pharos-gray-500) */
+    text-transform: uppercase;  /* ← уже есть */
     letter-spacing: 0.025em;
 }
 
 .rank-context {
-    font-family: 'Uto', sans-serif;
+    font-family: 'Uto', sans-serif;  /* ← добавить */
     font-size: 12px;
     font-weight: 500;
-    color: #64748b;
+    color: #64748b;  /* ← изменить с var(--pharos-gray-500) */
     margin-top: 4px;
 }
 
