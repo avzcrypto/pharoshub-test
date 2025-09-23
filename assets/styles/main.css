@@ -705,7 +705,7 @@ body {
 
 .task-count {
     background: transparent;
-    color: var(--pharos-gray-900);
+    color: var(--pharos-blue-800);
     padding: 12px 20px;
     border-radius: 12px;
     font-size: 24px;
