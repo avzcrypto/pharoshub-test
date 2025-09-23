@@ -191,7 +191,7 @@ body {
 }
 
 .form-title {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--pharos-gray-900);
     letter-spacing: -0.025em;
@@ -247,7 +247,7 @@ body {
     color: white;
     border: none;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     font-family: 'Uto', -apple-system, BlinkMacSystemFont, 'Segue UI', Roboto, sans-serif;
     cursor: pointer;
