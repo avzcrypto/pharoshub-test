@@ -1148,17 +1148,18 @@ body {
 .level-stats {
     min-width: 160px;
     text-align: right;
-    font-size: 13px;
-    color: #64748b;
-    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    color: var(--pharos-gray-500);
+    font-family: 'Uto', monospace;
     font-weight: 500;
 }
 
 .level-count {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Uto', monospace;
     font-weight: 700;
-    color: #0f172a;
-    font-size: 15px;
+    color: var(--pharos-blue-800);
+    font-size: 18px;
+    letter-spacing: -0.5px;
 }
 
 /* Top Users Table */
