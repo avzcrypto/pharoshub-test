@@ -842,38 +842,32 @@ function updateTopUsersTable(leaderboard) {
     dashboardState.allUsers = leaderboard.slice(0, 100);
     dashboardState.totalPages = Math.ceil(dashboardState.allUsers.length / dashboardState.usersPerPage);
     
+    // ДОБАВИТЬ: Создаем номера страниц динамически
+    updatePageNumbers();
+    
     renderUsersPage();
     updatePaginationControls();
 }
 
-function renderUsersPage() {
-    const tbody = document.getElementById('dashboardUsersTable');
-    const { currentPage, usersPerPage, allUsers } = dashboardState;
+// ДОБАВИТЬ: Новая функция для создания номеров страниц
+function updatePageNumbers() {
+    const pageNumbers = document.getElementById('pageNumbers');
+    if (!pageNumbers) return;
     
-    const startIndex = (currentPage - 1) * usersPerPage;
-    const endIndex = startIndex + usersPerPage;
-    const currentPageUsers = allUsers.slice(startIndex, endIndex);
+    const { totalPages } = dashboardState;
     
-    tbody.innerHTML = currentPageUsers.map((user, localIndex) => {
-        const globalRank = startIndex + localIndex + 1;
-        const rankClass = globalRank === 1 ? 'rank-1' : globalRank === 2 ? 'rank-2' : globalRank === 3 ? 'rank-3' : 'rank-default';
+    let pagesHtml = '';
+    for (let i = 1; i <= totalPages; i++) {
+        pagesHtml += `<button class="pagination-btn page-number" data-page="${i}">${i}</button>`;
         
-        return `
-            <tr>
-                <td><div class="rank-badge ${rankClass}">${globalRank}</div></td>
-                <td><div class="user-address">${formatAddress(user.address)}</div></td>
-                <td>
-                    <div class="points-level">
-                        <div class="points">${formatNumber(user.total_points)}</div>
-                        <div class="level-badge">LVL ${user.current_level}</div>
-                    </div>
-                </td>
-                <td><div class="member-since">${formatDate(user.member_since)}</div></td>
-            </tr>
-        `;
-    }).join('');
+        // Добавляем точки после 3й страницы если страниц больше 5
+        if (i === 3 && totalPages > 5) {
+            pagesHtml += '<span class="page-dots">...</span>';
+            i = totalPages - 1; // Переходим к предпоследней странице
+        }
+    }
     
-    updateRangeInfo();
+    pageNumbers.innerHTML = pagesHtml;
 }
 
 function updateRangeInfo() {
@@ -893,6 +887,7 @@ function updateRangeInfo() {
 function updatePaginationControls() {
     const { currentPage, totalPages } = dashboardState;
     
+    // Обновляем кнопки навигации
     const firstBtn = document.getElementById('firstPageBtn');
     const prevBtn = document.getElementById('prevPageBtn');
     const nextBtn = document.getElementById('nextPageBtn');
@@ -902,6 +897,17 @@ function updatePaginationControls() {
     if (prevBtn) prevBtn.disabled = currentPage === 1;
     if (nextBtn) nextBtn.disabled = currentPage === totalPages;
     if (lastBtn) lastBtn.disabled = currentPage === totalPages;
+    
+    // ДОБАВИТЬ: Обновляем подсветку активной страницы
+    const pageButtons = document.querySelectorAll('.page-number');
+    pageButtons.forEach(btn => {
+        const page = parseInt(btn.dataset.page);
+        if (page === currentPage) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
 }
 
 function goToPage(page) {
