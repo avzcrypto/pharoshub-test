@@ -350,13 +350,7 @@ body {
 .stat-divider {
     width: 2px;
     height: 60px;
-    background: linear-gradient(180deg, 
-        transparent 0%, 
-        rgba(59, 130, 246, 0.2) 20%, 
-        rgba(59, 130, 246, 0.4) 50%, 
-        rgba(59, 130, 246, 0.2) 80%, 
-        transparent 100%
-    );
+    background: #fcd6cf;
     border-radius: 1px;
     flex-shrink: 0;
 }
@@ -1074,9 +1068,10 @@ body {
 }
 
 .level-bar:hover {
-    background: #f1f5f9 !important;
+    background: #e0eaa9 !important;
     transform: translateX(4px);
     transition: all 0.2s ease;
+    border-radius: 20px;
 }
 
 .level-bar:last-child {
