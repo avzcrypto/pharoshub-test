@@ -635,11 +635,12 @@ body {
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.level-1-bar { background: linear-gradient(90deg, #6b7280, #4b5563); }
-.level-2-bar { background: linear-gradient(90deg, #84cc16, #65a30d); }
-.level-3-bar { background: linear-gradient(90deg, #06b6d4, #0891b2); }
-.level-4-bar { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
-.level-5-bar { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+/* Level-specific progress bar colors using brand colors */
+.level-1-bar { background: linear-gradient(90deg, #2c4375, #1a2951); }
+.level-2-bar { background: linear-gradient(90deg, #31bff0, #247fc3); }
+.level-3-bar { background: linear-gradient(90deg, #247fc3, #1c6399); }
+.level-4-bar { background: linear-gradient(90deg, #e0eaa9, #d4dd8c); }
+.level-5-bar { background: linear-gradient(90deg, #fcd6cf, #f9c5b5); }
 
 /* === ANIMATIONS === */
 @keyframes fadeInUp {
