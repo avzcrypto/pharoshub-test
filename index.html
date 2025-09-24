@@ -3,17 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharos Stats Checker - Track Testnet Points & Leaderboard Rank</title>
-    <meta name="description" content="🚀 Check your Pharos testnet rank instantly! Track points, level progress & compete on leaderboard. Free tool to maximize your airdrop potential.">
+    
+    <!-- Primary Meta Tags -->
+    <title>PharosHub - Track Testnet Points & Rank</title>
+    <meta name="title" content="PharosHub - Track Testnet Points & Leaderboard Rank">
+    <meta name="description" content="🚀 Check your Pharos testnet rank instantly! Track points, level progress & compete on leaderboard.">
     <meta name="author" content="avzcrypto">
+    <meta name="keywords" content="Pharos, testnet, airdrop, crypto, blockchain, points, leaderboard, stats">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pharoshub.xyz/">
+    <meta property="og:title" content="PharosHub - Track Testnet Points & Rank">
+    <meta property="og:description" content="🚀 Check your Pharos testnet rank instantly! Track points, level progress & compete on leaderboard.">
+    <meta property="og:image" content="https://pharoshub.xyz/assets/images/branding/logo_new.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pharoshub.xyz/">
+    <meta property="twitter:title" content="PharosHub - Track Testnet Points & Rank">
+    <meta property="twitter:description" content="🚀 Check your Pharos testnet rank instantly! Track points, level progress & compete on leaderboard.">
+    <meta property="twitter:image" content="https://pharoshub.xyz/assets/images/branding/logo_new.png">
+    <meta property="twitter:creator" content="@avzcrypto">
+    
+    <!-- Canonical and Favicon -->
     <link rel="canonical" href="https://pharoshub.xyz/">
     <link rel="icon" type="image/webp" href="./assets/images/branding/logo.webp">
+    
+    <!-- Performance Optimization -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./assets/styles/main.css" as="style">
+    <link rel="preload" href="./assets/scripts/main.js" as="script">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="./assets/styles/main.css">
     
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9R37J7CL3J"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -24,10 +60,10 @@
 </head>
 <body>
     <div class="container" id="container">
-        <div class="header-section">
+        <header class="header-section">
             <div class="header-left">
-    <img src="./assets/images/branding/logo_new.png" alt="Pharos Stats Checker" class="header-logo-main">
-</div>
+                <img src="./assets/images/branding/logo_new.png" alt="Pharos Stats Checker - Track Your Testnet Progress" class="header-logo-main" width="460" height="220">
+            </div>
             
             <div class="header-right">
                 <h2 class="form-title">Enter your wallet address</h2>
@@ -40,513 +76,542 @@
                             id="walletAddress"
                             placeholder="0x..."
                             spellcheck="false"
+                            autocomplete="off"
+                            aria-label="Ethereum wallet address"
+                            maxlength="42"
                         >
                     </div>
                 </div>
 
-                <button class="check-button" id="checkButton">
+                <button class="check-button" id="checkButton" type="button" aria-describedby="error">
                     Check Statistics
                 </button>
 
-                <div class="error" id="error"></div>
+                <div class="error" id="error" role="alert" aria-live="polite"></div>
             </div>
-        </div>
+        </header>
 
-        <div class="loading" id="loading">
-            <img src="./assets/images/misc/loading.webp" alt="Loading" class="loading-emoji">
+        <div class="loading" id="loading" role="status" aria-live="polite">
+            <img src="./assets/images/misc/loading.webp" alt="" class="loading-emoji" width="120" height="120">
             <p class="loading-text">Loading...</p>
         </div>
 
         <!-- Tab Navigation -->
-<div class="tab-navigation" id="tabNavigation" style="display: none;">
-    <button class="tab-btn active" onclick="switchTab('results')">📊 Your Results</button>
-    <button class="tab-btn" onclick="switchTab('dashboard')">🏆 Dashboard</button>
-</div>
+        <nav class="tab-navigation" id="tabNavigation" style="display: none;" role="tablist" aria-label="Main navigation">
+            <button class="tab-btn active" onclick="switchTab('results')" role="tab" aria-selected="true" aria-controls="tab-results">📊 Your Results</button>
+            <button class="tab-btn" onclick="switchTab('dashboard')" role="tab" aria-selected="false" aria-controls="tab-dashboard">🏆 Dashboard</button>
+        </nav>
 
-<!-- Tab Content: Results -->
-<div class="tab-content active" id="tab-results">
-    <div class="results-section" id="results">
-            <!-- STATS ALL -->
-<div class="top-stats animate__fadeInUp animate-delay-1">
-    <div class="stat-card">
-        <div class="combined-values">
-            <div class="stat-group">
-                <div class="stat-value" id="totalPoints">15,647</div>
-                <div class="stat-label">Total Points</div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-group">
-                <div class="stat-value" id="currentLevel">6</div>
-                <div class="stat-label">Current Level</div>
-                <div class="level-progress">
-                    <div class="level-progress-bar" id="levelProgress" style="width: 65%"></div>
+        <!-- Tab Content: Results -->
+        <main class="tab-content active" id="tab-results" role="tabpanel" aria-labelledby="results-tab">
+            <section class="results-section" id="results">
+                <!-- STATS ALL -->
+                <div class="top-stats animate__fadeInUp animate-delay-1">
+                    <div class="stat-card">
+                        <div class="combined-values">
+                            <div class="stat-group">
+                                <div class="stat-value" id="totalPoints" aria-label="Total points earned">15,647</div>
+                                <div class="stat-label">Total Points</div>
+                            </div>
+                            <div class="stat-divider" aria-hidden="true"></div>
+                            <div class="stat-group">
+                                <div class="stat-value" id="currentLevel" aria-label="Current level">6</div>
+                                <div class="stat-label">Current Level</div>
+                                <div class="level-progress" role="progressbar" aria-label="Level progress">
+                                    <div class="level-progress-bar" id="levelProgress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="combined-values">
+                            <div class="stat-group">
+                                <div class="stat-value" id="currentRank" aria-label="Current rank">#1,234</div>
+                                <div class="stat-label">PharosHub Rank</div>
+                                <div class="rank-context">of <span id="totalUsers">270,456</span> users</div>
+                            </div>
+                            <div class="stat-divider" aria-hidden="true"></div>
+                            <div class="stat-group">
+                                <div class="stat-value" id="testnetDays" aria-label="Days on testnet">125</div>
+                                <div class="stat-label">Testnet Days</div>
+                                <div class="member-since-details" id="memberSinceDate">Since Nov 15, 2024</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="stat-card">
-        <div class="combined-values">
-            <div class="stat-group">
-                <div class="stat-value" id="currentRank">#1,234</div>
-                <div class="stat-label">PharosHub Rank</div>
-                <div class="rank-context">of <span id="totalUsers">270,456</span> users</div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-group">
-                <div class="stat-value" id="testnetDays">125</div>
-                <div class="stat-label">Testnet Days</div>
-                <div class="member-since-details" id="memberSinceDate">Since Nov 15, 2024</div>
-            </div>
-        </div>
-    </div>
-</div>
 
-            <!-- author - result page -->
-            <div class="author-footer animate__fadeInUp animate-delay-2">
-                <a href="https://x.com/avzcrypto" target="_blank" class="author-block-final" id="resultsAuthorLink">
-                    <div class="gradient-line"></div>
+                <!-- Author - result page -->
+                <div class="author-footer animate__fadeInUp animate-delay-2">
+                    <a href="https://x.com/avzcrypto" target="_blank" rel="noopener noreferrer" class="author-block-final" id="resultsAuthorLink" aria-label="Follow @avzcrypto on X (Twitter)">
+                        <div class="gradient-line" aria-hidden="true"></div>
+                        <div class="author-left-final">
+                            <div class="author-icon-final">
+                                <img src="./assets/images/misc/pfp.jpg" alt="avzcrypto profile picture" class="author-avatar-img" width="64" height="64">
+                            </div>
+                            <div class="author-text-final">
+                                <div class="author-name-final">
+                                    Created by @avzcrypto
+                                </div>
+                                <div class="author-subtitle-final">Follow for Alpha Updates & Insights</div>
+                            </div>
+                        </div>
+                        <div class="cta-neomorphic">
+                            <span>Follow Me</span>
+                            <span aria-hidden="true">🚀</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Season Switcher -->
+                <div class="season-switcher-container">
+                    <div class="season-switcher" role="tablist" aria-label="Season selection">
+                        <div class="season-tab select" data-season="season2" role="tab" aria-selected="true" tabindex="0">
+                            Season 2
+                            <div class="live-badge" aria-label="Currently live">
+                                <div class="live-dot" aria-hidden="true"></div>
+                                <span class="live-text">Live</span>
+                            </div>
+                        </div>
+                        <div class="season-tab" data-season="season1" role="tab" aria-selected="false" tabindex="-1">
+                            Season 1
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEASON 1 CONTENT -->
+                <div id="season1-content" role="tabpanel" aria-labelledby="season1-tab">
+                    <section class="tasks-section">
+                        <div class="task-card">
+                            <div class="task-main">
+                                <div class="task-left">
+                                    <img src="./assets/images/tasks-icons/send.png" alt="" class="task-icon" width="60" height="60">
+                                    <div class="task-name">Send To Friends</div>
+                                </div>
+                                <div class="task-count" id="sendCount" aria-label="Send transactions completed">156</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="./assets/images/tasks-icons/zenith.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            Zenith Protocol
+                        </h3>
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/swap.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Swaps</div>
+                                    </div>
+                                    <div class="task-count" id="zenithSwaps" aria-label="Zenith swaps completed">43</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/lp.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Provide Liquidity</div>
+                                    </div>
+                                    <div class="task-count" id="zenithLP" aria-label="Zenith liquidity provisions">28</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="./assets/images/tasks-icons/faroswap.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            Faroswap Protocol
+                        </h3>
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/swap.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Swaps</div>
+                                    </div>
+                                    <div class="task-count" id="faroswapSwaps" aria-label="Faroswap swaps completed">15</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/lp.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Provide Liquidity</div>
+                                    </div>
+                                    <div class="task-count" id="faroswapLP" aria-label="Faroswap liquidity provisions">9</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="./assets/images/tasks-icons/nft.jpg" alt="" class="protocol-icon-img" width="32" height="32">
+                            NFT & Domains
+                        </h3>
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/domain.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Domains</div>
+                                    </div>
+                                    <div class="task-count" id="mintDomain" aria-label="Domains minted">2</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/nft.jpg" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Collect NFTs</div>
+                                    </div>
+                                    <div class="task-count" id="mintNFT" aria-label="NFTs collected">1</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- SEASON 2 CONTENT -->
+                <div id="season2-content" role="tabpanel" aria-labelledby="season2-tab">
+                    <!-- PRIMUSLABS SEND -->
+                    <section class="tasks-section">
+                        <div class="task-card">
+                            <div class="task-main">
+                                <div class="task-left">
+                                    <img src="./assets/images/tasks-icons/primus.png" alt="" class="task-icon" width="60" height="60">
+                                    <div class="task-name">Primuslabs Send</div>
+                                </div>
+                                <div class="task-count" id="primuslabsSend" aria-label="Primuslabs sends completed">0</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- STAKE + LEND & BORROW -->
+                    <section class="tasks-section">
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/staking.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Stake</div>
+                                    </div>
+                                    <div class="task-count" id="stake" aria-label="Stakes completed">0</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/lending-new.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Lend & Borrow</div>
+                                    </div>
+                                    <div class="task-count" id="lendBorrow" aria-label="Lending activities completed">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- RWAfi CATEGORY -->
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="./assets/images/tasks-icons/rwafi.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            RWAfi
+                        </h3>
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/r2.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">R2 Swap</div>
+                                    </div>
+                                    <div class="task-count" id="r2Swap" aria-label="R2 swaps completed">0</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/r2.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">R2 Earn</div>
+                                    </div>
+                                    <div class="task-count" id="r2Earn" aria-label="R2 earning activities">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/spout.jpg" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Spout</div>
+                                    </div>
+                                    <div class="task-count" id="spout" aria-label="Spout activities completed">0</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/aqua.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">AquaFlux</div>
+                                    </div>
+                                    <div class="task-count" id="rwafi" aria-label="AquaFlux activities completed">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- TRADING CATEGORY -->
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="./assets/images/tasks-icons/cfd.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            Trading
+                        </h3>
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/bitverse.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Bitverse</div>
+                                    </div>
+                                    <div class="task-count" id="bitverse" aria-label="Bitverse trading activities">0</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="./assets/images/tasks-icons/brokex.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Brokex</div>
+                                    </div>
+                                    <div class="task-count" id="cfdTrading" aria-label="Brokex CFD trading activities">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Cache Disclaimer -->
+                <div class="cache-disclaimer">
+                    <div class="disclaimer-icon" aria-hidden="true">⏱️</div>
+                    <div class="disclaimer-content">
+                        <div class="disclaimer-title">Data Updates</div>
+                        <div class="disclaimer-text">
+                            Statistics are refreshed every <strong>1 hour</strong>. 
+                            Recent activities may take up to 60 minutes to appear in your results.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Author - main page -->
+            <footer class="author-footer" id="mainPageFooter">
+                <a href="https://x.com/avzcrypto" target="_blank" rel="noopener noreferrer" class="author-block-final" id="authorLink" aria-label="Follow @avzcrypto on X (Twitter)">
+                    <div class="gradient-line" aria-hidden="true"></div>
                     <div class="author-left-final">
                         <div class="author-icon-final">
-                            <img src="./assets/images/misc/pfp.jpg" alt="@avzcrypto" class="author-avatar-img">
+                            <img src="./assets/images/misc/pfp.jpg" alt="avzcrypto profile picture" class="author-avatar-img" width="64" height="64">
                         </div>
                         <div class="author-text-final">
                             <div class="author-name-final">
                                 Created by @avzcrypto
                             </div>
-                            <div class="author-subtitle-final">Follow for Alpha Updates & Insights</div>
+                            <div class="author-subtitle-final">Follow For Alpha Updates & Insights</div>
                         </div>
                     </div>
                     <div class="cta-neomorphic">
                         <span>Follow Me</span>
-                        <span>🚀</span>
+                        <span aria-hidden="true">🚀</span>
                     </div>
                 </a>
-            </div>
+            </footer>
+        </main>
 
-            <!-- Switch Season -->
-            <div class="season-switcher-container">
-                <div class="season-switcher">
-                    <div class="season-tab select" data-season="season2">
-                        Season 2
-                        <div class="live-badge">
-                            <div class="live-dot"></div>
-                            <span class="live-text">Live</span>
-                        </div>
-                    </div>
-                    <div class="season-tab" data-season="season1">
-                        Season 1
-                    </div>
+        <!-- Tab Content: Dashboard -->
+        <div class="tab-content" id="tab-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+            <!-- Dashboard Stats -->
+            <section class="dashboard-stats">
+                <div class="dashboard-stat-card">
+                    <div class="dashboard-stat-value" id="dashboardTotalUsers" aria-label="Total users">488.4K</div>
+                    <div class="dashboard-stat-label">Total Users</div>
                 </div>
-            </div>
-
-            <!-- SEASON 1 CONTENT -->
-            <div id="season1-content">
-                <div class="tasks-section">
-                    <div class="task-card">
-                        <div class="task-main">
-                            <div class="task-left">
-                                <img src="./assets/images/tasks-icons/send.png" alt="Send" class="task-icon">
-                                <div class="task-name">Send To Friends</div>
-                            </div>
-                            <div class="task-count" id="sendCount">156</div>
-                        </div>
-                    </div>
+                <div class="dashboard-stat-card">
+                    <div class="dashboard-stat-value" id="dashboardTotalChecks" aria-label="Total checks">6.1M</div>
+                    <div class="dashboard-stat-label">Total Checks</div>
                 </div>
-
-                <div class="tasks-section">
-                    <h3 class="section-title">
-                        <img src="./assets/images/tasks-icons/zenith.png" alt="Zenith" class="protocol-icon-img">
-                        Zenith Protocol
-                    </h3>
-                    <div class="protocol-grid">
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/swap.png" alt="Swap" class="task-icon">
-                                    <div class="task-name">Swaps</div>
-                                </div>
-                                <div class="task-count" id="zenithSwaps">43</div>
-                            </div>
-                        </div>
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/lp.png" alt="LP" class="task-icon">
-                                    <div class="task-name">Provide Liquidity</div>
-                                </div>
-                                <div class="task-count" id="zenithLP">28</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="dashboard-stat-card">
+                    <div class="dashboard-stat-value" id="dashboardTopScore" aria-label="Top score">22.3K</div>
+                    <div class="dashboard-stat-label">Top Score</div>
                 </div>
+            </section>
 
-                <div class="tasks-section">
-                    <h3 class="section-title">
-                        <img src="./assets/images/tasks-icons/faroswap.png" alt="Faroswap" class="protocol-icon-img">
-                        Faroswap Protocol
-                    </h3>
-                    <div class="protocol-grid">
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/swap.png" alt="Swap" class="task-icon">
-                                    <div class="task-name">Swaps</div>
-                                </div>
-                                <div class="task-count" id="faroswapSwaps">15</div>
-                            </div>
-                        </div>
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/lp.png" alt="LP" class="task-icon">
-                                    <div class="task-name">Provide Liquidity</div>
-                                </div>
-                                <div class="task-count" id="faroswapLP">9</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tasks-section">
-                    <h3 class="section-title">
-                        <img src="./assets/images/tasks-icons/nft.jpg" alt="NFT" class="protocol-icon-img">
-                        NFT & Domains
-                    </h3>
-                    <div class="protocol-grid">
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/domain.png" alt="Domain" class="task-icon">
-                                    <div class="task-name">Domains</div>
-                                </div>
-                                <div class="task-count" id="mintDomain">2</div>
-                            </div>
-                        </div>
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/nft.jpg" alt="NFT" class="task-icon">
-                                    <div class="task-name">Collect NFTs</div>
-                                </div>
-                                <div class="task-count" id="mintNFT">1</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SEASON 2 CONTENT -->
-            <div id="season2-content" style="display: none;">
-                <!-- PRIMUSLABS SEND -->
-                <div class="tasks-section">
-                    <div class="task-card">
-                        <div class="task-main">
-                            <div class="task-left">
-                                <img src="./assets/images/tasks-icons/primus.png" alt="Primuslabs" class="task-icon">
-                                <div class="task-name">Primuslabs Send</div>
-                            </div>
-                            <div class="task-count" id="primuslabsSend">0</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STAKE + LEND & BORROW -->
-                <div class="tasks-section">
-                    <div class="protocol-grid">
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/staking.png" alt="Stake" class="task-icon">
-                                    <div class="task-name">Stake</div>
-                                </div>
-                                <div class="task-count" id="stake">0</div>
-                            </div>
-                        </div>
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/lending-new.png" alt="Lend & Borrow" class="task-icon">
-                                    <div class="task-name">Lend & Borrow</div>
-                                </div>
-                                <div class="task-count" id="lendBorrow">0</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- RWAfi CATEGORY -->
-                <div class="tasks-section">
-                    <h3 class="section-title">
-                        <img src="./assets/images/tasks-icons/rwafi.png" alt="RWAfi" class="protocol-icon-img">
-                        RWAfi
-                    </h3>
-                    <div class="protocol-grid">
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/r2.png" alt="R2 Swap" class="task-icon">
-                                    <div class="task-name">R2 Swap</div>
-                                </div>
-                                <div class="task-count" id="r2Swap">0</div>
-                            </div>
-                        </div>
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/r2.png" alt="R2 Earn" class="task-icon">
-                                    <div class="task-name">R2 Earn</div>
-                                </div>
-                                <div class="task-count" id="r2Earn">0</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="protocol-grid">
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/spout.jpg" alt="Spout" class="task-icon">
-                                    <div class="task-name">Spout</div>
-                                </div>
-                                <div class="task-count" id="spout">0</div>
-                            </div>
-                        </div>
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/aqua.png" alt="AquaFlux" class="task-icon">
-                                    <div class="task-name">AquaFlux</div>
-                                </div>
-                                <div class="task-count" id="rwafi">0</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TRADING CATEGORY -->
-                <div class="tasks-section">
-                    <h3 class="section-title">
-                        <img src="./assets/images/tasks-icons/cfd.png" alt="Trading" class="protocol-icon-img">
-                        Trading
-                    </h3>
-                    <div class="protocol-grid">
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/bitverse.png" alt="Bitverse" class="task-icon">
-                                    <div class="task-name">Bitverse</div>
-                                </div>
-                                <div class="task-count" id="bitverse">0</div>
-                            </div>
-                        </div>
-                        <div class="task-card">
-                            <div class="task-main">
-                                <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/brokex.png" alt="Brokex" class="task-icon">
-                                    <div class="task-name">Brokex</div>
-                                </div>
-                                <div class="task-count" id="cfdTrading">0</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cache Disclaimer -->
+            <!-- Data Source Disclaimer -->
             <div class="cache-disclaimer">
-                <div class="disclaimer-icon">⏱️</div>
+                <div class="disclaimer-icon" aria-hidden="true">ℹ️</div>
                 <div class="disclaimer-content">
-                    <div class="disclaimer-title">Data Updates</div>
+                    <div class="disclaimer-title">Data Source</div>
                     <div class="disclaimer-text">
-                        Statistics are refreshed every <strong>1 hour</strong>. 
-                        Recent activities may take up to 60 minutes to appear in your results.
+                        This dashboard displays statistics based on users who have checked their Pharos testnet progress on <strong>pharoshub.xyz</strong>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- author - main page -->
-        <div class="author-footer" id="mainPageFooter">
-            <a href="https://x.com/avzcrypto" target="_blank" class="author-block-final" id="authorLink">
-                <div class="gradient-line"></div>
-                <div class="author-left-final">
-                    <div class="author-icon-final">
-                        <img src="./assets/images/misc/pfp.jpg" alt="@avzcrypto" class="author-avatar-img">
+            
+            <!-- Level Distribution -->
+            <section class="level-distribution">
+                <div class="distribution-title">
+                    📊 User Distribution by Level
+                </div>
+                <div id="levelBars">
+                    <div class="level-bar">
+                        <img src="./assets/images/level-badges/level1.png" alt="" class="level-icon" width="44" height="44">
+                        <div class="level-info">
+                            <div class="level-name">Level 1</div>
+                            <div class="level-range">0-1,000 pts</div>
+                        </div>
+                        <div class="level-bar-container" role="progressbar" aria-label="Level 1 user distribution">
+                            <div class="level-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="level-count" aria-label="Level 1 users count">Loading...</div>
                     </div>
-                    <div class="author-text-final">
-                        <div class="author-name-final">
-                            Created by @avzcrypto
+                    <div class="level-bar">
+                        <img src="./assets/images/level-badges/level2.png" alt="" class="level-icon" width="44" height="44">
+                        <div class="level-info">
+                            <div class="level-name">Level 2</div>
+                            <div class="level-range">1,001-3,500 pts</div>
                         </div>
-                        <div class="author-subtitle-final">Follow For Alpha Updates & Insights</div>
+                        <div class="level-bar-container" role="progressbar" aria-label="Level 2 user distribution">
+                            <div class="level-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="level-count" aria-label="Level 2 users count">Loading...</div>
+                    </div>
+                    <div class="level-bar">
+                        <img src="./assets/images/level-badges/level3.png" alt="" class="level-icon" width="44" height="44">
+                        <div class="level-info">
+                            <div class="level-name">Level 3</div>
+                            <div class="level-range">3,501-6,000 pts</div>
+                        </div>
+                        <div class="level-bar-container" role="progressbar" aria-label="Level 3 user distribution">
+                            <div class="level-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="level-count" aria-label="Level 3 users count">Loading...</div>
+                    </div>
+                    <div class="level-bar">
+                        <img src="./assets/images/level-badges/level4.png" alt="" class="level-icon" width="44" height="44">
+                        <div class="level-info">
+                            <div class="level-name">Level 4</div>
+                            <div class="level-range">6,001-10,000 pts</div>
+                        </div>
+                        <div class="level-bar-container" role="progressbar" aria-label="Level 4 user distribution">
+                            <div class="level-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="level-count" aria-label="Level 4 users count">Loading...</div>
+                    </div>
+                    <div class="level-bar">
+                        <img src="./assets/images/level-badges/level5.png" alt="" class="level-icon" width="44" height="44">
+                        <div class="level-info">
+                            <div class="level-name">Level 5</div>
+                            <div class="level-range">10,001-20,000 pts</div>
+                        </div>
+                        <div class="level-bar-container" role="progressbar" aria-label="Level 5 user distribution">
+                            <div class="level-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="level-count" aria-label="Level 5 users count">Loading...</div>
                     </div>
                 </div>
-                <div class="cta-neomorphic">
-                    <span>Follow Me</span>
-                    <span>🚀</span>
-                </div>
-            </a>
-        </div>
-    </div> <!-- Закрываем tab-results -->
+            </section>
 
-    <!-- Tab Content: Dashboard -->
-<div class="tab-content" id="tab-dashboard">
-    <!-- Dashboard Stats -->
-    <div class="dashboard-stats">
-        <div class="dashboard-stat-card">
-            <div class="dashboard-stat-value" id="dashboardTotalUsers">488.4K</div>
-            <div class="dashboard-stat-label">Total Users</div>
-        </div>
-        <div class="dashboard-stat-card">
-            <div class="dashboard-stat-value" id="dashboardTotalChecks">6.1M</div>
-            <div class="dashboard-stat-label">Total Checks</div>
-        </div>
-        <div class="dashboard-stat-card">
-            <div class="dashboard-stat-value" id="dashboardTopScore">22.3K</div>
-            <div class="dashboard-stat-label">Top Score</div>
-        </div>
-    </div>
-
-<!-- Data Source Disclaimer -->
-    <div class="cache-disclaimer">
-        <div class="disclaimer-icon">ℹ️</div>
-        <div class="disclaimer-content">
-            <div class="disclaimer-title">Data Source</div>
-            <div class="disclaimer-text">
-                This dashboard displays statistics based on users who have checked their Pharos testnet progress on <strong>pharoshub.xyz</strong>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Level Distribution -->
-    <div class="level-distribution">
-        <div class="distribution-title">
-            📊 User Distribution by Level
-        </div>
-        <div id="levelBars">
-            <div class="level-bar">
-                <img src="./assets/images/level-badges/level1.png" alt="Level 1" class="level-icon">
-                <div class="level-info">
-                    <div class="level-name">Level 1</div>
-                    <div class="level-range">0-1,000 pts</div>
-                        </div>
-                    <div class="level-bar-container">
-                    <div class="level-progress-bar level-1-bar" style="width: 0%"></div>
+            <!-- Top Users Table -->
+            <section class="top-users">
+                <div class="top-users-title">
+                    🏆 Top 100 Users
                 </div>
-                <div class="level-count">Loading...</div>
-            </div>
-            <div class="level-bar">
-                <img src="./assets/images/level-badges/level2.png" alt="Level 2" class="level-icon">
-                <div class="level-info">
-                    <div class="level-name">Level 2</div>
-                    <div class="level-range">1,001-3,500 pts</div>
-                        </div>
-                    <div class="level-bar-container">
-            <div class="level-progress-bar level-2-bar" style="width: 0%"></div>
+                
+                <!-- Pagination Info -->
+                <div class="pagination-info-top">
+                    <span id="usersRangeInfo">Showing 1-10 of 100</span>
+                    <div class="users-per-page">
+                        <span>Page <span id="currentPageDisplay">1</span> of <span id="totalPagesDisplay">10</span></span>
+                    </div>
                 </div>
-                <div class="level-count">Loading...</div>
-            </div>
-            <div class="level-bar">
-                <img src="./assets/images/level-badges/level3.png" alt="Level 3" class="level-icon">
-                <div class="level-info">
-                    <div class="level-name">Level 3</div>
-                    <div class="level-range">3,501-6,000 pts</div>
-                        </div>
-                    <div class="level-bar-container">
-            <div class="level-progress-bar level-3-bar" style="width: 0%"></div>
+                
+                <div class="table-container">
+                    <table class="users-table" role="table" aria-label="Top 100 users leaderboard">
+                        <thead>
+                            <tr role="row">
+                                <th scope="col" style="width: 80px;">Rank</th>
+                                <th scope="col" style="width: 180px;">User</th>
+                                <th scope="col" style="width: 200px;">Points & Level</th>
+                                <th scope="col" style="width: 160px;">Member Since</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboardUsersTable">
+                            <tr role="row">
+                                <td>
+                                    <div class="rank-badge rank-1">1</div>
+                                </td>
+                                <td>
+                                    <div class="user-address">0x1234...5678</div>
+                                </td>
+                                <td>
+                                    <div class="points-level-stack">
+                                        <div class="points">15,647</div>
+                                        <div class="level-badge">LVL 5</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="member-since">Nov 15, 2024</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="level-count">Loading...</div>
-            </div>
-            <div class="level-bar">
-                <img src="./assets/images/level-badges/level4.png" alt="Level 4" class="level-icon">
-                <div class="level-info">
-                    <div class="level-name">Level 4</div>
-                    <div class="level-range">6,001-10,000 pts</div>
-                        </div>
-                    <div class="level-bar-container">
-            <div class="level-progress-bar level-4-bar" style="width: 0%"></div>
-                </div>
-                <div class="level-count">Loading...</div>
-            </div>
-            <div class="level-bar">
-                <img src="./assets/images/level-badges/level5.png" alt="Level 5" class="level-icon">
-                <div class="level-info">
-                    <div class="level-name">Level 5</div>
-                    <div class="level-range">10,001-20,000 pts</div>
-                        </div>
-                    <div class="level-bar-container">
-            <div class="level-progress-bar level-5-bar" style="width: 0%"></div>
-                </div>
-                <div class="level-count">Loading...</div>
-            </div>
+                
+                <!-- Pagination Controls -->
+                <nav class="users-pagination" aria-label="Pagination navigation">
+                    <button class="pagination-btn" id="firstPageBtn" disabled aria-label="Go to first page">⏮ First</button>
+                    <button class="pagination-btn" id="prevPageBtn" disabled aria-label="Go to previous page">← Prev</button>
+                    
+                    <div class="page-numbers" id="pageNumbers" role="group" aria-label="Page numbers">
+                        <button class="pagination-btn page-number active" data-page="1" aria-label="Page 1, current page" aria-current="page">1</button>
+                        <button class="pagination-btn page-number" data-page="2" aria-label="Go to page 2">2</button>
+                        <button class="pagination-btn page-number" data-page="3" aria-label="Go to page 3">3</button>
+                        <span class="page-dots" aria-hidden="true">...</span>
+                        <button class="pagination-btn page-number" data-page="10" aria-label="Go to page 10">10</button>
+                    </div>
+                    
+                    <button class="pagination-btn" id="nextPageBtn" aria-label="Go to next page">Next →</button>
+                    <button class="pagination-btn" id="lastPageBtn" aria-label="Go to last page">⏭ Last</button>
+                </nav>
+            </section>
         </div>
     </div>
 
-    <!-- Top Users Table -->
-<div class="top-users">
-    <div class="top-users-title">
-        🏆 Top 100 Users
-    </div>
-    
-    <!-- Pagination Info -->
-    <div class="pagination-info-top">
-        <span id="usersRangeInfo">Showing 1-10 of 100</span>
-        <div class="users-per-page">
-            <span>Page <span id="currentPageDisplay">1</span> of <span id="totalPagesDisplay">10</span></span>
-        </div>
-    </div>
-    
-    <table class="users-table">
-    <thead>
-        <tr>
-            <th style="width: 80px;">Rank</th>
-            <th style="width: 180px;">User</th>
-            <th style="width: 200px;">Points & Level</th>
-            <th style="width: 160px;">Member Since</th>
-        </tr>
-    </thead>
-    <tbody id="dashboardUsersTable">
-        <!-- Пример структуры строки - это будет генерироваться JavaScript -->
-        <tr>
-            <td>
-                <div class="rank-badge rank-1">1</div>
-            </td>
-            <td>
-                <div class="user-address">0x1234...5678</div>
-            </td>
-            <td>
-                <div class="points-level-stack">
-                    <div class="points">15,647</div>
-                    <div class="level-badge">LVL 5</div>
-                </div>
-            </td>
-            <td>
-                <div class="member-since">Nov 15, 2024</div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-    
-    <!-- Pagination Controls -->
-    <div class="users-pagination">
-        <button class="pagination-btn" id="firstPageBtn" disabled>⏮ First</button>
-        <button class="pagination-btn" id="prevPageBtn" disabled>← Prev</button>
-        
-        <div class="page-numbers" id="pageNumbers">
-            <button class="pagination-btn page-number active" data-page="1">1</button>
-            <button class="pagination-btn page-number" data-page="2">2</button>
-            <button class="pagination-btn page-number" data-page="3">3</button>
-            <span class="page-dots">...</span>
-            <button class="pagination-btn page-number" data-page="10">10</button>
-        </div>
-        
-        <button class="pagination-btn" id="nextPageBtn">Next →</button>
-        <button class="pagination-btn" id="lastPageBtn">⏭ Last</button>
-    </div>
-</div>
-</div>
-</div> <!-- Закрываем основной контейнер -->
-    </div>
-
+    <!-- Scripts -->
     <script src="./assets/scripts/main.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Pharos Stats Checker",
+        "description": "Check your Pharos testnet rank instantly! Track points, level progress & compete on leaderboard.",
+        "url": "https://pharoshub.xyz/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Person",
+            "name": "avzcrypto",
+            "url": "https://x.com/avzcrypto"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "browserRequirements": "Requires JavaScript",
+        "screenshot": "https://pharoshub.xyz/assets/images/branding/logo_new.png"
+    }
+    </script>
 </body>
 </html>
