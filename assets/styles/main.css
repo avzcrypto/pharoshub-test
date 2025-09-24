@@ -6,23 +6,13 @@
 
 /* === CSS CUSTOM PROPERTIES === */
 
-/* UTO FONTS */
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraLight.ttf') format('truetype'); font-weight: 200; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraLightItalic.ttf') format('truetype'); font-weight: 200; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-LightItalic.ttf') format('truetype'); font-weight: 300; font-style: italic; font-display: swap; }
+/* UTO FONTS - OPTIMIZED (только используемые веса) */
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-MediumItalic.ttf') format('truetype'); font-weight: 500; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-SemiBoldItalic.ttf') format('truetype'); font-weight: 600; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-BoldItalic.ttf') format('truetype'); font-weight: 700; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-ExtraBoldItalic.ttf') format('truetype'); font-weight: 800; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-Black.ttf') format('truetype'); font-weight: 900; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Uto'; src: url('../fonts/Uto-BlackItalic.ttf') format('truetype'); font-weight: 900; font-style: italic; font-display: swap; }
 
 :root {
     /* Pharos Brand Colors */
@@ -618,7 +608,7 @@ body {
     cursor: not-allowed;
 }
 
-/* Progress bars for level distribution */
+/* Progress bars for level distribution - ИСПРАВЛЕННЫЕ СЕЛЕКТОРЫ */
 .level-bar-container {
     width: 50%;
     height: 20px;
@@ -635,12 +625,12 @@ body {
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Level-specific progress bar colors using brand colors */
-.level-1-bar { background: linear-gradient(90deg, #2c4375, #1a2951); }
-.level-2-bar { background: linear-gradient(90deg, #31bff0, #247fc3); }
-.level-3-bar { background: linear-gradient(90deg, #247fc3, #1c6399); }
-.level-4-bar { background: linear-gradient(90deg, #e0eaa9, #d4dd8c); }
-.level-5-bar { background: linear-gradient(90deg, #fcd6cf, #f9c5b5); }
+/* Level-specific progress bar colors using brand colors - ПРАВИЛЬНЫЕ СЕЛЕКТОРЫ */
+.level-bar:nth-child(1) .level-progress-bar { background: linear-gradient(90deg, #2c4375, #1a2951); }
+.level-bar:nth-child(2) .level-progress-bar { background: linear-gradient(90deg, #31bff0, #247fc3); }
+.level-bar:nth-child(3) .level-progress-bar { background: linear-gradient(90deg, #247fc3, #1c6399); }
+.level-bar:nth-child(4) .level-progress-bar { background: linear-gradient(90deg, #e0eaa9, #d4dd8c); }
+.level-bar:nth-child(5) .level-progress-bar { background: linear-gradient(90deg, #fcd6cf, #f9c5b5); }
 
 /* === ANIMATIONS === */
 @keyframes fadeInUp {
