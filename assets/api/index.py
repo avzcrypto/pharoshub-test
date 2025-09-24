@@ -515,25 +515,27 @@ class RedisManager:
             
             # Calculate level distribution for ALL users
             level_distribution = {
-                'level-1': 0, 'level-2': 0, 'level-3': 0, 'level-4': 0, 'level-5': 0
-            }
+    'level-1': 0, 'level-2': 0, 'level-3': 0, 'level-4': 0, 'level-5': 0, 'level-6': 0
+          }
             
             for wallet_bytes, points in all_wallets:
-                try:
-                    points = int(points)
-                    # Level distribution based on Pharos level system
-                    if points <= 1000:
-                        level_distribution['level-1'] += 1
-                    elif points <= 3500:
-                        level_distribution['level-2'] += 1
-                    elif points <= 6000:
-                        level_distribution['level-3'] += 1
-                    elif points <= 10000:
-                        level_distribution['level-4'] += 1
-                    else:  # 10001+
-                        level_distribution['level-5'] += 1
-                except (ValueError, TypeError):
-                    continue
+    try:
+        points = int(points)
+        # Level distribution based on Pharos level system
+        if points <= 1000:
+            level_distribution['level-1'] += 1
+        elif points <= 3500:
+            level_distribution['level-2'] += 1
+        elif points <= 6000:
+            level_distribution['level-3'] += 1
+        elif points <= 10000:
+            level_distribution['level-4'] += 1
+        elif points <= 20000:
+            level_distribution['level-5'] += 1
+        else:  # 20001+
+            level_distribution['level-6'] += 1
+    except (ValueError, TypeError):
+        continue
             
             total_users = len(all_wallets)
             
