@@ -340,7 +340,7 @@ body {
 }
 
 .level-info {
-    min-width: 200px;
+    min-width: 210px;
     display: flex;
     align-items: center;
     gap: 14px;
@@ -878,7 +878,7 @@ body {
     }
 
     .container .level-info {
-        min-width: 140px; /* уменьшено с 200px */
+        min-width: 145px; /* уменьшено с 200px */
         gap: 10px; /* уменьшено с 14px */
     }
 
