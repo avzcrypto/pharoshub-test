@@ -133,14 +133,17 @@ body {
 }
 
 .header-left {
-    flex: 0 0 480px;
+    flex: 1 1 auto;
+    max-width: 480px;
+    min-width: 300px;
     display: flex;
     align-items: center;
 }
 
 .header-logo-main {
-    width: 460px;
-    height: 220px;
+    width: 100%;
+    max-width: 460px;
+    height: auto;
     object-fit: contain;
 }
 
@@ -689,6 +692,20 @@ body {
 
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
+    .header-section {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 24px !important;
+        text-align: center;
+    }
+
+    .header-left {
+        flex: none !important;
+        max-width: none !important;
+        min-width: none !important;
+        width: 100% !important;
+    }
+    
     .container {
         padding: 20px 16px !important;
     }
