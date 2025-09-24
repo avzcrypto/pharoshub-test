@@ -692,318 +692,334 @@ body {
 
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
-    .header-section {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 24px !important;
+    .container .header-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
         text-align: center;
     }
 
-    .header-left {
-        flex: none !important;
-        max-width: none !important;
-        min-width: none !important;
-        width: 100% !important;
+    .container .header-left {
+        flex: none;
+        max-width: none;
+        min-width: none;
+        width: 100%;
     }
     
     .container {
-        padding: 20px 16px !important;
+        padding: 20px 16px;
     }
 
-    .header-logo-main {
-        width: 95% !important;
-        max-width: none !important;
-        height: auto !important;
+    .container .header-logo-main {
+        width: 95%;
+        max-width: none;
+        height: auto;
     }
 
-    .header-right {
-        max-width: 400px !important;
-        padding: 20px !important;
+    .container .header-right {
+        flex: none;
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
     }
 
-    /* Tab navigation адаптация */
-    .tab-navigation {
-        margin: 16px 0 !important;
+    /* TAB NAVIGATION */
+    .container .tab-navigation {
+        margin: 16px 0;
     }
 
-    .tab-btn {
-        font-size: 16px !important;
-        padding: 14px !important;
+    .container .tab-btn {
+        font-size: 16px;
+        padding: 14px;
     }
 
-    /* Stats cards адаптация */
-    .top-stats {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
+    /* DASHBOARD TITLES - УМЕНЬШЕНЫ ДЛЯ МОБИЛЬНЫХ */
+    .container .distribution-title {
+        font-size: 18px; /* было 24px */
+        margin-bottom: 16px;
     }
     
-    .stat-divider {
-        display: none !important;
+    .container .top-users-title {
+        font-size: 18px; /* было 24px */
+        margin-bottom: 16px;
+    }
+
+    /* STATS CARDS */
+    .container .top-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
     
-    .stat-card {
-        min-height: 140px !important;
-    }
-
-    .combined-values {
-        gap: 20px !important;
-    }
-
-    .protocol-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-    }
-
-    .task-left {
-        gap: 12px !important;
-    }
-
-    .task-icon {
-        width: 48px !important;
-        height: 48px !important;
-    }
-
-    .task-count {
-        font-size: 20px !important;
-        padding: 8px 16px !important;
-        min-width: 60px !important;
-    }
-
-    .task-name {
-        font-size: 14px !important;
-    }
-
-    .stat-value {
-        font-size: 28px !important;
-    }
-
-    .cache-disclaimer {
-        padding: 12px !important;
-        gap: 10px !important;
-        margin-top: 24px !important;
-        margin-bottom: 24px !important;
-    }
-
-    .disclaimer-icon {
-        font-size: 18px !important;
-    }
-
-    .disclaimer-title {
-        font-size: 13px !important;
-    }
-
-    .disclaimer-text {
-        font-size: 12px !important;
-    }
-
-    .author-footer {
-        margin: 4px 0 !important;
-    }
-
-    .author-block-final {
-        flex-direction: column !important;
-        gap: 24px !important;
-        text-align: center !important;
-        padding: 20px 16px !important;
-        margin: 4px 0 !important;
+    .container .stat-divider {
+        display: none;
     }
     
-    .author-left-final {
-        justify-content: center !important;
-        flex-direction: column !important;
-        gap: 16px !important;
-        text-align: center !important;
+    .container .stat-card {
+        min-height: 140px;
+    }
+
+    .container .combined-values {
+        gap: 20px;
+    }
+
+    .container .protocol-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .container .task-left {
+        gap: 12px;
+    }
+
+    .container .task-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .container .task-count {
+        font-size: 20px;
+        padding: 8px 16px;
+        min-width: 60px;
+    }
+
+    .container .task-name {
+        font-size: 14px;
+    }
+
+    .container .stat-value {
+        font-size: 28px;
+    }
+
+    /* DISCLAIMERS */
+    .container .cache-disclaimer {
+        padding: 12px;
+        gap: 10px;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+
+    .container .disclaimer-icon {
+        font-size: 18px;
+    }
+
+    .container .disclaimer-title {
+        font-size: 13px;
+    }
+
+    .container .disclaimer-text {
+        font-size: 12px;
+    }
+
+    /* AUTHOR SECTION */
+    .container .author-footer {
+        margin: 4px 0;
+    }
+
+    .container .author-block-final {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding: 20px 16px;
+        margin: 4px 0;
     }
     
-    .author-text-final {
-        text-align: center !important;
+    .container .author-left-final {
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
     }
     
-    .author-name-final {
-        font-size: 20px !important;
-        justify-content: center !important;
+    .container .author-text-final {
+        text-align: center;
     }
     
-    .author-subtitle-final {
-        font-size: 16px !important;
-        text-align: center !important;
-    }
-
-    .dashboard-stats {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-    }
-
-    .level-bar {
-        padding: 10px !important;
-        gap: 10px !important;
-    }
-
-    .level-icon {
-        width: 28px !important;
-        height: 28px !important;
-    }
-
-    .level-name {
-        font-size: 13px !important;
-    }
-
-    .level-range {
-        font-size: 11px !important;
-    }
-
-    .level-count {
-        font-size: 14px !important;
-    }
-
-    .users-table th,
-    .users-table td {
-        padding: 8px 6px !important;
-        font-size: 12px !important;
-    }
-
-    .rank-badge {
-        width: 24px !important;
-        height: 24px !important;
-        font-size: 11px !important;
-    }
-
-    .user-address {
-        font-size: 12px !important;
-    }
-
-    .points-level-stack .points {
-        font-size: 14px !important;
-    }
-
-    .member-since {
-        font-size: 11px !important;
-    }
-
-    /* Enhanced mobile table */
-    .top-users {
-        padding: 16px !important;
-        margin-top: 20px !important;
+    .container .author-name-final {
+        font-size: 20px;
+        justify-content: center;
     }
     
-    .top-users-title {
-        font-size: 20px !important;
-        margin-bottom: 16px !important;
+    .container .author-subtitle-final {
+        font-size: 16px;
+        text-align: center;
     }
 
-    .table-container {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        margin: 0 -16px !important;
-        padding: 0 16px !important;
+    /* DASHBOARD STATS */
+    .container .dashboard-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 
-    .users-table {
-        min-width: 600px !important;
-        font-size: 12px !important;
+    /* LEVEL DISTRIBUTION - КОМПАКТНЫЕ */
+    .container .level-bar {
+        padding: 8px; /* уменьшено с 10px */
+        gap: 8px; /* уменьшено с 10px */
+        height: 44px; /* уменьшено с 50px */
     }
 
-    .users-table th {
-        padding: 8px 6px !important;
-        font-size: 10px !important;
-        letter-spacing: 0.03em !important;
-        line-height: 1.2 !important;
+    .container .level-icon {
+        width: 24px; /* уменьшено с 28px */
+        height: 24px;
     }
 
-    .users-table th:nth-child(1) { width: 60px !important; }
-    .users-table th:nth-child(2) { width: 120px !important; }
-    .users-table th:nth-child(3) { width: 140px !important; }
-    .users-table th:nth-child(4) { width: 100px !important; }
-
-    .users-table td {
-        padding: 10px 6px !important;
-        vertical-align: middle !important;
+    .container .level-name {
+        font-size: 12px; /* уменьшено с 13px */
+        font-weight: 600;
     }
 
-    .rank-badge {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 11px !important;
-        border-radius: 6px !important;
+    .container .level-range {
+        font-size: 10px; /* уменьшено с 11px */
     }
 
-    .user-address {
-        font-size: 11px !important;
-        font-weight: 600 !important;
-        letter-spacing: -0.3px !important;
+    .container .level-count {
+        font-size: 12px; /* уменьшено с 14px */
+        min-width: 120px; /* уменьшено с 160px */
     }
 
-    .points-level-stack {
-        gap: 6px !important;
-        min-height: 50px !important;
+    .container .level-info {
+        min-width: 140px; /* уменьшено с 200px */
+        gap: 10px; /* уменьшено с 14px */
     }
 
-    .points-level-stack .points {
-        font-size: 14px !important;
-        letter-spacing: -0.3px !important;
-        line-height: 1 !important;
+    /* TABLE - КОМПАКТНАЯ */
+    .container .users-table th,
+    .container .users-table td {
+        padding: 6px 4px; /* уменьшено */
+        font-size: 11px; /* уменьшено */
     }
 
-    .points-level-stack .level-badge {
-        padding: 3px 8px !important;
-        border-radius: 6px !important;
-        font-size: 10px !important;
-        font-weight: 600 !important;
-        min-width: 45px !important;
+    .container .rank-badge {
+        width: 22px; /* уменьшено */
+        height: 22px;
+        font-size: 10px;
     }
 
-    .member-since {
-        font-size: 11px !important;
-        font-weight: 500 !important;
-        letter-spacing: -0.2px !important;
-        line-height: 1.2 !important;
+    .container .user-address {
+        font-size: 11px;
     }
 
-    .pagination-info-top {
-        padding: 0 12px !important;
-        font-size: 13px !important;
-        flex-direction: column !important;
-        gap: 8px !important;
-        text-align: center !important;
+    .container .points-level-stack .points {
+        font-size: 13px; /* уменьшено */
     }
 
-    .users-pagination {
-        padding: 16px 12px 0 !important;
-        gap: 6px !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
+    .container .member-since {
+        font-size: 10px; /* уменьшено */
     }
 
-    .pagination-btn {
-        padding: 8px 10px !important;
-        font-size: 12px !important;
-        min-width: 36px !important;
-        border-radius: 6px !important;
+    /* TABLE CONTAINER */
+    .container .top-users {
+        padding: 12px; /* уменьшено с 16px */
+        margin-top: 20px;
     }
 
-    /* Sticky headers when scrolling */
-    .users-table thead th {
-        position: sticky !important;
-        top: 0 !important;
-        z-index: 10 !important;
-        background: linear-gradient(135deg, #f8fafc, #f1f5f9) !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    .container .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -12px; /* подстройка под padding */
+        padding: 0 12px;
     }
 
-    /* Scroll indicator */
-    .table-container::after {
-        content: '' !important;
-        position: absolute !important;
-        top: 0 !important;
-        right: 0 !important;
-        width: 20px !important;
-        height: 100% !important;
-        background: linear-gradient(to left, rgba(0,0,0,0.1), transparent) !important;
-        pointer-events: none !important;
+    .container .users-table {
+        min-width: 560px; /* уменьшено с 600px */
+        font-size: 11px;
     }
 
-    .users-table tr:hover {
-        background: #f8fafc !important;
+    /* TABLE COLUMN WIDTHS - ОПТИМИЗИРОВАНЫ */
+    .container .users-table th:nth-child(1) { width: 50px; } /* уменьшено */
+    .container .users-table th:nth-child(2) { width: 110px; } /* уменьшено */
+    .container .users-table th:nth-child(3) { width: 130px; } /* уменьшено */
+    .container .users-table th:nth-child(4) { width: 90px; } /* уменьшено */
+
+    .container .users-table td {
+        padding: 8px 4px;
+        vertical-align: middle;
+    }
+
+    .container .rank-badge {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+        border-radius: 5px;
+    }
+
+    .container .user-address {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+    }
+
+    .container .points-level-stack {
+        gap: 4px; /* уменьшено */
+        min-height: 44px; /* уменьшено */
+    }
+
+    .container .points-level-stack .points {
+        font-size: 12px;
+        letter-spacing: -0.3px;
+        line-height: 1;
+    }
+
+    .container .points-level-stack .level-badge {
+        padding: 2px 6px; /* уменьшено */
+        border-radius: 4px;
+        font-size: 9px;
+        font-weight: 600;
+        min-width: 40px; /* уменьшено */
+    }
+
+    .container .member-since {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: -0.2px;
+        line-height: 1.1;
+    }
+
+    /* PAGINATION */
+    .container .pagination-info-top {
+        padding: 0 8px; /* уменьшено */
+        font-size: 12px; /* уменьшено */
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
+
+    .container .users-pagination {
+        padding: 12px 8px 0; /* уменьшено */
+        gap: 4px; /* уменьшено */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .container .pagination-btn {
+        padding: 6px 8px; /* уменьшено */
+        font-size: 11px; /* уменьшено */
+        min-width: 32px; /* уменьшено */
+        border-radius: 5px;
+    }
+
+    /* STICKY HEADERS */
+    .container .users-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* SCROLL INDICATOR */
+    .container .table-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 15px; /* уменьшено */
+        height: 100%;
+        background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+        pointer-events: none;
+    }
+
+    .container .users-table tr:hover {
+        background: #f8fafc;
     }
 }
 
