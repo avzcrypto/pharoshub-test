@@ -894,7 +894,7 @@ function renderUsersPage() {
                 </td>
                 <td>
                     <div class="points-level-stack">
-                        <div class="points">${formatNumber(user.total_points)}</div>
+                        <div class="points">${formatFullNumber(user.total_points)}</div>
                         <div class="level-badge">LVL ${user.current_level}</div>
                     </div>
                 </td>
@@ -1009,6 +1009,10 @@ function formatNumber(num) {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
     return num.toString();
+}
+
+function formatFullNumber(num) {
+    return new Intl.NumberFormat('en-US').format(num);
 }
 
 function showDashboardError() {
