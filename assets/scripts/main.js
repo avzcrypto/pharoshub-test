@@ -1,7 +1,7 @@
 /**
  * Pharos Hub - Main JavaScript
  * Author: @avzcrypto
- * Version: 2.0 - Restructured and Optimized
+ * Version: 2.0 - Production Ready
  */
 
 // === CONFIGURATION ===
@@ -69,7 +69,6 @@ const MemberSinceUtils = {
                 formattedDate: formattedDate
             };
         } catch (error) {
-            console.warn('Error parsing member_since date:', error);
             return {
                 days: 0,
                 formattedDate: 'Unknown'
@@ -128,58 +127,70 @@ const DOMElements = {
 // === ANALYTICS FUNCTIONS ===
 const Analytics = {
     trackPageView() {
-        gtag('event', 'page_view', {
-            page_title: 'Pharos Stats Checker',
-            page_location: window.location.href
-        });
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'Pharos Stats Checker',
+                page_location: window.location.href
+            });
+        }
     },
 
     trackWalletSearch(address) {
-        gtag('event', 'wallet_search', {
-            event_category: 'engagement',
-            event_label: 'wallet_check',
-            wallet_address: address.substring(0, 6) + '...' + address.substring(address.length - 4)
-        });
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'wallet_search', {
+                event_category: 'engagement',
+                event_label: 'wallet_check',
+                wallet_address: address.substring(0, 6) + '...' + address.substring(address.length - 4)
+            });
+        }
     },
 
     trackStatsLoaded(data) {
-        gtag('event', 'stats_loaded', {
-            event_category: 'engagement',
-            event_label: 'successful_check',
-            total_points: data.total_points,
-            user_level: data.current_level,
-            user_rank: data.exact_rank,
-            custom_parameters: {
-                send_count: data.send_count,
-                zenith_swaps: data.zenith_swaps || data.swap_count || 0,
-                faroswap_swaps: data.faroswap_swaps || 0
-            }
-        });
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'stats_loaded', {
+                event_category: 'engagement',
+                event_label: 'successful_check',
+                total_points: data.total_points,
+                user_level: data.current_level,
+                user_rank: data.exact_rank,
+                custom_parameters: {
+                    send_count: data.send_count,
+                    zenith_swaps: data.zenith_swaps || data.swap_count || 0,
+                    faroswap_swaps: data.faroswap_swaps || 0
+                }
+            });
+        }
     },
 
     trackAuthorClick() {
-        gtag('event', 'author_follow_click_neomorphic', {
-            event_category: 'engagement',
-            event_label: 'neomorphic_cta_button',
-            link_url: 'https://x.com/avzcrypto',
-            button_style: 'neomorphic_follow_me'
-        });
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'author_follow_click_neomorphic', {
+                event_category: 'engagement',
+                event_label: 'neomorphic_cta_button',
+                link_url: 'https://x.com/avzcrypto',
+                button_style: 'neomorphic_follow_me'
+            });
+        }
     },
 
     trackSeasonSwitch(season) {
-        gtag('event', 'season_switch', {
-            event_category: 'engagement',
-            event_label: 'season_switcher',
-            season: season
-        });
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'season_switch', {
+                event_category: 'engagement',
+                event_label: 'season_switcher',
+                season: season
+            });
+        }
     },
 
     trackError(errorMessage) {
-        gtag('event', 'error_occurred', {
-            event_category: 'error',
-            event_label: 'wallet_check_failed',
-            error_message: errorMessage
-        });
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'error_occurred', {
+                event_category: 'error',
+                event_label: 'wallet_check_failed',
+                error_message: errorMessage
+            });
+        }
     }
 };
 
@@ -194,6 +205,8 @@ const Utils = {
     },
 
     animateValue(element, start, end, duration = 1000) {
+        if (!element) return;
+        
         const startTime = performance.now();
         const range = end - start;
 
@@ -213,6 +226,8 @@ const Utils = {
     },
 
     animateRank(element, start, end, duration = 1000) {
+        if (!element) return;
+        
         const startTime = performance.now();
         const range = end - start;
 
@@ -250,6 +265,8 @@ const TaskProgress = {
     },
 
     updateTaskWithProgress(taskKey, element, value) {
+        if (!element) return;
+        
         // Animate number
         Utils.animateValue(element, 0, value);
         
@@ -295,10 +312,12 @@ const TaskProgress = {
 // === UI STATE MANAGEMENT ===
 const UIState = {
     showError(message) {
-        DOMElements.error.textContent = message;
-        DOMElements.error.classList.add('show');
-        DOMElements.loading.classList.remove('show');
-        DOMElements.results.classList.remove('show');
+        if (DOMElements.error) {
+            DOMElements.error.textContent = message;
+            DOMElements.error.classList.add('show');
+        }
+        if (DOMElements.loading) DOMElements.loading.classList.remove('show');
+        if (DOMElements.results) DOMElements.results.classList.remove('show');
         
         // Show footer on main page when error occurs
         if (DOMElements.mainPageFooter) {
@@ -310,15 +329,20 @@ const UIState = {
     },
 
     hideError() {
-        DOMElements.error.classList.remove('show');
+        if (DOMElements.error) {
+            DOMElements.error.classList.remove('show');
+        }
     },
 
     showLoading() {
-        DOMElements.loading.classList.add('show');
-        DOMElements.results.classList.remove('show');
+        if (DOMElements.loading) DOMElements.loading.classList.add('show');
+        if (DOMElements.results) DOMElements.results.classList.remove('show');
         this.hideError();
-        DOMElements.checkButton.disabled = true;
-        DOMElements.checkButton.textContent = 'Checking...';
+        
+        if (DOMElements.checkButton) {
+            DOMElements.checkButton.disabled = true;
+            DOMElements.checkButton.textContent = 'Checking...';
+        }
         
         // Hide header section and footer during loading
         if (DOMElements.headerSection) {
@@ -330,9 +354,12 @@ const UIState = {
     },
 
     hideLoading() {
-        DOMElements.loading.classList.remove('show');
-        DOMElements.checkButton.disabled = false;
-        DOMElements.checkButton.textContent = 'Check Statistics';
+        if (DOMElements.loading) DOMElements.loading.classList.remove('show');
+        
+        if (DOMElements.checkButton) {
+            DOMElements.checkButton.disabled = false;
+            DOMElements.checkButton.textContent = 'Check Statistics';
+        }
         
         // Show header section back
         if (DOMElements.headerSection) {
@@ -392,7 +419,7 @@ const LevelCalculator = {
 // === MAIN API FUNCTIONS ===
 const PharosAPI = {
     async checkWalletStats() {
-        const address = DOMElements.walletInput.value.trim();
+        const address = DOMElements.walletInput?.value?.trim();
 
         if (!address) {
             UIState.showError('Please enter a wallet address');
@@ -436,7 +463,7 @@ const PharosAPI = {
             this.displayResults(data);
 
         } catch (err) {
-            console.error('Error:', err);
+            console.error('Wallet check error:', err);
             UIState.showError(err.message || 'Failed to fetch wallet statistics. Please try again.');
         } finally {
             UIState.hideLoading();
@@ -463,26 +490,26 @@ const PharosAPI = {
         
         // Update member since display
         if (DOMElements.testnetDays && DOMElements.memberSinceDate) {
-        const memberData = MemberSinceUtils.formatMemberSince(data.member_since);
-        Utils.animateValue(DOMElements.testnetDays, 0, memberData.days);
-        DOMElements.memberSinceDate.textContent = `Since ${memberData.formattedDate}`;
+            const memberData = MemberSinceUtils.formatMemberSince(data.member_since);
+            Utils.animateValue(DOMElements.testnetDays, 0, memberData.days);
+            DOMElements.memberSinceDate.textContent = `Since ${memberData.formattedDate}`;
         }
 
-       // Update level progress bar
-if (DOMElements.levelProgress) {
-    const currentLevel = Math.min(data.current_level, 5);
-    const levelData = LevelCalculator.levels[currentLevel];
-    
-    if (levelData) {
-        const progressInLevel = data.total_points - levelData.min;
-        const pointsForLevel = levelData.max - levelData.min;
-        const percentage = Math.min((progressInLevel / pointsForLevel) * 100, 100);
-        
-        setTimeout(() => {
-            DOMElements.levelProgress.style.width = `${Math.max(0, percentage)}%`;
-        }, 500);
-    }
-}
+        // Update level progress bar
+        if (DOMElements.levelProgress) {
+            const currentLevel = Math.min(data.current_level, 5);
+            const levelData = LevelCalculator.levels[currentLevel];
+            
+            if (levelData) {
+                const progressInLevel = data.total_points - levelData.min;
+                const pointsForLevel = levelData.max - levelData.min;
+                const percentage = Math.min((progressInLevel / pointsForLevel) * 100, 100);
+                
+                setTimeout(() => {
+                    DOMElements.levelProgress.style.width = `${Math.max(0, percentage)}%`;
+                }, 500);
+            }
+        }
 
         // Season 1 tasks with progress bars
         TaskProgress.updateTaskWithProgress('send_count', DOMElements.sendCount, data.send_count || 0);
@@ -505,13 +532,15 @@ if (DOMElements.levelProgress) {
         if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
 
         // Show results with animation
-        DOMElements.results.classList.add('show');
+        if (DOMElements.results) {
+            DOMElements.results.classList.add('show');
+        }
 
         // Show tab navigation after successful check
-const tabNavigation = document.getElementById('tabNavigation');
-if (tabNavigation) {
-    tabNavigation.style.display = 'flex';
-}
+        const tabNavigation = document.getElementById('tabNavigation');
+        if (tabNavigation) {
+            tabNavigation.style.display = 'flex';
+        }
         
         // Hide footer on main page when showing results
         if (DOMElements.mainPageFooter) {
@@ -519,14 +548,16 @@ if (tabNavigation) {
         }
         
         // Trigger animations for result sections
-        const animatedElements = DOMElements.results.querySelectorAll('.animate__fadeInUp');
-        animatedElements.forEach((el, index) => {
-            el.style.animationDelay = `${(index + 1) * 0.1}s`;
-        });
+        const animatedElements = DOMElements.results?.querySelectorAll('.animate__fadeInUp');
+        if (animatedElements) {
+            animatedElements.forEach((el, index) => {
+                el.style.animationDelay = `${(index + 1) * 0.1}s`;
+            });
+        }
     }
 };
 
-// === EVENT LISTENERS ===
+// === EVENT HANDLERS ===
 const EventHandlers = {
     init() {
         // Main wallet check functionality
@@ -590,161 +621,29 @@ const PharosApp = {
         if (DOMElements.mainPageFooter) {
             DOMElements.mainPageFooter.style.display = 'block';
         }
-
-        console.log('✅ Pharos Hub initialized successfully');
     }
 };
 
-// === LEADERBOARD SPECIFIC CODE (for top.html) ===
-const LeaderboardApp = {
-    // State management for leaderboard
-    state: {
-        currentPage: 1,
-        allUsers: [],
-        lastUpdated: null,
-        updateTimer: null,
-        isLoading: false
-    },
-
-    constants: {
-        USERS_PER_PAGE: 10,
-        TOTAL_PAGES: 10,
-        CACHE_DURATION: 60 * 60 * 1000, // 1 hour
-        LEVEL_STRUCTURE: [
-            { name: "Lv.1", min: 0, max: 1000, icon: "./assets/images/level-badges/level1.png" },
-            { name: "Lv.2", min: 1001, max: 3500, icon: "./assets/images/level-badges/level2.png" },
-            { name: "Lv.3", min: 3501, max: 6000, icon: "./assets/images/level-badges/level3.png" },
-            { name: "Lv.4", min: 6001, max: 10000, icon: "./assets/images/level-badges/level4.png" },
-            { name: "Lv.5", min: 10001, max: Infinity, icon: "./assets/images/level-badges/level5.png" }
-        ]
-    },
-
-    // Initialize leaderboard if we're on top.html
-    init() {
-        if (window.location.pathname.includes('/top') || document.getElementById('leaderboardBody')) {
-            console.log('🚀 Initializing Pharos Leaderboard...');
-            this.setupEventListeners();
-            this.loadLeaderboard();
-            console.log('✅ Leaderboard initialized');
-        }
-    },
-
-    async loadLeaderboard() {
-        if (this.state.isLoading) return;
-        
-        this.state.isLoading = true;
-        this.showLoading();
-
-        try {
-            const response = await fetch('/assets/api/admin/stats');
-            const data = await response.json();
-            
-            if (!response.ok || !data.success) {
-                throw new Error(data.error || 'Failed to load data');
-            }
-
-            this.state.allUsers = data.leaderboard || [];
-            this.state.lastUpdated = Date.now();
-            
-            this.updateStatistics(data);
-            this.updateLevelDistribution(data.level_distribution);
-            this.renderTable();
-            this.startUpdateTimer();
-            this.showTable();
-
-            console.log(`✅ Loaded ${this.state.allUsers.length} users`);
-
-        } catch (error) {
-            console.error('❌ Error loading leaderboard:', error);
-            this.showError();
-        } finally {
-            this.state.isLoading = false;
-        }
-    },
-
-    setupEventListeners() {
-        // Pagination event listeners would go here
-        // Implementation depends on your specific leaderboard HTML structure
-    },
-
-    showLoading() {
-        const loading = document.getElementById('loading');
-        if (loading) loading.classList.add('show');
-    },
-
-    showTable() {
-        const tableSection = document.getElementById('tableSection');
-        if (tableSection) tableSection.style.display = 'block';
-    },
-
-    showError() {
-        const errorState = document.getElementById('errorState');
-        if (errorState) errorState.style.display = 'block';
-    },
-
-    updateStatistics(data) {
-        // Update leaderboard statistics
-        const totalUsers = document.getElementById('totalUsers');
-        const totalChecks = document.getElementById('totalChecks');
-        const topScore = document.getElementById('topScore');
-
-        if (totalUsers) totalUsers.textContent = Utils.formatNumber(data.total_users || 0);
-        if (totalChecks) totalChecks.textContent = Utils.formatNumber(data.total_checks || 0);
-        if (topScore) topScore.textContent = Utils.formatNumber(data.leaderboard?.[0]?.total_points || 0);
-    },
-
-    updateLevelDistribution(distribution) {
-        // Update level distribution if needed
-        console.log('Level distribution:', distribution);
-    },
-
-    renderTable() {
-        // Render leaderboard table
-        // Implementation would depend on your specific table structure
-    },
-
-    startUpdateTimer() {
-        // Start timer for periodic updates
-        if (this.state.updateTimer) {
-            clearInterval(this.state.updateTimer);
-        }
-        
-        this.state.updateTimer = setInterval(() => {
-            this.loadLeaderboard();
-        }, 5 * 60 * 1000); // Update every 5 minutes
-    }
-};
-
-// === AUTO INITIALIZATION ===
-// Initialize the appropriate app based on page context
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.pathname.includes('/top') || document.getElementById('leaderboardBody')) {
-        LeaderboardApp.init();
-    } else {
-        PharosApp.init();
-    }
-});
-
-// Cleanup on page unload
-window.addEventListener('beforeunload', () => {
-    if (LeaderboardApp.state.updateTimer) {
-        clearInterval(LeaderboardApp.state.updateTimer);
-    }
-});
 // Tab functionality
 function switchTab(tabName) {
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
 
     // Hide all tab content
     document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
     });
     
-    // Show selected tab instantly
-    document.getElementById(`tab-${tabName}`).classList.add('active');
+    // Show selected tab
+    const selectedTab = document.getElementById(`tab-${tabName}`);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
 }
+
 // Dashboard functionality
 async function loadDashboardData() {
     try {
@@ -760,20 +659,23 @@ async function loadDashboardData() {
         updateTopUsersTable(data.leaderboard);
 
     } catch (error) {
-        console.error('Error loading dashboard:', error);
+        console.error('Dashboard load error:', error);
         showDashboardError();
     }
 }
 
 function updateDashboardStats(data) {
-    document.getElementById('dashboardTotalUsers').textContent = formatNumber(data.total_users || 0);
-    document.getElementById('dashboardTotalChecks').textContent = formatNumber(data.total_checks || 0);
-    document.getElementById('dashboardTopScore').textContent = formatNumber(data.leaderboard?.[0]?.total_points || 0);
+    const totalUsersEl = document.getElementById('dashboardTotalUsers');
+    const totalChecksEl = document.getElementById('dashboardTotalChecks');
+    const topScoreEl = document.getElementById('dashboardTopScore');
+    
+    if (totalUsersEl) totalUsersEl.textContent = formatNumber(data.total_users || 0);
+    if (totalChecksEl) totalChecksEl.textContent = formatNumber(data.total_checks || 0);
+    if (topScoreEl) topScoreEl.textContent = formatNumber(data.leaderboard?.[0]?.total_points || 0);
 }
 
 function updateLevelDistribution(levelDistribution) {
     if (!levelDistribution || typeof levelDistribution !== 'object') {
-        console.log('No level distribution data received');
         return;
     }
     
@@ -783,14 +685,11 @@ function updateLevelDistribution(levelDistribution) {
     const totalUsers = Object.values(levelDistribution).reduce((sum, count) => sum + (parseInt(count) || 0), 0);
     
     if (totalUsers === 0) {
-        console.log('Total users is 0, skipping update');
         return;
     }
     
     // Find maximum count for bar width calculation
     const maxCount = Math.max(...Object.values(levelDistribution).map(count => parseInt(count) || 0));
-    
-    console.log('Updating level distribution:', { totalUsers, maxCount, levelDistribution });
     
     levels.forEach((level, index) => {
         const count = parseInt(levelDistribution[level]) || 0;
@@ -801,10 +700,9 @@ function updateLevelDistribution(levelDistribution) {
         const levelBars = document.querySelectorAll('#levelBars .level-bar');
         
         if (levelBars[index]) {
-            // Update count with percentage - это основное исправление!
+            // Update count with percentage
             const countElement = levelBars[index].querySelector('.level-count');
             if (countElement) {
-                // Меняем текст чтобы включить проценты
                 countElement.textContent = `${formatNumber(count)} (${percentage}%)`;
             }
             
@@ -815,10 +713,6 @@ function updateLevelDistribution(levelDistribution) {
                     progressBar.style.width = `${barWidth}%`;
                 }, index * 200);
             }
-            
-            console.log(`Level ${index + 1}: ${count} (${percentage}%) - bar width: ${barWidth}%`);
-        } else {
-            console.log(`Level bar ${index} not found`);
         }
     });
 }
@@ -834,40 +728,23 @@ let dashboardState = {
 function updateTopUsersTable(leaderboard) {
     const tbody = document.getElementById('dashboardUsersTable');
     if (!leaderboard || leaderboard.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No data available</td></tr>';
+        if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No data available</td></tr>';
+        }
         return;
     }
     
-    // Сохраняем топ 100 пользователей
+    // Save top 100 users
     dashboardState.allUsers = leaderboard.slice(0, 100);
     dashboardState.totalPages = Math.ceil(dashboardState.allUsers.length / dashboardState.usersPerPage);
     
-    // ДОБАВИТЬ: Создаем номера страниц динамически
+    // Create page numbers dynamically
     updatePageNumbers();
     
     renderUsersPage();
     updatePaginationControls();
 }
 
-function updateTopUsersTable(leaderboard) {
-    const tbody = document.getElementById('dashboardUsersTable');
-    if (!leaderboard || leaderboard.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No data available</td></tr>';
-        return;
-    }
-    
-    // Сохраняем топ 100 пользователей
-    dashboardState.allUsers = leaderboard.slice(0, 100);
-    dashboardState.totalPages = Math.ceil(dashboardState.allUsers.length / dashboardState.usersPerPage);
-    
-    // ДОБАВИТЬ: Создаем номера страниц динамически
-    updatePageNumbers();
-    
-    renderUsersPage(); // ← эта строка вызывает функцию
-    updatePaginationControls();
-}
-
-// ВОТ СЮДА ДОБАВЬТЕ ФУНКЦИЮ renderUsersPage:
 function renderUsersPage() {
     const { currentPage, usersPerPage, allUsers } = dashboardState;
     const tbody = document.getElementById('dashboardUsersTable');
@@ -879,7 +756,7 @@ function renderUsersPage() {
     const endIndex = startIndex + usersPerPage;
     const pageUsers = allUsers.slice(startIndex, endIndex);
     
-    // Generate HTML for current page users - ИСПОЛЬЗУЕМ STACK LAYOUT
+    // Generate HTML for current page users - USING STACK LAYOUT
     const rowsHtml = pageUsers.map((user, localIndex) => {
         const globalRank = startIndex + localIndex + 1;
         const rankClass = getRankClass(globalRank);
@@ -917,12 +794,6 @@ function getRankClass(rank) {
     return 'rank-default';
 }
 
-// ДОБАВИТЬ: Новая функция для создания номеров страниц
-function updatePageNumbers() {
-    // остальной код...
-}
-
-// ДОБАВИТЬ: Новая функция для создания номеров страниц
 function updatePageNumbers() {
     const pageNumbers = document.getElementById('pageNumbers');
     if (!pageNumbers) return;
@@ -933,10 +804,10 @@ function updatePageNumbers() {
     for (let i = 1; i <= totalPages; i++) {
         pagesHtml += `<button class="pagination-btn page-number" data-page="${i}">${i}</button>`;
         
-        // Добавляем точки после 3й страницы если страниц больше 5
+        // Add dots after 3rd page if more than 5 pages
         if (i === 3 && totalPages > 5) {
             pagesHtml += '<span class="page-dots">...</span>';
-            i = totalPages - 1; // Переходим к предпоследней странице
+            i = totalPages - 1; // Jump to second-to-last page
         }
     }
     
@@ -960,7 +831,7 @@ function updateRangeInfo() {
 function updatePaginationControls() {
     const { currentPage, totalPages } = dashboardState;
     
-    // Обновляем кнопки навигации
+    // Update navigation buttons
     const firstBtn = document.getElementById('firstPageBtn');
     const prevBtn = document.getElementById('prevPageBtn');
     const nextBtn = document.getElementById('nextPageBtn');
@@ -971,7 +842,7 @@ function updatePaginationControls() {
     if (nextBtn) nextBtn.disabled = currentPage === totalPages;
     if (lastBtn) lastBtn.disabled = currentPage === totalPages;
     
-    // ДОБАВИТЬ: Обновляем подсветку активной страницы
+    // Update active page highlighting
     const pageButtons = document.querySelectorAll('.page-number');
     pageButtons.forEach(btn => {
         const page = parseInt(btn.dataset.page);
@@ -1016,11 +887,13 @@ function formatFullNumber(num) {
 }
 
 function showDashboardError() {
-    document.getElementById('dashboardUsersTable').innerHTML = 
-        '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #dc2626;">Failed to load dashboard data</td></tr>';
+    const tbody = document.getElementById('dashboardUsersTable');
+    if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #dc2626;">Failed to load dashboard data</td></tr>';
+    }
 }
 
-// Load dashboard data when tab is switched
+// Enhanced switchTab with dashboard loading
 const originalSwitchTab = switchTab;
 switchTab = function(tabName) {
     originalSwitchTab.call(this, tabName);
@@ -1028,11 +901,14 @@ switchTab = function(tabName) {
     if (tabName === 'dashboard') {
         loadDashboardData();
     }
-}; // ← ДОБАВИТЬ ТОЧКУ С ЗАПЯТОЙ ЗДЕСЬ
+};
 
-// Event listeners для пагинации
+// Event listeners for pagination
 document.addEventListener('DOMContentLoaded', function() {
-    // Обработчики пагинации
+    // Initialize main app
+    PharosApp.init();
+    
+    // Pagination handlers
     document.addEventListener('click', function(e) {
         if (e.target.id === 'firstPageBtn') goToPage(1);
         if (e.target.id === 'prevPageBtn') goToPage(dashboardState.currentPage - 1);
@@ -1044,5 +920,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-
