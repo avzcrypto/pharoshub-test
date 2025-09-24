@@ -688,39 +688,6 @@ body {
 .animate-delay-13 { animation-delay: 1.3s; }
 
 /* === RESPONSIVE DESIGN === */
-@media (max-width: 1200px) {
-    .container {
-        max-width: 1000px;
-        padding: 30px 20px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .header-section {
-        flex-direction: column !important;
-        gap: 20px !important;
-        align-items: center !important;
-    }
-
-    .header-left {
-        flex: none !important;
-        width: 100% !important;
-        justify-content: center !important;
-    }
-
-    .header-right {
-        flex: none !important;
-        width: 100% !important;
-        max-width: 500px !important;
-    }
-
-    .header-logo-main {
-        width: 70% !important;
-        max-width: 450px !important;
-        height: auto !important;
-    }
-}
-
 @media (max-width: 768px) {
     .container {
         padding: 20px 16px !important;
