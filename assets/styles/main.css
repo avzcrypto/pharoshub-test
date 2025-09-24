@@ -634,6 +634,7 @@ body {
 .level-bar:nth-child(3) .level-progress-bar { background: linear-gradient(90deg, #247fc3, #1c6399); }
 .level-bar:nth-child(4) .level-progress-bar { background: linear-gradient(90deg, #e0eaa9, #d4dd8c); }
 .level-bar:nth-child(5) .level-progress-bar { background: linear-gradient(90deg, #fcd6cf, #f9c5b5); }
+.level-bar:nth-child(6) .level-progress-bar { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
 
 /* === ANIMATIONS === */
 @keyframes fadeInUp {
