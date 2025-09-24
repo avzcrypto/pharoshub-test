@@ -351,6 +351,11 @@ const UIState = {
         if (DOMElements.mainPageFooter) {
             DOMElements.mainPageFooter.style.display = 'none';
         }
+
+        const tabNavigation = document.getElementById('tabNavigation');
+        if (tabNavigation) {
+        tabNavigation.style.display = 'none';
+    }
     },
 
     hideLoading() {
