@@ -4,7 +4,7 @@ Pharos Stats Checker API
 
 Author: @avzcrypto
 License: MIT
-Version: 3.1.1 - Updated with Level Distribution System
+Version: 3.1.1 - Production Ready
 """
 
 from http.server import BaseHTTPRequestHandler
@@ -18,6 +18,7 @@ import time
 import random
 import concurrent.futures
 from typing import Optional, Dict, Any, List
+import sys
 
 
 class UnifiedCacheManager:
@@ -62,7 +63,9 @@ class UnifiedCacheManager:
             
             return None
         except Exception as e:
-            print(f"Cache get error for {wallet}: {e}")
+            # Only log critical cache errors
+            if "connection" in str(e).lower():
+                print(f"Redis connection error: {e}", file=sys.stderr)
             return None
     
     def set_user_stats(self, wallet: str, data: Dict[str, Any]) -> None:
@@ -96,8 +99,7 @@ class UnifiedCacheManager:
                     self.redis_client.delete(lock_key)
             
         except Exception as e:
-            print(f"Cache set error for {wallet}: {e}")
-            # Try to release lock on error
+            # Simplified error handling for production
             try:
                 self.redis_client.delete(lock_key)
             except:
@@ -123,8 +125,7 @@ class UnifiedCacheManager:
             count = self.redis_client.zcard('pharos:leaderboard')
             return count if count > 0 else 270000
             
-        except Exception as e:
-            print(f"Total users count error: {e}")
+        except Exception:
             return 270000
     
     def _validate_user_cache(self, data: Dict[str, Any]) -> bool:
@@ -214,8 +215,8 @@ class UnifiedCacheManager:
                 if cursor == 0:
                     break
             
-        except Exception as e:
-            print(f"Cache cleanup error: {e}")
+        except Exception:
+            pass  # Silent fail for cache cleanup
         
         return cleared
 
@@ -249,8 +250,7 @@ class ProxyManager:
                             proxies.append(proxy_url)
             
             return proxies
-        except Exception as e:
-            print(f"Proxy loading error: {e}")
+        except Exception:
             return []
     
     def _validate_proxy_format(self, host: str, port: str, username: str, password: str) -> bool:
@@ -278,8 +278,7 @@ class ProxyManager:
         valid_count = len(self.proxies)
         if valid_count > 0:
             print(f"✅ Loaded {valid_count} valid proxies")
-        else:
-            print("⚠️ No valid proxies loaded - using direct connections")
+        # Removed warning for production - silent fallback to direct connections
     
     def get_random_proxy(self) -> Optional[str]:
         """Get a random proxy from the validated pool."""
@@ -299,7 +298,6 @@ class RedisManager:
             import redis
             redis_url = os.environ.get('REDIS_URL', '')
             if not redis_url:
-                print("⚠️ REDIS_URL not found in environment")
                 return False
                 
             self.client = redis.Redis.from_url(
@@ -317,10 +315,8 @@ class RedisManager:
             return True
             
         except ImportError:
-            print("❌ Redis library not installed")
             return False
-        except Exception as e:
-            print(f"❌ Redis connection failed: {e}")
+        except Exception:
             return False
     
     def get_exact_rank(self, total_points: int) -> Optional[int]:
@@ -336,8 +332,7 @@ class RedisManager:
             )
             return users_with_more_points + 1
             
-        except Exception as e:
-            print(f"Rank calculation error: {e}")
+        except Exception:
             return None
     
     def save_user_stats(self, user_data: Dict[str, Any]) -> None:
@@ -403,8 +398,8 @@ class RedisManager:
             # Execute with timeout
             pipe.execute()
             
-        except Exception as e:
-            print(f"Save user stats error for {user_data.get('address', 'unknown')}: {e}")
+        except Exception:
+            pass  # Silent fail for stats saving
     
     def get_leaderboard_data(self) -> Dict[str, Any]:
         """Get leaderboard data with 1-hour cache and comprehensive error handling."""
@@ -425,10 +420,9 @@ class RedisManager:
                         return data
                 except json.JSONDecodeError:
                     # Corrupted cache, will recalculate
-                    print("⚠️ Corrupted leaderboard cache detected, recalculating...")
+                    pass
             
             # Calculate fresh data
-            print("🔄 Calculating fresh leaderboard data...")
             fresh_data = self._calculate_full_leaderboard()
             
             if fresh_data.get('success'):
@@ -440,8 +434,8 @@ class RedisManager:
                         cache_ttl, 
                         json.dumps(fresh_data, separators=(',', ':'))
                     )
-                except Exception as e:
-                    print(f"Failed to cache leaderboard: {e}")
+                except Exception:
+                    pass  # Failed to cache, but data is still valid
                 
                 fresh_data['cached'] = False
                 fresh_data['cache_info'] = 'Freshly calculated - cached for 1 hour'
@@ -449,7 +443,6 @@ class RedisManager:
             return fresh_data
             
         except Exception as e:
-            print(f"Error in get_leaderboard_data: {e}")
             return {'success': False, 'error': f'Leaderboard calculation failed: {str(e)}'}
 
     def _calculate_full_leaderboard(self) -> Dict[str, Any]:
@@ -517,11 +510,10 @@ class RedisManager:
                         'r2_swap': stats.get('r2_swap', 0),
                         'r2_earn': stats.get('r2_earn', 0)
                     })
-                except Exception as e:
-                    print(f"Error processing wallet {i}: {e}")
+                except Exception:
                     continue
             
-            # UPDATED: Calculate level distribution for ALL users (instead of point tiers)
+            # Calculate level distribution for ALL users
             level_distribution = {
                 'level-1': 0, 'level-2': 0, 'level-3': 0, 'level-4': 0, 'level-5': 0
             }
@@ -557,12 +549,11 @@ class RedisManager:
                 'total_users': total_users,
                 'total_checks': total_checks,
                 'leaderboard': leaderboard,
-                'level_distribution': level_distribution,  # UPDATED: Changed from 'point_distribution'
+                'level_distribution': level_distribution,
                 'last_updated': datetime.now().isoformat()
             }
             
         except Exception as e:
-            print(f"Critical error calculating leaderboard: {e}")
             return {
                 'success': False, 
                 'error': f'Leaderboard calculation failed: {str(e)}'
@@ -582,8 +573,7 @@ class RedisManager:
             print(f"✅ Cleared {cleared_count} cache key successfully")
             return True
             
-        except Exception as e:
-            print(f"❌ Error clearing cache: {e}")
+        except Exception:
             return False
 
 
@@ -655,7 +645,6 @@ class PharosAPIClient:
                         profile_response = profile_future.result(timeout=timeout + 5)
                         tasks_response = tasks_future.result(timeout=timeout + 5)
                     except concurrent.futures.TimeoutError:
-                        print(f"API timeout for wallet {wallet_address} on attempt {attempt + 1}")
                         continue
                 
                 if profile_response and tasks_response:
@@ -673,21 +662,19 @@ class PharosAPIClient:
                         if self.redis_manager.enabled:
                             try:
                                 self.redis_manager.save_user_stats(result)
-                            except Exception as e:
-                                print(f"Failed to save to Redis: {e}")
+                            except Exception:
+                                pass  # Silent fail for stats saving
                     
                     return result
                 
             except (requests.exceptions.ProxyError, 
                     requests.exceptions.ConnectTimeout,
-                    requests.exceptions.ConnectionError) as e:
-                print(f"Connection error on attempt {attempt + 1}: {e}")
+                    requests.exceptions.ConnectionError):
                 if attempt == 0:
                     continue
                 else:
                     return {'success': False, 'error': 'Connection failed after retries'}
             except Exception as e:
-                print(f"Unexpected error on attempt {attempt + 1}: {e}")
                 if attempt == 0:
                     continue
                 else:
@@ -713,23 +700,16 @@ class PharosAPIClient:
                     data = response.json()
                     if data.get('code') == 0:
                         return data
-                    else:
-                        print(f"API returned error code: {data.get('code')}")
                 except json.JSONDecodeError:
-                    print(f"Invalid JSON response from {url}")
-            else:
-                print(f"HTTP {response.status_code} from {url}")
+                    pass
             
             return None
             
         except requests.exceptions.Timeout:
-            print(f"Timeout requesting {url}")
             return None
         except requests.exceptions.ConnectionError:
-            print(f"Connection error requesting {url}")
             return None
-        except Exception as e:
-            print(f"Unexpected error requesting {url}: {e}")
+        except Exception:
             return None
     
     def _process_api_response(self, profile_data: Dict[str, Any], 
@@ -876,8 +856,7 @@ class PharosAPIClient:
                 elif task_id == 119:
                     task_counts['bitverse'] = complete_times
                     
-            except Exception as e:
-                print(f"Error parsing task {task}: {e}")
+            except Exception:
                 continue
         
         return task_counts
@@ -939,7 +918,6 @@ class handler(BaseHTTPRequestHandler):
             else:
                 self._send_error_response({'error': 'Endpoint not found'}, 404)
         except Exception as e:
-            print(f"Unexpected error in GET handler: {e}")
             self._send_error_response({'error': 'Internal server error'}, 500)
     
     def do_POST(self):
@@ -950,7 +928,6 @@ class handler(BaseHTTPRequestHandler):
             else:
                 self._send_error_response({'error': 'Endpoint not found'}, 404)
         except Exception as e:
-            print(f"Unexpected error in POST handler: {e}")
             self._send_error_response({'error': 'Internal server error'}, 500)
     
     def _handle_health_check(self):
@@ -970,7 +947,7 @@ class handler(BaseHTTPRequestHandler):
             response_data = {
                 'status': 'ok',
                 'message': 'Pharos Stats API is operational',
-                'version': '3.1.1',  # UPDATED: Version bump
+                'version': '3.1.1',
                 'timestamp': datetime.now().isoformat(),
                 'system_status': {
                     'redis': redis_status,
@@ -1009,13 +986,12 @@ class handler(BaseHTTPRequestHandler):
             stats_data['system_info'] = {
                 'cache_enabled': cache_manager.redis_enabled,
                 'total_api_calls': 'tracked_in_redis',
-                'version': '3.1.1'  # UPDATED: Version bump
+                'version': '3.1.1'
             }
             
             self._send_json_response(stats_data)
             
         except Exception as e:
-            print(f"Error in admin stats: {e}")
             self._send_error_response({
                 'error': 'Failed to fetch statistics',
                 'details': str(e)
@@ -1069,7 +1045,7 @@ class handler(BaseHTTPRequestHandler):
                 }, 500)
                 
         except Exception as e:
-            print(f"❌ Critical error in hourly refresh: {e}")
+            print(f"❌ Critical error in hourly refresh: {e}", file=sys.stderr)
             self._send_error_response({
                 'error': 'Refresh process failed',
                 'details': str(e),
@@ -1093,7 +1069,6 @@ class handler(BaseHTTPRequestHandler):
             self._send_json_response(response)
             
         except Exception as e:
-            print(f"Cache clear error: {e}")
             self._send_error_response({
                 'error': 'Cache cleanup failed',
                 'details': str(e)
@@ -1122,14 +1097,14 @@ class handler(BaseHTTPRequestHandler):
                     if hits + misses > 0:
                         stats['redis_hit_rate'] = f"{(hits / (hits + misses) * 100):.2f}%"
                         
-                except Exception as redis_error:
-                    stats['redis_info_error'] = str(redis_error)
+                except Exception:
+                    stats['redis_info_error'] = 'Unable to fetch Redis info'
             
             response = {
                 'success': True,
                 'cache_statistics': stats,
                 'timestamp': datetime.now().isoformat(),
-                'system_version': '3.1.1'  # UPDATED: Version bump
+                'system_version': '3.1.1'
             }
             self._send_json_response(response)
             
@@ -1197,7 +1172,6 @@ class handler(BaseHTTPRequestHandler):
                 self._send_error_response(result, 400)
                 
         except Exception as e:
-            print(f"Unexpected error in wallet check: {e}")
             self._send_error_response({
                 'error': 'Internal server error during wallet check',
                 'request_id': hashlib.md5(str(time.time()).encode()).hexdigest()[:8]
@@ -1233,8 +1207,7 @@ class handler(BaseHTTPRequestHandler):
             
             self.wfile.write(response_bytes)
             
-        except Exception as e:
-            print(f"Error sending JSON response: {e}")
+        except Exception:
             # Fallback error response
             try:
                 error_response = '{"success":false,"error":"Response encoding failed"}'
