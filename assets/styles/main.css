@@ -697,329 +697,329 @@ body {
 
 @media (max-width: 1024px) {
     .header-section {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
+        flex-direction: column !important;
+        gap: 20px !important;
+        align-items: center !important;
     }
 
     .header-left {
-        flex: none;
-        width: 100%;
-        justify-content: center;
+        flex: none !important;
+        width: 100% !important;
+        justify-content: center !important;
     }
 
     .header-right {
-        flex: none;
-        width: 100%;
-        max-width: 500px;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 500px !important;
     }
 
     .header-logo-main {
-        width: 70%;
-        max-width: 450px;
-        height: auto;
+        width: 70% !important;
+        max-width: 450px !important;
+        height: auto !important;
     }
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 20px 16px !important;
+    }
+
     .header-logo-main {
-        width: 95%;
-        max-width: none;
-        height: auto;
+        width: 95% !important;
+        max-width: none !important;
+        height: auto !important;
     }
 
     .header-right {
-        max-width: 400px;
-        padding: 20px;
-    }
-
-    .container {
-        padding: 20px 16px;
+        max-width: 400px !important;
+        padding: 20px !important;
     }
 
     /* Tab navigation адаптация */
     .tab-navigation {
-        margin: 16px 0;
+        margin: 16px 0 !important;
     }
 
     .tab-btn {
-        font-size: 16px;
-        padding: 14px;
+        font-size: 16px !important;
+        padding: 14px !important;
     }
 
     /* Stats cards адаптация */
     .top-stats {
-        grid-template-columns: 1fr;
-        gap: 16px;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
     }
     
     .stat-divider {
-        display: none;
+        display: none !important;
     }
     
     .stat-card {
-        min-height: 140px;
+        min-height: 140px !important;
     }
 
     .combined-values {
-        gap: 20px;
+        gap: 20px !important;
     }
 
     .protocol-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
     }
 
     .task-left {
-        gap: 12px;
+        gap: 12px !important;
     }
 
     .task-icon {
-        width: 48px;
-        height: 48px;
+        width: 48px !important;
+        height: 48px !important;
     }
 
     .task-count {
-        font-size: 20px;
-        padding: 8px 16px;
-        min-width: 60px;
+        font-size: 20px !important;
+        padding: 8px 16px !important;
+        min-width: 60px !important;
     }
 
     .task-name {
-        font-size: 14px;
+        font-size: 14px !important;
     }
 
     .stat-value {
-        font-size: 28px;
+        font-size: 28px !important;
     }
 
     .cache-disclaimer {
-        padding: 12px;
-        gap: 10px;
-        margin-top: 24px;
-        margin-bottom: 24px;
+        padding: 12px !important;
+        gap: 10px !important;
+        margin-top: 24px !important;
+        margin-bottom: 24px !important;
     }
 
     .disclaimer-icon {
-        font-size: 18px;
+        font-size: 18px !important;
     }
 
     .disclaimer-title {
-        font-size: 13px;
+        font-size: 13px !important;
     }
 
     .disclaimer-text {
-        font-size: 12px;
+        font-size: 12px !important;
     }
 
     .author-footer {
-        margin: 4px 0;
+        margin: 4px 0 !important;
     }
 
     .author-block-final {
-        flex-direction: column;
-        gap: 24px;
-        text-align: center;
-        padding: 20px 16px;
-        margin: 4px 0;
+        flex-direction: column !important;
+        gap: 24px !important;
+        text-align: center !important;
+        padding: 20px 16px !important;
+        margin: 4px 0 !important;
     }
     
     .author-left-final {
-        justify-content: center;
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
+        justify-content: center !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        text-align: center !important;
     }
     
     .author-text-final {
-        text-align: center;
+        text-align: center !important;
     }
     
     .author-name-final {
-        font-size: 20px;
-        justify-content: center;
+        font-size: 20px !important;
+        justify-content: center !important;
     }
     
     .author-subtitle-final {
-        font-size: 16px;
-        text-align: center;
+        font-size: 16px !important;
+        text-align: center !important;
     }
 
     .dashboard-stats {
-        grid-template-columns: 1fr;
-        gap: 16px;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
     }
 
     .level-bar {
-        padding: 10px;
-        gap: 10px;
+        padding: 10px !important;
+        gap: 10px !important;
     }
 
     .level-icon {
-        width: 28px;
-        height: 28px;
+        width: 28px !important;
+        height: 28px !important;
     }
 
     .level-name {
-        font-size: 13px;
+        font-size: 13px !important;
     }
 
     .level-range {
-        font-size: 11px;
+        font-size: 11px !important;
     }
 
     .level-count {
-        font-size: 14px;
+        font-size: 14px !important;
     }
 
     .users-table th,
     .users-table td {
-        padding: 8px 6px;
-        font-size: 12px;
+        padding: 8px 6px !important;
+        font-size: 12px !important;
     }
 
     .rank-badge {
-        width: 24px;
-        height: 24px;
-        font-size: 11px;
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 11px !important;
     }
 
     .user-address {
-        font-size: 12px;
+        font-size: 12px !important;
     }
 
     .points-level-stack .points {
-        font-size: 14px;
+        font-size: 14px !important;
     }
 
     .member-since {
-        font-size: 11px;
+        font-size: 11px !important;
     }
 
     /* Enhanced mobile table */
     .top-users {
-        padding: 16px;
-        margin-top: 20px;
+        padding: 16px !important;
+        margin-top: 20px !important;
     }
     
     .top-users-title {
-        font-size: 20px;
-        margin-bottom: 16px;
+        font-size: 20px !important;
+        margin-bottom: 16px !important;
     }
 
     .table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        margin: 0 -16px;
-        padding: 0 16px;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin: 0 -16px !important;
+        padding: 0 16px !important;
     }
 
     .users-table {
-        min-width: 600px;
-        font-size: 12px;
+        min-width: 600px !important;
+        font-size: 12px !important;
     }
 
     .users-table th {
-        padding: 8px 6px;
-        font-size: 10px;
-        letter-spacing: 0.03em;
-        line-height: 1.2;
+        padding: 8px 6px !important;
+        font-size: 10px !important;
+        letter-spacing: 0.03em !important;
+        line-height: 1.2 !important;
     }
 
-    .users-table th:nth-child(1) { width: 60px; }
-    .users-table th:nth-child(2) { width: 120px; }
-    .users-table th:nth-child(3) { width: 140px; }
-    .users-table th:nth-child(4) { width: 100px; }
+    .users-table th:nth-child(1) { width: 60px !important; }
+    .users-table th:nth-child(2) { width: 120px !important; }
+    .users-table th:nth-child(3) { width: 140px !important; }
+    .users-table th:nth-child(4) { width: 100px !important; }
 
     .users-table td {
-        padding: 10px 6px;
-        vertical-align: middle;
+        padding: 10px 6px !important;
+        vertical-align: middle !important;
     }
 
     .rank-badge {
-        width: 28px;
-        height: 28px;
-        font-size: 11px;
-        border-radius: 6px;
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 11px !important;
+        border-radius: 6px !important;
     }
 
     .user-address {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: -0.3px;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.3px !important;
     }
 
     .points-level-stack {
-        gap: 6px;
-        min-height: 50px;
+        gap: 6px !important;
+        min-height: 50px !important;
     }
 
     .points-level-stack .points {
-        font-size: 14px;
-        letter-spacing: -0.3px;
-        line-height: 1;
+        font-size: 14px !important;
+        letter-spacing: -0.3px !important;
+        line-height: 1 !important;
     }
 
     .points-level-stack .level-badge {
-        padding: 3px 8px;
-        border-radius: 6px;
-        font-size: 10px;
-        font-weight: 600;
-        min-width: 45px;
+        padding: 3px 8px !important;
+        border-radius: 6px !important;
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        min-width: 45px !important;
     }
 
     .member-since {
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: -0.2px;
-        line-height: 1.2;
+        font-size: 11px !important;
+        font-weight: 500 !important;
+        letter-spacing: -0.2px !important;
+        line-height: 1.2 !important;
     }
 
     .pagination-info-top {
-        padding: 0 12px;
-        font-size: 13px;
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
+        padding: 0 12px !important;
+        font-size: 13px !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
     }
 
     .users-pagination {
-        padding: 16px 12px 0;
-        gap: 6px;
-        flex-wrap: wrap;
-        justify-content: center;
+        padding: 16px 12px 0 !important;
+        gap: 6px !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
     }
 
     .pagination-btn {
-        padding: 8px 10px;
-        font-size: 12px;
-        min-width: 36px;
-        border-radius: 6px;
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+        min-width: 36px !important;
+        border-radius: 6px !important;
     }
 
     /* Sticky headers when scrolling */
     .users-table thead th {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 10 !important;
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9) !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     }
 
     /* Scroll indicator */
     .table-container::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 20px;
-        height: 100%;
-        background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
-        pointer-events: none;
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 20px !important;
+        height: 100% !important;
+        background: linear-gradient(to left, rgba(0,0,0,0.1), transparent) !important;
+        pointer-events: none !important;
     }
 
     .users-table tr:hover {
-        background: #f8fafc;
+        background: #f8fafc !important;
     }
 }
 }
