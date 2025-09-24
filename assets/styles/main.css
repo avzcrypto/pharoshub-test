@@ -688,63 +688,53 @@ body {
 .animate-delay-13 { animation-delay: 1.3s; }
 
 /* === RESPONSIVE DESIGN === */
-@media (max-width: 1024px) {
-    .header-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .header-left {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-
-    .header-right {
-        flex: 0 0 350px;
-        min-width: 320px;
-        padding: 20px;
-    }
-
-    .header-logo-main {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
+@media (max-width: 1200px) {
+    .container {
+        max-width: 1000px;
+        padding: 30px 20px;
     }
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 20px 16px;
-    }
-
-    /* КРИТИЧЕСКОЕ: Header адаптация для мобильных */
+@media (max-width: 1024px) {
     .header-section {
         flex-direction: column;
+        gap: 20px;
         align-items: center;
-        gap: 24px;
-        margin-bottom: 20px;
     }
 
     .header-left {
         flex: none;
         width: 100%;
-        display: flex;
         justify-content: center;
     }
 
     .header-right {
         flex: none;
         width: 100%;
+        max-width: 500px;
+    }
+
+    .header-logo-main {
+        width: 70%;
+        max-width: 450px;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-logo-main {
+        width: 95%;
+        max-width: none;
+        height: auto;
+    }
+
+    .header-right {
         max-width: 400px;
         padding: 20px;
     }
 
-    .header-logo-main {
-        width: 100%;
-        max-width: 320px;
-        height: auto;
+    .container {
+        padding: 20px 16px;
     }
 
     /* Tab navigation адаптация */
@@ -1030,91 +1020,6 @@ body {
 
     .users-table tr:hover {
         background: #f8fafc;
-    }
-}
-
-/* === ДОПОЛНИТЕЛЬНЫЕ АДАПТАЦИИ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ === */
-@media (max-width: 480px) {
-    .container {
-        padding: 16px 12px;
-    }
-
-    .header-logo-main {
-        max-width: 280px;
-    }
-
-    .header-right {
-        padding: 16px;
-        max-width: 100%;
-    }
-
-    .form-title {
-        font-size: 16px;
-    }
-
-    .wallet-input {
-        font-size: 16px;
-        padding: 14px;
-    }
-
-    .check-button {
-        padding: 14px;
-        font-size: 16px;
-    }
-
-    .tab-btn {
-        font-size: 14px;
-        padding: 12px 8px;
-        min-width: auto;
-    }
-
-    .stat-value {
-        font-size: 24px;
-    }
-
-    .stat-label {
-        font-size: 12px;
-    }
-
-    .task-card {
-        padding: 16px;
-    }
-
-    .task-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    .task-name {
-        font-size: 13px;
-    }
-
-    .task-count {
-        font-size: 18px;
-        padding: 6px 12px;
-        min-width: 50px;
-    }
-
-    .author-block-final {
-        padding: 16px 12px;
-    }
-
-    .author-icon-final {
-        width: 48px;
-        height: 48px;
-    }
-
-    .author-name-final {
-        font-size: 18px;
-    }
-
-    .author-subtitle-final {
-        font-size: 14px;
-    }
-
-    .cta-neomorphic {
-        padding: 12px 20px;
-        font-size: 14px;
     }
 }
 }
