@@ -112,6 +112,26 @@
             margin-left: 4px;
         }
 
+        /* Input with icon */
+        .input-with-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .input-with-icon .form-input {
+            padding-left: 48px;
+        }
+
         .form-input {
             width: 100%;
             padding: 14px 16px;
@@ -359,14 +379,13 @@
     <div class="container">
         <!-- Header -->
         <div class="campaign-header">
-            <!-- ЗАМЕНИТЕ SRC НА ВАШЕ ЛОГО -->
             <img 
-    src="./assets/images/misc/coraluna_logo.png" 
-    alt="Coraluna Campaign" 
-    class="campaign-logo-img"
-    width="900" 
-    height="200"
->
+                src="./assets/images/misc/coraluna_logo.png" 
+                alt="Coraluna Campaign" 
+                class="campaign-logo-img"
+                width="900" 
+                height="200"
+            >
             <h1 class="campaign-title">Coraluna Campaign</h1>
             <p class="campaign-subtitle">Join our exclusive campaign and share your journey with the community</p>
         </div>
@@ -391,14 +410,17 @@
                     <label class="form-label">
                         Twitter Handle<span class="form-required">*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        class="form-input" 
-                        id="twitterInput"
-                        name="twitter"
-                        placeholder="@username"
-                        required
-                    >
+                    <div class="input-with-icon">
+                        <img src="https://static.pharosnetwork.xyz/experience/twitter-black.png" alt="" class="input-icon">
+                        <input 
+                            type="text" 
+                            class="form-input" 
+                            id="twitterInput"
+                            name="twitter"
+                            placeholder="@username"
+                            required
+                        >
+                    </div>
                     <div class="form-hint">Your Twitter/X username</div>
                 </div>
 
@@ -407,14 +429,17 @@
                     <label class="form-label">
                         Discord Username<span class="form-required">*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        class="form-input" 
-                        id="discordInput"
-                        name="discord"
-                        placeholder="@username"
-                        required
-                    >
+                    <div class="input-with-icon">
+                        <img src="https://static.pharosnetwork.xyz/experience/discord-blue.png" alt="" class="input-icon">
+                        <input 
+                            type="text" 
+                            class="form-input" 
+                            id="discordInput"
+                            name="discord"
+                            placeholder="@username"
+                            required
+                        >
+                    </div>
                 </div>
 
                 <!-- Tweet Links -->
@@ -452,7 +477,7 @@
                                 class="form-input" 
                                 id="tweet3"
                                 name="tweet3"
-                                placeholder="https://x.com/...."
+                                placeholder="https://x.com/..."
                                 required
                             >
                         </div>
