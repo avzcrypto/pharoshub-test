@@ -89,8 +89,25 @@
             height: 16px;
         }
 
+        /* Grid для Twitter и Discord в один ряд */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
         /* Task Cards - Каждый блок отдельно */
         .task-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Отдельный блок на всю ширину */
+        .task-card-full {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
@@ -294,6 +311,10 @@
                 padding: 16px;
             }
 
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+
             .title-block,
             .task-header,
             .task-input-area,
@@ -337,45 +358,48 @@
             </div>
         </div>
 
-        <!-- Task 1: Twitter Handle -->
-        <div class="task-card">
-            <div class="task-header">
-                <img src="https://static.pharosnetwork.xyz/experience/twitter-black.png" alt="Twitter" class="task-icon">
-                <div class="task-info">
-                    <div class="task-title">Twitter Handle</div>
-                    <div class="task-description">Enter your Twitter username (without @)</div>
+        <!-- Tasks Grid: Twitter and Discord -->
+        <div class="tasks-grid">
+            <!-- Task 1: Twitter Handle -->
+            <div class="task-card">
+                <div class="task-header">
+                    <img src="https://static.pharosnetwork.xyz/experience/twitter-black.png" alt="Twitter" class="task-icon">
+                    <div class="task-info">
+                        <div class="task-title">Twitter Handle</div>
+                        <div class="task-description">Enter your Twitter username (without @)</div>
+                    </div>
+                </div>
+                <div class="task-input-area">
+                    <label class="input-label">Twitter Handle</label>
+                    <div class="input-with-icon">
+                        <img src="https://static.pharosnetwork.xyz/experience/twitter-black.png" alt="">
+                        <input type="text" class="task-input" placeholder="Enter your Twitter username" id="twitterInput">
+                    </div>
+                    <div class="input-hint">Example: elonmusk</div>
                 </div>
             </div>
-            <div class="task-input-area">
-                <label class="input-label">Twitter Handle</label>
-                <div class="input-with-icon">
-                    <img src="https://static.pharosnetwork.xyz/experience/twitter-black.png" alt="">
-                    <input type="text" class="task-input" placeholder="Enter your Twitter username" id="twitterInput">
-                </div>
-                <div class="input-hint">Example: elonmusk</div>
-            </div>
-        </div>
 
-        <!-- Task 2: Discord Username -->
-        <div class="task-card">
-            <div class="task-header">
-                <img src="https://static.pharosnetwork.xyz/experience/discord-blue.png" alt="Discord" class="task-icon">
-                <div class="task-info">
-                    <div class="task-title">Discord Username</div>
-                    <div class="task-description">Enter your Discord username</div>
+            <!-- Task 2: Discord Username -->
+            <div class="task-card">
+                <div class="task-header">
+                    <img src="https://static.pharosnetwork.xyz/experience/discord-blue.png" alt="Discord" class="task-icon">
+                    <div class="task-info">
+                        <div class="task-title">Discord Username</div>
+                        <div class="task-description">Enter your Discord username</div>
+                    </div>
                 </div>
-            </div>
-            <div class="task-input-area">
-                <label class="input-label">Discord Username</label>
-                <div class="input-with-icon">
-                    <img src="https://static.pharosnetwork.xyz/experience/discord-blue.png" alt="">
-                    <input type="text" class="task-input" placeholder="@username" id="discordInput">
+                <div class="task-input-area">
+                    <label class="input-label">Discord Username</label>
+                    <div class="input-with-icon">
+                        <img src="https://static.pharosnetwork.xyz/experience/discord-blue.png" alt="">
+                        <input type="text" class="task-input" placeholder="@username" id="discordInput">
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Task 3: Tweet Links -->
-        <div class="task-card">
+        <div class="task-card-full">
             <div class="task-header">
                 <img src="https://static.pharosnetwork.xyz/experience/twitter-black.png" alt="Tweet Task" class="task-icon">
                 <div class="task-info">
@@ -416,7 +440,7 @@
         </div>
 
         <!-- Task 4: Introduction -->
-        <div class="task-card">
+        <div class="task-card-full">
             <div class="task-header">
                 <svg class="task-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="background: linear-gradient(135deg, #3b82f6, #2563eb); padding: 10px;">
                     <path d="M14 18H34M14 24H34M14 30H28" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
