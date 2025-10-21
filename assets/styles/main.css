@@ -1533,6 +1533,44 @@ body {
     margin-bottom: 16px;
 }
 
+/* Coming Soon / Disabled Task Cards */
+.task-card.disabled {
+    opacity: 0.6;
+    background: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    position: relative;
+}
+
+.task-card.disabled .task-icon {
+    filter: grayscale(100%) opacity(0.7);
+}
+
+.task-card.disabled .task-name {
+    color: #9ca3af;
+}
+
+.task-card.disabled .task-count {
+    background: #f3f4f6;
+    color: #9ca3af;
+    border-color: #e5e7eb;
+}
+
+.task-card.disabled::after {
+    content: 'Coming Soon';
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    background: #f59e0b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 /* === PROGRESS BARS === */
 .task-progress-container {
     display: flex;
