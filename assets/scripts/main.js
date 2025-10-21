@@ -54,15 +54,10 @@ const MemberSinceUtils = {
 
             if (isNaN(memberDate.getTime())) {
                 return {
-                    <div class="points-level-stack">
-                        <div class="points">${formatFullNumber(user.total_points)}</div>
-                        <div class="level-badge">LVL ${user.current_level}</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="member-since">${formatDate(user.member_since)}</div>
-                </td>
-            </tr>
+                    days: 0,
+                    formattedDate: 'Unknown'
+                };
+            }
         `;
     }).join('');
     
