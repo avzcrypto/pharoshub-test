@@ -1025,10 +1025,10 @@ body {
 
     /* === СЕЗОН SWITCHER ДЛЯ 3 ТАБОВ - МОБИЛЬНАЯ АДАПТИВНОСТЬ === */
     .container .season-tab {
-        min-width: 100px; /* Уменьшено для 3 табов */
+        min-width: 130px; /* Уменьшено для 3 табов */
         font-size: 14px; /* Уменьшено с 16px */
-        padding: 0 12px; /* Уменьшено с 20px */
-        gap: 6px; /* Уменьшено с 10px */
+        padding: 0 20px; /* Уменьшено с 20px */
+        gap: 10px; /* Уменьшено с 10px */
     }
     
     .container .live-badge {
