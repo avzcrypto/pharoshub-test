@@ -835,13 +835,8 @@ class PharosAPIClient:
                     task_counts['asseto'] = complete_times
                 elif task_id == 401:
                     task_counts['atlantic_onchain'] = complete_times
-                # TODO: Добавить когда узнаем Task ID:
-                # elif task_id == ???:
-                #     task_counts['invite_friends'] = complete_times
-                # elif task_id == ???:
-                #     task_counts['topnod'] = complete_times
-                # elif task_id == ???:
-                #     task_counts['grandline'] = complete_times
+                elif task_id == 122:
+                      task_counts['grandline'] = complete_times
                     
             except Exception:
                 continue
