@@ -24,7 +24,13 @@ const TASK_LIMITS = {
     'spout': 91,
     'bitverse': 91,
     'brokex': 91,               // CFD Trading
-    'aquaflux': 1    
+    'aquaflux': 1,
+
+    // Atlantic Tasks 
+    'atlantic_onchain': 91,     // Via Atlantic On-chain Address
+    'topnod': 91,               // Via TopNod
+    'asseto': 91,               // Asseto
+    'grandline': 91             // Grandline
 };
 
 // === MEMBER SINCE UTILITIES ===
@@ -48,7 +54,156 @@ const MemberSinceUtils = {
 
             if (isNaN(memberDate.getTime())) {
                 return {
-                    days: 0,
+                    <div class="points-level-stack">
+                        <div class="points">${formatFullNumber(user.total_points)}</div>
+                        <div class="level-badge">LVL ${user.current_level}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="member-since">${formatDate(user.member_since)}</div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+    
+    tbody.innerHTML = rowsHtml;
+    updateRangeInfo();
+}
+
+// Helper function to get rank CSS class
+function getRankClass(rank) {
+    if (rank === 1) return 'rank-1';
+    if (rank === 2) return 'rank-2';
+    if (rank === 3) return 'rank-3';
+    return 'rank-default';
+}
+
+function updatePageNumbers() {
+    const pageNumbers = document.getElementById('pageNumbers');
+    if (!pageNumbers) return;
+    
+    const { totalPages } = dashboardState;
+    
+    let pagesHtml = '';
+    for (let i = 1; i <= totalPages; i++) {
+        pagesHtml += `<button class="pagination-btn page-number" data-page="${i}">${i}</button>`;
+        
+        // Add dots after 3rd page if more than 5 pages
+        if (i === 3 && totalPages > 5) {
+            pagesHtml += '<span class="page-dots">...</span>';
+            i = totalPages - 1; // Jump to second-to-last page
+        }
+    }
+    
+    pageNumbers.innerHTML = pagesHtml;
+}
+
+function updateRangeInfo() {
+    const { currentPage, usersPerPage, allUsers } = dashboardState;
+    const startRank = (currentPage - 1) * usersPerPage + 1;
+    const endRank = Math.min(currentPage * usersPerPage, allUsers.length);
+    
+    const rangeInfo = document.getElementById('usersRangeInfo');
+    const currentPageDisplay = document.getElementById('currentPageDisplay');
+    const totalPagesDisplay = document.getElementById('totalPagesDisplay');
+    
+    if (rangeInfo) rangeInfo.textContent = `Showing ${startRank}-${endRank} of ${allUsers.length}`;
+    if (currentPageDisplay) currentPageDisplay.textContent = currentPage;
+    if (totalPagesDisplay) totalPagesDisplay.textContent = dashboardState.totalPages;
+}
+
+function updatePaginationControls() {
+    const { currentPage, totalPages } = dashboardState;
+    
+    // Update navigation buttons
+    const firstBtn = document.getElementById('firstPageBtn');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    const lastBtn = document.getElementById('lastPageBtn');
+    
+    if (firstBtn) firstBtn.disabled = currentPage === 1;
+    if (prevBtn) prevBtn.disabled = currentPage === 1;
+    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+    if (lastBtn) lastBtn.disabled = currentPage === totalPages;
+    
+    // Update active page highlighting
+    const pageButtons = document.querySelectorAll('.page-number');
+    pageButtons.forEach(btn => {
+        const page = parseInt(btn.dataset.page);
+        if (page === currentPage) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+function goToPage(page) {
+    if (page < 1 || page > dashboardState.totalPages || page === dashboardState.currentPage) return;
+    
+    dashboardState.currentPage = page;
+    renderUsersPage();
+    updatePaginationControls();
+}
+
+function formatAddress(address) {
+    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'Unknown';
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch {
+        return 'Unknown';
+    }
+}
+
+function formatNumber(num) {
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
+}
+
+function formatFullNumber(num) {
+    return new Intl.NumberFormat('en-US').format(num);
+}
+
+function showDashboardError() {
+    const tbody = document.getElementById('dashboardUsersTable');
+    if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #dc2626;">Failed to load dashboard data</td></tr>';
+    }
+}
+
+// Enhanced switchTab with dashboard loading
+const originalSwitchTab = switchTab;
+switchTab = function(tabName) {
+    originalSwitchTab.call(this, tabName);
+    
+    if (tabName === 'dashboard') {
+        loadDashboardData();
+    }
+};
+
+// Event listeners for pagination
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize main app
+    PharosApp.init();
+    
+    // Pagination handlers
+    document.addEventListener('click', function(e) {
+        if (e.target.id === 'firstPageBtn') goToPage(1);
+        if (e.target.id === 'prevPageBtn') goToPage(dashboardState.currentPage - 1);
+        if (e.target.id === 'nextPageBtn') goToPage(dashboardState.currentPage + 1);
+        if (e.target.id === 'lastPageBtn') goToPage(dashboardState.totalPages);
+        if (e.target.classList.contains('page-number')) {
+            const page = parseInt(e.target.dataset.page);
+            if (!isNaN(page)) goToPage(page);
+        }
+    });
+});days: 0,
                     formattedDate: 'Unknown'
                 };
             }
@@ -118,6 +273,12 @@ const DOMElements = {
     lendBorrow: document.getElementById('lendBorrow'),
     r2Swap: document.getElementById('r2Swap'),
     r2Earn: document.getElementById('r2Earn'),
+
+    // Atlantic task elements
+    atlanticOnchain: document.getElementById('atlanticOnchain'),
+    topnod: document.getElementById('topnod'),
+    asseto: document.getElementById('asseto'),
+    grandline: document.getElementById('grandline'),
     
     // UI elements
     mainPageFooter: document.getElementById('mainPageFooter'),
@@ -156,7 +317,12 @@ const Analytics = {
                 custom_parameters: {
                     send_count: data.send_count,
                     zenith_swaps: data.zenith_swaps || data.swap_count || 0,
-                    faroswap_swaps: data.faroswap_swaps || 0
+                    faroswap_swaps: data.faroswap_swaps || 0,
+                    // Atlantic tasks
+                    atlantic_onchain: data.atlantic_onchain || 0,
+                    topnod: data.topnod || 0,
+                    asseto: data.asseto || 0,
+                    grandline: data.grandline || 0
                 }
             });
         }
@@ -373,7 +539,7 @@ const UIState = {
     }
 };
 
-// === SEASON SWITCHER ===
+// === SEASON SWITCHER - ОБНОВЛЕН ДЛЯ 3 СЕЗОНОВ ===
 const SeasonSwitcher = {
     switchSeason(season) {
         // Track season switch
@@ -389,16 +555,23 @@ const SeasonSwitcher = {
             activeTab.classList.add('select');
         }
 
-        // Show/hide content
+        // Show/hide content для 3 сезонов
         const season1Content = document.getElementById('season1-content');
         const season2Content = document.getElementById('season2-content');
+        const atlanticContent = document.getElementById('atlantic-content');
         
+        // Скрываем все сезоны
+        if (season1Content) season1Content.style.display = 'none';
+        if (season2Content) season2Content.style.display = 'none';
+        if (atlanticContent) atlanticContent.style.display = 'none';
+        
+        // Показываем нужный сезон
         if (season === 'season1') {
             if (season1Content) season1Content.style.display = 'block';
-            if (season2Content) season2Content.style.display = 'none';
-        } else {
-            if (season1Content) season1Content.style.display = 'none';
+        } else if (season === 'season2') {
             if (season2Content) season2Content.style.display = 'block';
+        } else if (season === 'atlantic') {
+            if (atlanticContent) atlanticContent.style.display = 'block';
         }
     }
 };
@@ -536,6 +709,12 @@ const PharosAPI = {
         if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
         if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
 
+        // Atlantic tasks with progress bars
+        if (DOMElements.atlanticOnchain) TaskProgress.updateTaskWithProgress('atlantic_onchain', DOMElements.atlanticOnchain, data.atlantic_onchain || 0);
+        if (DOMElements.topnod) TaskProgress.updateTaskWithProgress('topnod', DOMElements.topnod, data.topnod || 0);
+        if (DOMElements.asseto) TaskProgress.updateTaskWithProgress('asseto', DOMElements.asseto, data.asseto || 0);
+        if (DOMElements.grandline) TaskProgress.updateTaskWithProgress('grandline', DOMElements.grandline, data.grandline || 0);
+
         // Show results with animation
         if (DOMElements.results) {
             DOMElements.results.classList.add('show');
@@ -619,8 +798,8 @@ const PharosApp = {
         // Track page view
         Analytics.trackPageView();
         
-        // Initialize Season 2 by default
-        SeasonSwitcher.switchSeason('season2');
+        // Initialize Atlantic by default (ИЗМЕНЕНО)
+        SeasonSwitcher.switchSeason('atlantic');
         
         // Show footer on main page when loading
         if (DOMElements.mainPageFooter) {
@@ -775,153 +954,3 @@ function renderUsersPage() {
                     <div class="user-address">${formatAddress(user.address)}</div>
                 </td>
                 <td>
-                    <div class="points-level-stack">
-                        <div class="points">${formatFullNumber(user.total_points)}</div>
-                        <div class="level-badge">LVL ${user.current_level}</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="member-since">${formatDate(user.member_since)}</div>
-                </td>
-            </tr>
-        `;
-    }).join('');
-    
-    tbody.innerHTML = rowsHtml;
-    updateRangeInfo();
-}
-
-// Helper function to get rank CSS class
-function getRankClass(rank) {
-    if (rank === 1) return 'rank-1';
-    if (rank === 2) return 'rank-2';
-    if (rank === 3) return 'rank-3';
-    return 'rank-default';
-}
-
-function updatePageNumbers() {
-    const pageNumbers = document.getElementById('pageNumbers');
-    if (!pageNumbers) return;
-    
-    const { totalPages } = dashboardState;
-    
-    let pagesHtml = '';
-    for (let i = 1; i <= totalPages; i++) {
-        pagesHtml += `<button class="pagination-btn page-number" data-page="${i}">${i}</button>`;
-        
-        // Add dots after 3rd page if more than 5 pages
-        if (i === 3 && totalPages > 5) {
-            pagesHtml += '<span class="page-dots">...</span>';
-            i = totalPages - 1; // Jump to second-to-last page
-        }
-    }
-    
-    pageNumbers.innerHTML = pagesHtml;
-}
-
-function updateRangeInfo() {
-    const { currentPage, usersPerPage, allUsers } = dashboardState;
-    const startRank = (currentPage - 1) * usersPerPage + 1;
-    const endRank = Math.min(currentPage * usersPerPage, allUsers.length);
-    
-    const rangeInfo = document.getElementById('usersRangeInfo');
-    const currentPageDisplay = document.getElementById('currentPageDisplay');
-    const totalPagesDisplay = document.getElementById('totalPagesDisplay');
-    
-    if (rangeInfo) rangeInfo.textContent = `Showing ${startRank}-${endRank} of ${allUsers.length}`;
-    if (currentPageDisplay) currentPageDisplay.textContent = currentPage;
-    if (totalPagesDisplay) totalPagesDisplay.textContent = dashboardState.totalPages;
-}
-
-function updatePaginationControls() {
-    const { currentPage, totalPages } = dashboardState;
-    
-    // Update navigation buttons
-    const firstBtn = document.getElementById('firstPageBtn');
-    const prevBtn = document.getElementById('prevPageBtn');
-    const nextBtn = document.getElementById('nextPageBtn');
-    const lastBtn = document.getElementById('lastPageBtn');
-    
-    if (firstBtn) firstBtn.disabled = currentPage === 1;
-    if (prevBtn) prevBtn.disabled = currentPage === 1;
-    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
-    if (lastBtn) lastBtn.disabled = currentPage === totalPages;
-    
-    // Update active page highlighting
-    const pageButtons = document.querySelectorAll('.page-number');
-    pageButtons.forEach(btn => {
-        const page = parseInt(btn.dataset.page);
-        if (page === currentPage) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-}
-
-function goToPage(page) {
-    if (page < 1 || page > dashboardState.totalPages || page === dashboardState.currentPage) return;
-    
-    dashboardState.currentPage = page;
-    renderUsersPage();
-    updatePaginationControls();
-}
-
-function formatAddress(address) {
-    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
-}
-
-function formatDate(dateString) {
-    if (!dateString) return 'Unknown';
-    try {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    } catch {
-        return 'Unknown';
-    }
-}
-
-function formatNumber(num) {
-    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-    return num.toString();
-}
-
-function formatFullNumber(num) {
-    return new Intl.NumberFormat('en-US').format(num);
-}
-
-function showDashboardError() {
-    const tbody = document.getElementById('dashboardUsersTable');
-    if (tbody) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #dc2626;">Failed to load dashboard data</td></tr>';
-    }
-}
-
-// Enhanced switchTab with dashboard loading
-const originalSwitchTab = switchTab;
-switchTab = function(tabName) {
-    originalSwitchTab.call(this, tabName);
-    
-    if (tabName === 'dashboard') {
-        loadDashboardData();
-    }
-};
-
-// Event listeners for pagination
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize main app
-    PharosApp.init();
-    
-    // Pagination handlers
-    document.addEventListener('click', function(e) {
-        if (e.target.id === 'firstPageBtn') goToPage(1);
-        if (e.target.id === 'prevPageBtn') goToPage(dashboardState.currentPage - 1);
-        if (e.target.id === 'nextPageBtn') goToPage(dashboardState.currentPage + 1);
-        if (e.target.id === 'lastPageBtn') goToPage(dashboardState.totalPages);
-        if (e.target.classList.contains('page-number')) {
-            const page = parseInt(e.target.dataset.page);
-            if (!isNaN(page)) goToPage(page);
-        }
-    });
-});
