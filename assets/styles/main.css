@@ -1524,6 +1524,15 @@ body {
     gap: 16px;
 }
 
+.category-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-block .section-title {
+    margin-bottom: 16px;
+}
+
 /* === PROGRESS BARS === */
 .task-progress-container {
     display: flex;
