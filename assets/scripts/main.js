@@ -421,7 +421,7 @@ const LevelCalculator = {
         2: { min: 1001, max: 3500 },
         3: { min: 3501, max: 6000 },
         4: { min: 6001, max: 10000 },
-        5: { min: 10001, max: 20000 }
+        5: { min: 10001, max: 20000 },
         6: { min: 20001, max: 35000 }
     },
 
