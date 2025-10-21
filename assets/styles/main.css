@@ -1025,17 +1025,17 @@ body {
 
     /* === СЕЗОН SWITCHER ДЛЯ 3 ТАБОВ - МОБИЛЬНАЯ АДАПТИВНОСТЬ === */
     .container .season-tab {
-        min-width: 130px; /* Уменьшено для 3 табов */
-        font-size: 14px; /* Уменьшено с 16px */
-        padding: 0 20px; /* Уменьшено с 20px */
-        gap: 10px; /* Уменьшено с 10px */
+        min-width: 130px; 
+        font-size: 16px; 
+        padding: 0 20px; 
+        gap: 10px; 
     }
     
     .container .live-badge {
-        width: 50px; /* Уменьшено с 60px */
-        height: 20px; /* Уменьшено с 24px */
-        left: -25px; /* Отступ соответственно */
-        top: -10px; /* Уменьшено с -12px */
+        width: 60px; 
+        height: 24px; 
+        left: -25px; 
+        top: -12px; 
     }
     
     .container .live-text {
@@ -1184,6 +1184,7 @@ body {
     margin: 30px 0;
     text-align: center;
     display: flex;
+    width: 100%;
 }
 
 .season-switcher {
