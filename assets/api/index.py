@@ -722,7 +722,7 @@ class PharosAPIClient:
             
            # Calculate user level based on points
             current_level = self._calculate_level(int(total_points))
-            next_level = min(current_level + 1, 5)  # Cap at level 5
+            next_level = min(current_level + 1, 6)  # Cap at level 6
             
             # Calculate points needed for next level
             level_thresholds = {
@@ -861,8 +861,10 @@ class PharosAPIClient:
                 return 4
             elif total_points <= 20000:
                 return 5
+            elif total_points <= 35000:
+                return 6
             else:
-                return 5  # Cap at level 5
+                return 6  # Cap at level 6
         except:
             return 1  # Default to level 1 on any error
 
