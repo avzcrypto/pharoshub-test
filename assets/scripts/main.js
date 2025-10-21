@@ -422,6 +422,7 @@ const LevelCalculator = {
         3: { min: 3501, max: 6000 },
         4: { min: 6001, max: 10000 },
         5: { min: 10001, max: 20000 }
+        6: { min: 20001, max: 35000 }
     },
 
     updateLevelProgress(current, total) {
@@ -489,7 +490,7 @@ const PharosAPI = {
     displayResults(data) {
         UIState.hideError();
 
-        const maxLevel = 5;
+        const maxLevel = 6;
 
         // Animate main stats with level cap
         Utils.animateValue(DOMElements.totalPoints, 0, data.total_points);
@@ -498,10 +499,10 @@ const PharosAPI = {
         // Animate rank
         if (data.exact_rank && DOMElements.currentRank) {
             Utils.animateRank(DOMElements.currentRank, 1, data.exact_rank);
-            Utils.animateValue(DOMElements.totalUsers, 1, data.total_users_count || 270000);
+            Utils.animateValue(DOMElements.totalUsers, 1, data.total_users_count || 550000);
         } else if (DOMElements.currentRank) {
             DOMElements.currentRank.textContent = 'Unranked';
-            Utils.animateValue(DOMElements.totalUsers, 1, data.total_users_count || 270000);
+            Utils.animateValue(DOMElements.totalUsers, 1, data.total_users_count || 550000);
         }
         
         // Update member since display
@@ -513,7 +514,7 @@ const PharosAPI = {
 
         // Update level progress bar
         if (DOMElements.levelProgress) {
-            const currentLevel = Math.min(data.current_level, 5);
+            const currentLevel = Math.min(data.current_level, 6);
             const levelData = LevelCalculator.levels[currentLevel];
             
             if (levelData) {
