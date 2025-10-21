@@ -348,31 +348,31 @@ class RedisManager:
                 'address': address,
                 'total_points': user_data['total_points'],
                 'current_level': user_data['current_level'],
-                'send_count': user_data['send_count'],
-                'swap_count': user_data['swap_count'],
-                'lp_count': user_data['lp_count'],
-                'social_tasks': user_data['social_tasks'],
                 'member_since': user_data.get('member_since'),
                 'last_check': timestamp,
                 'total_checks': 1,
-                'mint_domain': user_data.get('mint_domain', 0),
-                'mint_nft': user_data.get('mint_nft', 0),
-                'faroswap_lp': user_data.get('faroswap_lp', 0),
-                'faroswap_swaps': user_data.get('faroswap_swaps', 0),
                 'exact_rank': user_data.get('exact_rank'),
                 'rank_calculated_at': timestamp,
                 'total_users_count': user_data.get('total_users_count', 270000),
-                # NEW TASKS
+                # Season 1 Tasks
+                'swap_count': user_data['swap_count'],
+                'lp_count': user_data['lp_count'],
+                'faroswap_lp': user_data.get('faroswap_lp', 0),
+                'faroswap_swaps': user_data.get('faroswap_swaps', 0),
+                'mint_domain': user_data.get('mint_domain', 0),
+                # Season 2 Tasks
                 'primuslabs_send': user_data.get('primuslabs_send', 0),
                 'aquaflux': user_data.get('aquaflux', 0),
                 'autostaking': user_data.get('autostaking', 0),
-                'fiamma_bridge': user_data.get('fiamma_bridge', 0),
                 'brokex': user_data.get('brokex', 0),
                 'bitverse': user_data.get('bitverse', 0),
-                'spout': user_data.get('spout', 0),
                 'lend_borrow': user_data.get('lend_borrow', 0),
-                'r2_swap': user_data.get('r2_swap', 0),
-                'r2_earn': user_data.get('r2_earn', 0)
+                # Atlantic Tasks
+                'invite_friends': user_data.get('invite_friends', 0),
+                'atlantic_onchain': user_data.get('atlantic_onchain', 0),
+                'topnod': user_data.get('topnod', 0),
+                'asseto': user_data.get('asseto', 0),
+                'grandline': user_data.get('grandline', 0),
             }
             
             # Get existing data
@@ -466,7 +466,7 @@ class RedisManager:
                     'last_updated': datetime.now().isoformat()
                 }
             
-            # Generate top-100 for display with error handling
+            # Generate top-100 for display with error handling - ТОЛЬКО НУЖНЫЕ ПОЛЯ
             leaderboard = []
             for i, (wallet_bytes, points) in enumerate(all_wallets[:100], 1):
                 try:
@@ -481,34 +481,16 @@ class RedisManager:
                         except json.JSONDecodeError:
                             pass  # Use empty stats if corrupted
                     
+                    # Только поля которые используются в dashboard
                     leaderboard.append({
                         'rank': i,
                         'address': wallet,
                         'total_points': int(points),
                         'current_level': stats.get('current_level', 1),
-                        'send_count': stats.get('send_count', 0),
-                        'swap_count': stats.get('swap_count', 0),
-                        'lp_count': stats.get('lp_count', 0),
-                        'social_tasks': stats.get('social_tasks', 0),
                         'member_since': stats.get('member_since'),
                         'last_check': stats.get('last_check'),
                         'total_checks': stats.get('total_checks', 1),
-                        'first_check': stats.get('first_check'),
-                        'mint_domain': stats.get('mint_domain', 0),
-                        'mint_nft': stats.get('mint_nft', 0),
-                        'faroswap_lp': stats.get('faroswap_lp', 0),
-                        'faroswap_swaps': stats.get('faroswap_swaps', 0),
-                        # NEW TASKS
-                        'primuslabs_send': stats.get('primuslabs_send', 0),
-                        'aquaflux': stats.get('aquaflux', 0),
-                        'autostaking': stats.get('autostaking', 0),
-                        'fiamma_bridge': stats.get('fiamma_bridge', 0),
-                        'brokex': stats.get('brokex', 0),
-                        'bitverse': stats.get('bitverse', 0),
-                        'spout': stats.get('spout', 0),
-                        'lend_borrow': stats.get('lend_borrow', 0),
-                        'r2_swap': stats.get('r2_swap', 0),
-                        'r2_earn': stats.get('r2_earn', 0)
+                        'first_check': stats.get('first_check')
                     })
                 except Exception:
                     continue
@@ -766,28 +748,27 @@ class PharosAPIClient:
                 'current_level': current_level,
                 'next_level': next_level,
                 'points_needed': points_needed,
-                'send_count': task_counts['send'],
+                # Season 1 Tasks
                 'swap_count': task_counts['swap'],
                 'lp_count': task_counts['lp'],
-                'social_tasks': task_counts['social'],
-                'member_since': user_info.get('CreateTime'),
                 'mint_domain': task_counts['domain'],
-                'mint_nft': task_counts['nft'],
                 'faroswap_lp': task_counts['faroswap_lp'],
                 'faroswap_swaps': task_counts['faroswap_swaps'],
-                'zenith_swaps': task_counts['swap'],
-                'zenith_lp': task_counts['lp'],
-                # NEW TASKS
+                # Season 2 Tasks  
                 'primuslabs_send': task_counts['primuslabs_send'],
                 'aquaflux': task_counts['aquaflux'],
                 'autostaking': task_counts['autostaking'],
-                'fiamma_bridge': task_counts['fiamma_bridge'],
                 'brokex': task_counts['brokex'],
                 'bitverse': task_counts['bitverse'],
-                'spout': task_counts['spout'],
                 'lend_borrow': task_counts['lend_borrow'],
-                'r2_swap': task_counts['r2_swap'],
-                'r2_earn': task_counts['r2_earn'],
+                # Atlantic Tasks
+                'invite_friends': task_counts['invite_friends'],
+                'atlantic_onchain': task_counts['atlantic_onchain'],
+                'topnod': task_counts['topnod'],
+                'asseto': task_counts['asseto'],
+                'grandline': task_counts['grandline'],
+                # General
+                'member_since': user_info.get('CreateTime'),
                 'total_users_count': total_users_count
             }
             
@@ -800,10 +781,15 @@ class PharosAPIClient:
     def _parse_task_data(self, user_tasks: List[Dict[str, Any]]) -> Dict[str, int]:
         """Parse task completion data with validation."""
         task_counts = {
-            'send': 0, 'swap': 0, 'lp': 0, 'domain': 0, 'nft': 0,
-            'faroswap_lp': 0, 'faroswap_swaps': 0, 'social': 0,
+            # Season 1
+            'swap': 0, 'lp': 0, 'domain': 0,
+            'faroswap_lp': 0, 'faroswap_swaps': 0,
+            # Season 2  
             'primuslabs_send': 0, 'aquaflux': 0, 'autostaking': 0, 
-            'fiamma_bridge': 0, 'brokex': 0, 'bitverse': 0, 'spout': 0, 'lend_borrow': 0, 'r2_swap': 0, 'r2_earn': 0
+            'brokex': 0, 'bitverse': 0, 'lend_borrow': 0,
+            # Atlantic
+            'invite_friends': 0, 'atlantic_onchain': 0, 'topnod': 0,
+            'asseto': 0, 'grandline': 0
         }
         
         for task in user_tasks:
@@ -820,27 +806,20 @@ class PharosAPIClient:
                 
                 complete_times = max(0, int(complete_times))  # Ensure non-negative
                 
-                if task_id == 103:
-                    task_counts['send'] = complete_times
-                elif task_id == 101:
+                # Season 1 Tasks
+                if task_id == 101:
                     task_counts['swap'] = complete_times
                 elif task_id == 102:
                     task_counts['lp'] = complete_times
-                elif task_id in [201, 202, 203, 204]:
-                    task_counts['social'] += 1
                 elif task_id == 104:
                     task_counts['domain'] = complete_times
-                elif task_id == 105:
-                    task_counts['nft'] = complete_times
                 elif task_id == 106:
                     task_counts['faroswap_lp'] = complete_times
                 elif task_id == 107:
                     task_counts['faroswap_swaps'] = complete_times
-                # NEW TASKS
+                # Season 2 Tasks
                 elif task_id == 108:
                     task_counts['primuslabs_send'] = complete_times
-                elif task_id == 109:
-                    task_counts['fiamma_bridge'] = complete_times
                 elif task_id == 110:
                     task_counts['autostaking'] = complete_times
                 elif task_id == 111:
@@ -849,14 +828,20 @@ class PharosAPIClient:
                     task_counts['aquaflux'] = complete_times
                 elif task_id == 114:
                     task_counts['lend_borrow'] = complete_times
-                elif task_id == 116:
-                    task_counts['r2_earn'] = complete_times
-                elif task_id == 117:
-                    task_counts['r2_swap'] = complete_times
-                elif task_id == 118:
-                    task_counts['spout'] = complete_times
                 elif task_id == 119:
                     task_counts['bitverse'] = complete_times
+                # Atlantic Tasks
+                elif task_id == 121:
+                    task_counts['asseto'] = complete_times
+                elif task_id == 401:
+                    task_counts['atlantic_onchain'] = complete_times
+                # TODO: Добавить когда узнаем Task ID:
+                # elif task_id == ???:
+                #     task_counts['invite_friends'] = complete_times
+                # elif task_id == ???:
+                #     task_counts['topnod'] = complete_times
+                # elif task_id == ???:
+                #     task_counts['grandline'] = complete_times
                     
             except Exception:
                 continue
