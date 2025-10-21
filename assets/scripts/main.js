@@ -21,7 +21,8 @@ const TASK_LIMITS = {
     'brokex': 91,               // CFD Trading
     'aquaflux': 1,
 
-    // Atlantic Tasks 
+    // Atlantic Tasks
+    'invite_friends': 91,
     'atlantic_onchain': 91,     // Via Atlantic On-chain Address
     'topnod': 91,               // Via TopNod
     'asseto': 91,               // Asseto
@@ -116,6 +117,7 @@ const DOMElements = {
     lendBorrow: document.getElementById('lendBorrow'),
 
     // Atlantic task elements
+    inviteFriends: document.getElementById('inviteFriends'),
     atlanticOnchain: document.getElementById('atlanticOnchain'),
     topnod: document.getElementById('topnod'),
     asseto: document.getElementById('asseto'),
@@ -541,6 +543,7 @@ const PharosAPI = {
         if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
 
         // Atlantic tasks with progress bars
+        if (DOMElements.inviteFriends) TaskProgress.updateTaskWithProgress('invite_friends', DOMElements.inviteFriends, data.invite_friends || 0);
         if (DOMElements.atlanticOnchain) TaskProgress.updateTaskWithProgress('atlantic_onchain', DOMElements.atlanticOnchain, data.atlantic_onchain || 0);
         if (DOMElements.topnod) TaskProgress.updateTaskWithProgress('topnod', DOMElements.topnod, data.topnod || 0);
         if (DOMElements.asseto) TaskProgress.updateTaskWithProgress('asseto', DOMElements.asseto, data.asseto || 0);
