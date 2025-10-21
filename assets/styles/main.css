@@ -1022,6 +1022,37 @@ body {
     .container .users-table tr:hover {
         background: #f8fafc;
     }
+
+    /* === СЕЗОН SWITCHER ДЛЯ 3 ТАБОВ - МОБИЛЬНАЯ АДАПТИВНОСТЬ === */
+    .container .season-tab {
+        min-width: 100px; /* Уменьшено для 3 табов */
+        font-size: 14px; /* Уменьшено с 16px */
+        padding: 0 12px; /* Уменьшено с 20px */
+        gap: 6px; /* Уменьшено с 10px */
+    }
+    
+    .container .live-badge {
+        width: 50px; /* Уменьшено с 60px */
+        height: 20px; /* Уменьшено с 24px */
+        left: -25px; /* Отступ соответственно */
+        top: -10px; /* Уменьшено с -12px */
+    }
+    
+    .container .live-text {
+        font-size: 11px; /* Уменьшено с 13px */
+    }
+    
+    .container .live-dot {
+        width: 5px; /* Уменьшено с 7px */
+        height: 5px;
+        margin-right: 3px; /* Уменьшено с 5px */
+    }
+
+    /* Обеспечиваем правильную ширину switcher на мобильных */
+    .container .season-switcher {
+        max-width: 100%;
+        width: auto;
+    }
 }
 
 .check-button:hover {
@@ -1148,7 +1179,7 @@ body {
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* === SEASON SWITCHER === */
+/* === SEASON SWITCHER === - ОБНОВЛЕН ДЛЯ 3 СЕЗОНОВ */
 .season-switcher-container {
     margin: 30px 0;
     text-align: center;
@@ -1172,20 +1203,25 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 130px;
+    min-width: 120px; /* Уменьшено с 130px для 3 табов */
     height: 100%;
     font-family: var(--font-primary);
-    font-size: 16px;
+    font-size: 15px; /* Уменьшено с 16px */
     color: rgb(34, 34, 34);
     font-weight: 600;
     background-color: rgb(255, 255, 255);
-    gap: 10px;
-    padding: 0 20px;
+    gap: 8px; /* Уменьшено с 10px */
+    padding: 0 16px; /* Уменьшено с 20px */
     transition: var(--transition-smooth);
 }
 
+/* Обновленные скругления для 3 табов */
 .season-tab:first-child {
     border-radius: 10px 0px 0px 10px;
+}
+
+.season-tab:nth-child(2) {
+    border-radius: 0; /* Средний таб без скруглений */
 }
 
 .season-tab:last-child {
@@ -1621,3 +1657,4 @@ body {
     color: #2c4375;
     margin-bottom: 4px;
     letter-spacing: 0.025em;
+}
