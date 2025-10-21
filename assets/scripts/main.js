@@ -26,7 +26,7 @@ const TASK_LIMITS = {
     'atlantic_onchain': 91,     // Via Atlantic On-chain Address
     'topnod': 91,               // Via TopNod
     'asseto': 91,               // Asseto
-    'grandline': 91             // Grandline
+    'grandline': 1             // Grandline
 };
 
 // === MEMBER SINCE UTILITIES ===
