@@ -6,7 +6,7 @@
 
 /* === CSS CUSTOM PROPERTIES === */
 
-/* UTO FONTS - OPTIMIZED (только используемые веса) */
+/* UTO FONTS - OPTIMIZED */
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
@@ -15,7 +15,7 @@
 @font-face { font-family: 'Uto'; src: url('../fonts/Uto-Black.ttf') format('truetype'); font-weight: 900; font-style: normal; font-display: swap; }
 
 :root {
-    /* Pharos Brand Colors */
+    /* Pharos Colors */
     --pharos-blue-500: #3b82f6;
     --pharos-blue-600: #2563eb;
     --pharos-blue-700: #1d4ed8;
@@ -611,7 +611,7 @@ body {
     cursor: not-allowed;
 }
 
-/* Progress bars for level distribution - ИСПРАВЛЕННЫЕ СЕЛЕКТОРЫ */
+/* Progress bars for level distribution */
 .level-bar-container {
     width: 50%;
     height: 20px;
@@ -628,7 +628,7 @@ body {
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Level-specific progress bar colors using brand colors - ПРАВИЛЬНЫЕ СЕЛЕКТОРЫ */
+/* Level-specific progress bar colors using brand colors */
 .level-bar:nth-child(1) .level-progress-bar { background: linear-gradient(90deg, #2c4375, #1a2951); }
 .level-bar:nth-child(2) .level-progress-bar { background: linear-gradient(90deg, #31bff0, #247fc3); }
 .level-bar:nth-child(3) .level-progress-bar { background: linear-gradient(90deg, #247fc3, #1c6399); }
@@ -734,14 +734,14 @@ body {
         padding: 14px;
     }
 
-    /* DASHBOARD TITLES - УМЕНЬШЕНЫ ДЛЯ МОБИЛЬНЫХ */
+    /* DASHBOARD TITLES */
     .container .distribution-title {
-        font-size: 18px; /* было 24px */
+        font-size: 18px; 
         margin-bottom: 16px;
     }
     
     .container .top-users-title {
-        font-size: 18px; /* было 24px */
+        font-size: 18px; 
         margin-bottom: 16px;
     }
 
@@ -851,46 +851,46 @@ body {
         gap: 16px;
     }
 
-    /* LEVEL DISTRIBUTION - КОМПАКТНЫЕ */
+    /* LEVEL DISTRIBUTION */
     .container .level-bar {
-        padding: 8px; /* уменьшено с 10px */
-        gap: 8px; /* уменьшено с 10px */
-        height: 44px; /* уменьшено с 50px */
+        padding: 8px; 
+        gap: 8px; 
+        height: 44px; 
     }
 
     .container .level-icon {
-        width: 24px; /* уменьшено с 28px */
+        width: 24px; 
         height: 24px;
     }
 
     .container .level-name {
-        font-size: 12px; /* уменьшено с 13px */
+        font-size: 12px; 
         font-weight: 600;
     }
 
     .container .level-range {
-        font-size: 10px; /* уменьшено с 11px */
+        font-size: 10px; 
     }
 
     .container .level-count {
-        font-size: 12px; /* уменьшено с 14px */
-        min-width: 120px; /* уменьшено с 160px */
+        font-size: 12px; 
+        min-width: 120px; 
     }
 
     .container .level-info {
-        min-width: 145px; /* уменьшено с 200px */
-        gap: 10px; /* уменьшено с 14px */
+        min-width: 145px; 
+        gap: 10px; 
     }
 
-    /* TABLE - КОМПАКТНАЯ */
+    /* TABLE - */
     .container .users-table th,
     .container .users-table td {
-        padding: 6px 4px; /* уменьшено */
-        font-size: 11px; /* уменьшено */
+        padding: 6px 4px; 
+        font-size: 11px; 
     }
 
     .container .rank-badge {
-        width: 22px; /* уменьшено */
+        width: 22px; 
         height: 22px;
         font-size: 10px;
     }
@@ -900,36 +900,36 @@ body {
     }
 
     .container .points-level-stack .points {
-        font-size: 13px; /* уменьшено */
+        font-size: 13px; 
     }
 
     .container .member-since {
-        font-size: 10px; /* уменьшено */
+        font-size: 10px; 
     }
 
     /* TABLE CONTAINER */
     .container .top-users {
-        padding: 12px; /* уменьшено с 16px */
+        padding: 12px; 
         margin-top: 20px;
     }
 
     .container .table-container {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        margin: 0 -12px; /* подстройка под padding */
+        margin: 0 -12px; 
         padding: 0 12px;
     }
 
     .container .users-table {
-        min-width: 560px; /* уменьшено с 600px */
+        min-width: 560px; 
         font-size: 11px;
     }
 
-    /* TABLE COLUMN WIDTHS - ОПТИМИЗИРОВАНЫ */
-    .container .users-table th:nth-child(1) { width: 50px; } /* уменьшено */
-    .container .users-table th:nth-child(2) { width: 110px; } /* уменьшено */
-    .container .users-table th:nth-child(3) { width: 130px; } /* уменьшено */
-    .container .users-table th:nth-child(4) { width: 90px; } /* уменьшено */
+    /* TABLE COLUMN WIDTHS */
+    .container .users-table th:nth-child(1) { width: 50px; } 
+    .container .users-table th:nth-child(2) { width: 110px; } 
+    .container .users-table th:nth-child(3) { width: 130px; } 
+    .container .users-table th:nth-child(4) { width: 90px; } 
 
     .container .users-table td {
         padding: 8px 4px;
@@ -950,8 +950,8 @@ body {
     }
 
     .container .points-level-stack {
-        gap: 4px; /* уменьшено */
-        min-height: 44px; /* уменьшено */
+        gap: 4px; 
+        min-height: 44px; 
     }
 
     .container .points-level-stack .points {
@@ -961,11 +961,11 @@ body {
     }
 
     .container .points-level-stack .level-badge {
-        padding: 2px 6px; /* уменьшено */
+        padding: 2px 6px; 
         border-radius: 4px;
         font-size: 9px;
         font-weight: 600;
-        min-width: 40px; /* уменьшено */
+        min-width: 40px; 
     }
 
     .container .member-since {
@@ -977,24 +977,24 @@ body {
 
     /* PAGINATION */
     .container .pagination-info-top {
-        padding: 0 8px; /* уменьшено */
-        font-size: 12px; /* уменьшено */
+        padding: 0 8px; 
+        font-size: 12px; 
         flex-direction: column;
         gap: 6px;
         text-align: center;
     }
 
     .container .users-pagination {
-        padding: 12px 8px 0; /* уменьшено */
-        gap: 4px; /* уменьшено */
+        padding: 12px 8px 0; 
+        gap: 4px; 
         flex-wrap: wrap;
         justify-content: center;
     }
 
     .container .pagination-btn {
-        padding: 6px 8px; /* уменьшено */
-        font-size: 11px; /* уменьшено */
-        min-width: 32px; /* уменьшено */
+        padding: 6px 8px; 
+        font-size: 11px; 
+        min-width: 32px; 
         border-radius: 5px;
     }
 
@@ -1013,7 +1013,7 @@ body {
         position: absolute;
         top: 0;
         right: 0;
-        width: 15px; /* уменьшено */
+        width: 15px; 
         height: 100%;
         background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
         pointer-events: none;
@@ -1039,13 +1039,13 @@ body {
     }
     
     .container .live-text {
-        font-size: 11px; /* Уменьшено с 13px */
+        font-size: 11px; 
     }
     
     .container .live-dot {
-        width: 5px; /* Уменьшено с 7px */
+        width: 5px; 
         height: 5px;
-        margin-right: 3px; /* Уменьшено с 5px */
+        margin-right: 3px; 
     }
 
     /* Обеспечиваем правильную ширину switcher на мобильных */
@@ -1179,7 +1179,7 @@ body {
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* === SEASON SWITCHER === - ОБНОВЛЕН ДЛЯ 3 СЕЗОНОВ */
+/* === SEASON SWITCHER === */
 .season-switcher-container {
     margin: 30px 0;
     text-align: center;
@@ -1207,25 +1207,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 120px; /* Уменьшено с 130px для 3 табов */
+    min-width: 120px; 
     height: 100%;
     font-family: var(--font-primary);
-    font-size: 15px; /* Уменьшено с 16px */
+    font-size: 15px; 
     color: rgb(34, 34, 34);
     font-weight: 600;
     background-color: rgb(255, 255, 255);
-    gap: 8px; /* Уменьшено с 10px */
-    padding: 0 16px; /* Уменьшено с 20px */
+    gap: 8px; 
+    padding: 0 16px; 
     transition: var(--transition-smooth);
 }
 
-/* Обновленные скругления для 3 табов */
 .season-tab:first-child {
     border-radius: 10px 0px 0px 10px;
 }
 
 .season-tab:nth-child(2) {
-    border-radius: 0; /* Средний таб без скруглений */
+    border-radius: 0; 
 }
 
 .season-tab:last-child {
