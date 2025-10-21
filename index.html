@@ -92,7 +92,7 @@
         </header>
 
         <div class="loading" id="loading" role="status" aria-live="polite">
-            <img src="./assets/images/misc/loading.webp" alt="" class="loading-emoji" width="120" height="120">
+            <img src="https://testnet.pharosnetwork.xyz/static/media/loading.e97159db4c0f48511013.gif" alt="" class="loading-emoji" style="width: 120px; height: auto;">
             <p class="loading-text">Loading...</p>
         </div>
 
@@ -147,7 +147,7 @@
                         <div class="gradient-line" aria-hidden="true"></div>
                         <div class="author-left-final">
                             <div class="author-icon-final">
-                                <img src="./assets/images/misc/pfp.jpg" alt="avzcrypto profile picture" class="author-avatar-img" width="64" height="64">
+                                <img src="https://pbs.twimg.com/profile_images/1966224329932144640/4d16_81s_400x400.jpg" alt="avzcrypto profile picture" class="author-avatar-img" width="64" height="64">
                             </div>
                             <div class="author-text-final">
                                 <div class="author-name-final">
@@ -166,17 +166,85 @@
                 <!-- Season Switcher -->
                 <div class="season-switcher-container">
                     <div class="season-switcher" role="tablist" aria-label="Season selection">
-                        <div class="season-tab select" data-season="season2" role="tab" aria-selected="true" tabindex="0">
-                            Season 2
+                        <div class="season-tab select" data-season="atlantic" role="tab" aria-selected="true" tabindex="0">
+                            Atlantic
                             <div class="live-badge" aria-label="Currently live">
                                 <div class="live-dot" aria-hidden="true"></div>
                                 <span class="live-text">Live</span>
                             </div>
                         </div>
+                        <div class="season-tab" data-season="season2" role="tab" aria-selected="false" tabindex="-1">
+                            Season 2
+                        </div>
                         <div class="season-tab" data-season="season1" role="tab" aria-selected="false" tabindex="-1">
                             Season 1
                         </div>
                     </div>
+                </div>
+
+                <!-- ATLANTIC CONTENT -->
+                <div id="atlantic-content" role="tabpanel" aria-labelledby="atlantic-tab">
+                    <!-- Send Token To Friends CATEGORY -->
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="https://static.pharosnetwork.xyz/experience/send-new.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            Send Token To Friends
+                        </h3>
+                        <div class="protocol-grid">
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="https://static.pharosnetwork.xyz/ecosystem/atlantic.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Via Atlantic On-chain Address</div>
+                                    </div>
+                                    <div class="task-count" id="atlanticOnchain" aria-label="Atlantic on-chain sends completed">0</div>
+                                </div>
+                            </div>
+                            <div class="task-card">
+                                <div class="task-main">
+                                    <div class="task-left">
+                                        <img src="https://static.pharosnetwork.xyz/ecosystem/topnod.png" alt="" class="task-icon" width="60" height="60">
+                                        <div class="task-name">Via TopNod</div>
+                                    </div>
+                                    <div class="task-count" id="topnod" aria-label="TopNod sends completed">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- RWAfi CATEGORY -->
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="https://static.pharosnetwork.xyz/experience/rwa@2x.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            RWAfi
+                        </h3>
+                        <div class="task-card">
+                            <div class="task-main">
+                                <div class="task-left">
+                                    <img src="https://static.pharosnetwork.xyz/ecosystem/asseto.png" alt="" class="task-icon" width="60" height="60">
+                                    <div class="task-name">Asseto</div>
+                                </div>
+                                <div class="task-count" id="asseto" aria-label="Asseto activities completed">0</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Collect NFTs CATEGORY -->
+                    <section class="tasks-section">
+                        <h3 class="section-title">
+                            <img src="https://static.pharosnetwork.xyz/experience/nft1.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            Collect NFTs
+                        </h3>
+                        <div class="task-card">
+                            <div class="task-main">
+                                <div class="task-left">
+                                    <img src="https://static.pharosnetwork.xyz/ecosystem/grandline.png" alt="" class="task-icon" width="60" height="60">
+                                    <div class="task-name">Grandline</div>
+                                </div>
+                                <div class="task-count" id="grandline" aria-label="Grandline NFTs collected">0</div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
                 <!-- SEASON 1 CONTENT -->
@@ -185,7 +253,7 @@
                         <div class="task-card">
                             <div class="task-main">
                                 <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/send.png" alt="" class="task-icon" width="60" height="60">
+                                    <img src="https://static.pharosnetwork.xyz/experience/send-new.png" alt="" class="task-icon" width="60" height="60">
                                     <div class="task-name">Send To Friends</div>
                                 </div>
                                 <div class="task-count" id="sendCount" aria-label="Send transactions completed">156</div>
@@ -195,14 +263,14 @@
 
                     <section class="tasks-section">
                         <h3 class="section-title">
-                            <img src="./assets/images/tasks-icons/zenith.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            <img src="https://static.pharosnetwork.xyz/experience/zenith.png" alt="" class="protocol-icon-img" width="32" height="32">
                             Zenith Protocol
                         </h3>
                         <div class="protocol-grid">
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/swap.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/experience/swap-new.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Swaps</div>
                                     </div>
                                     <div class="task-count" id="zenithSwaps" aria-label="Zenith swaps completed">43</div>
@@ -211,7 +279,7 @@
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/lp.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/experience/liquidity-new.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Provide Liquidity</div>
                                     </div>
                                     <div class="task-count" id="zenithLP" aria-label="Zenith liquidity provisions">28</div>
@@ -222,14 +290,14 @@
 
                     <section class="tasks-section">
                         <h3 class="section-title">
-                            <img src="./assets/images/tasks-icons/faroswap.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            <img src="https://static.pharosnetwork.xyz/experience/faroswap.png" alt="" class="protocol-icon-img" width="32" height="32">
                             Faroswap Protocol
                         </h3>
                         <div class="protocol-grid">
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/swap.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/experience/swap-new.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Swaps</div>
                                     </div>
                                     <div class="task-count" id="faroswapSwaps" aria-label="Faroswap swaps completed">15</div>
@@ -238,7 +306,7 @@
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/lp.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/experience/liquidity-new.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Provide Liquidity</div>
                                     </div>
                                     <div class="task-count" id="faroswapLP" aria-label="Faroswap liquidity provisions">9</div>
@@ -249,14 +317,14 @@
 
                     <section class="tasks-section">
                         <h3 class="section-title">
-                            <img src="./assets/images/tasks-icons/nft.jpg" alt="" class="protocol-icon-img" width="32" height="32">
+                            <img src="https://static.pharosnetwork.xyz/experience/nft1.png" alt="" class="protocol-icon-img" width="32" height="32">
                             NFT & Domains
                         </h3>
                         <div class="protocol-grid">
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/domain.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/experience/pharos-new.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Domains</div>
                                     </div>
                                     <div class="task-count" id="mintDomain" aria-label="Domains minted">2</div>
@@ -265,7 +333,7 @@
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/nft.jpg" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/experience/nft1.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Collect NFTs</div>
                                     </div>
                                     <div class="task-count" id="mintNFT" aria-label="NFTs collected">1</div>
@@ -282,7 +350,7 @@
                         <div class="task-card">
                             <div class="task-main">
                                 <div class="task-left">
-                                    <img src="./assets/images/tasks-icons/primus.png" alt="" class="task-icon" width="60" height="60">
+                                    <img src="https://static.pharosnetwork.xyz/ecosystem/primus.png" alt="" class="task-icon" width="60" height="60">
                                     <div class="task-name">Primuslabs Send</div>
                                 </div>
                                 <div class="task-count" id="primuslabsSend" aria-label="Primuslabs sends completed">0</div>
@@ -296,7 +364,7 @@
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/staking.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/home/staking-new.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Stake</div>
                                     </div>
                                     <div class="task-count" id="stake" aria-label="Stakes completed">0</div>
@@ -305,7 +373,7 @@
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/lending-new.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/home/lending-new.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Lend & Borrow</div>
                                     </div>
                                     <div class="task-count" id="lendBorrow" aria-label="Lending activities completed">0</div>
@@ -317,34 +385,14 @@
                     <!-- RWAfi CATEGORY -->
                     <section class="tasks-section">
                         <h3 class="section-title">
-                            <img src="./assets/images/tasks-icons/rwafi.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            <img src="https://static.pharosnetwork.xyz/experience/rwa@2x.png" alt="" class="protocol-icon-img" width="32" height="32">
                             RWAfi
                         </h3>
                         <div class="protocol-grid">
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/r2.png" alt="" class="task-icon" width="60" height="60">
-                                        <div class="task-name">R2 Swap</div>
-                                    </div>
-                                    <div class="task-count" id="r2Swap" aria-label="R2 swaps completed">0</div>
-                                </div>
-                            </div>
-                            <div class="task-card">
-                                <div class="task-main">
-                                    <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/r2.png" alt="" class="task-icon" width="60" height="60">
-                                        <div class="task-name">R2 Earn</div>
-                                    </div>
-                                    <div class="task-count" id="r2Earn" aria-label="R2 earning activities">0</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="protocol-grid">
-                            <div class="task-card">
-                                <div class="task-main">
-                                    <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/spout.jpg" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/ecosystem/spout.jpg" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Spout</div>
                                     </div>
                                     <div class="task-count" id="spout" aria-label="Spout activities completed">0</div>
@@ -353,7 +401,7 @@
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/aqua.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/ecosystem/aqua.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">AquaFlux</div>
                                     </div>
                                     <div class="task-count" id="rwafi" aria-label="AquaFlux activities completed">0</div>
@@ -365,14 +413,14 @@
                     <!-- TRADING CATEGORY -->
                     <section class="tasks-section">
                         <h3 class="section-title">
-                            <img src="./assets/images/tasks-icons/cfd.png" alt="" class="protocol-icon-img" width="32" height="32">
+                            <img src="https://static.pharosnetwork.xyz/experience/trade@2x.png" alt="" class="protocol-icon-img" width="32" height="32">
                             Trading
                         </h3>
                         <div class="protocol-grid">
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/bitverse.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/ecosystem/bitverse.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Bitverse</div>
                                     </div>
                                     <div class="task-count" id="bitverse" aria-label="Bitverse trading activities">0</div>
@@ -381,7 +429,7 @@
                             <div class="task-card">
                                 <div class="task-main">
                                     <div class="task-left">
-                                        <img src="./assets/images/tasks-icons/brokex.png" alt="" class="task-icon" width="60" height="60">
+                                        <img src="https://static.pharosnetwork.xyz/ecosystem/brokex.png" alt="" class="task-icon" width="60" height="60">
                                         <div class="task-name">Brokex</div>
                                     </div>
                                     <div class="task-count" id="cfdTrading" aria-label="Brokex CFD trading activities">0</div>
@@ -410,7 +458,7 @@
                     <div class="gradient-line" aria-hidden="true"></div>
                     <div class="author-left-final">
                         <div class="author-icon-final">
-                            <img src="./assets/images/misc/pfp.jpg" alt="avzcrypto profile picture" class="author-avatar-img" width="64" height="64">
+                            <img src="https://pbs.twimg.com/profile_images/1966224329932144640/4d16_81s_400x400.jpg" alt="avzcrypto profile picture" class="author-avatar-img" width="64" height="64">
                         </div>
                         <div class="author-text-final">
                             <div class="author-name-final">
@@ -463,7 +511,7 @@
                 </div>
                 <div id="levelBars">
                     <div class="level-bar">
-                        <img src="./assets/images/level-badges/level1.png" alt="" class="level-icon" width="44" height="44">
+                        <img src="https://static.pharosnetwork.xyz/progress/level1.png" alt="" class="level-icon" width="44" height="44">
                         <div class="level-info">
                             <div class="level-name">Level 1</div>
                             <div class="level-range">0-1,000 pts</div>
@@ -474,7 +522,7 @@
                         <div class="level-count" aria-label="Level 1 users count">Loading...</div>
                     </div>
                     <div class="level-bar">
-                        <img src="./assets/images/level-badges/level2.png" alt="" class="level-icon" width="44" height="44">
+                        <img src="https://static.pharosnetwork.xyz/progress/level2.png" alt="" class="level-icon" width="44" height="44">
                         <div class="level-info">
                             <div class="level-name">Level 2</div>
                             <div class="level-range">1,001-3,500 pts</div>
@@ -485,7 +533,7 @@
                         <div class="level-count" aria-label="Level 2 users count">Loading...</div>
                     </div>
                     <div class="level-bar">
-                        <img src="./assets/images/level-badges/level3.png" alt="" class="level-icon" width="44" height="44">
+                        <img src="https://static.pharosnetwork.xyz/progress/level3.png" alt="" class="level-icon" width="44" height="44">
                         <div class="level-info">
                             <div class="level-name">Level 3</div>
                             <div class="level-range">3,501-6,000 pts</div>
@@ -496,7 +544,7 @@
                         <div class="level-count" aria-label="Level 3 users count">Loading...</div>
                     </div>
                     <div class="level-bar">
-                        <img src="./assets/images/level-badges/level4.png" alt="" class="level-icon" width="44" height="44">
+                        <img src="https://static.pharosnetwork.xyz/progress/level4.png" alt="" class="level-icon" width="44" height="44">
                         <div class="level-info">
                             <div class="level-name">Level 4</div>
                             <div class="level-range">6,001-10,000 pts</div>
@@ -507,7 +555,7 @@
                         <div class="level-count" aria-label="Level 4 users count">Loading...</div>
                     </div>
                     <div class="level-bar">
-                        <img src="./assets/images/level-badges/level5.png" alt="" class="level-icon" width="44" height="44">
+                        <img src="https://static.pharosnetwork.xyz/progress/level5.png" alt="" class="level-icon" width="44" height="44">
                         <div class="level-info">
                             <div class="level-name">Level 5</div>
                             <div class="level-range">10,001-20,000 pts</div>
