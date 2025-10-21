@@ -19,9 +19,6 @@ const TASK_LIMITS = {
     'primuslabs_send': 91,
     'autostaking': 91,          // Stake
     'lend_borrow': 91,
-    'r2_swap': 91,
-    'r2_earn': 91,
-    'spout': 91,
     'bitverse': 91,
     'brokex': 91,               // CFD Trading
     'aquaflux': 1,
@@ -120,10 +117,7 @@ const DOMElements = {
     stake: document.getElementById('stake'),
     cfdTrading: document.getElementById('cfdTrading'),
     bitverse: document.getElementById('bitverse'),
-    spout: document.getElementById('spout'),
     lendBorrow: document.getElementById('lendBorrow'),
-    r2Swap: document.getElementById('r2Swap'),
-    r2Earn: document.getElementById('r2Earn'),
 
     // Atlantic task elements
     atlanticOnchain: document.getElementById('atlanticOnchain'),
@@ -549,9 +543,6 @@ const PharosAPI = {
         if (DOMElements.stake) TaskProgress.updateTaskWithProgress('autostaking', DOMElements.stake, data.autostaking || 0);
         if (DOMElements.lendBorrow) TaskProgress.updateTaskWithProgress('lend_borrow', DOMElements.lendBorrow, data.lend_borrow || 0);
         if (DOMElements.rwafi) TaskProgress.updateTaskWithProgress('aquaflux', DOMElements.rwafi, data.aquaflux || 0);
-        if (DOMElements.r2Swap) TaskProgress.updateTaskWithProgress('r2_swap', DOMElements.r2Swap, data.r2_swap || 0);
-        if (DOMElements.r2Earn) TaskProgress.updateTaskWithProgress('r2_earn', DOMElements.r2Earn, data.r2_earn || 0);
-        if (DOMElements.spout) TaskProgress.updateTaskWithProgress('spout', DOMElements.spout, data.spout || 0);
         if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
         if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
 
