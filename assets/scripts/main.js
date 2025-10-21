@@ -7,13 +7,11 @@
 // === CONFIGURATION ===
 const TASK_LIMITS = {
     // Season 1 Tasks 
-    'send_count': 91,
     'swap_count': 91,           // Zenith Swaps
     'lp_count': 91,             // Zenith LP  
     'faroswap_swaps': 91,
     'faroswap_lp': 91,
     'mint_domain': 91,
-    'mint_nft': 1, 
 
     // Season 2 Tasks 
     'primuslabs_send': 91,
@@ -103,13 +101,11 @@ const DOMElements = {
     totalUsers: document.getElementById('totalUsers'),
     
     // Season 1 task elements
-    sendCount: document.getElementById('sendCount'),
     zenithSwaps: document.getElementById('zenithSwaps'),
     zenithLP: document.getElementById('zenithLP'),
     faroswapSwaps: document.getElementById('faroswapSwaps'),
     faroswapLP: document.getElementById('faroswapLP'),
     mintDomain: document.getElementById('mintDomain'),
-    mintNFT: document.getElementById('mintNFT'),
     
     // Season 2 task elements
     primuslabsSend: document.getElementById('primuslabsSend'),
@@ -530,13 +526,11 @@ const PharosAPI = {
         }
 
         // Season 1 tasks with progress bars
-        TaskProgress.updateTaskWithProgress('send_count', DOMElements.sendCount, data.send_count || 0);
         TaskProgress.updateTaskWithProgress('swap_count', DOMElements.zenithSwaps, data.swap_count || 0);
         TaskProgress.updateTaskWithProgress('lp_count', DOMElements.zenithLP, data.lp_count || 0);
         TaskProgress.updateTaskWithProgress('faroswap_swaps', DOMElements.faroswapSwaps, data.faroswap_swaps || 0);
         TaskProgress.updateTaskWithProgress('faroswap_lp', DOMElements.faroswapLP, data.faroswap_lp || 0);
         TaskProgress.updateTaskWithProgress('mint_domain', DOMElements.mintDomain, data.mint_domain || 0);
-        TaskProgress.updateTaskWithProgress('mint_nft', DOMElements.mintNFT, data.mint_nft || 0);
 
         // Season 2 tasks with progress bars
         if (DOMElements.primuslabsSend) TaskProgress.updateTaskWithProgress('primuslabs_send', DOMElements.primuslabsSend, data.primuslabs_send || 0);
