@@ -792,7 +792,7 @@ class PharosAPIClient:
                 complete_times = max(0, int(complete_times))  # Ensure non-negative
                 
                 # Season 2 Tasks
-                elif task_id == 108:
+                if task_id == 108:
                     task_counts['primuslabs_send'] = complete_times
                 elif task_id == 110:
                     task_counts['autostaking'] = complete_times
