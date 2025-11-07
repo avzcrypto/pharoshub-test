@@ -354,12 +354,6 @@ class RedisManager:
                 'exact_rank': user_data.get('exact_rank'),
                 'rank_calculated_at': timestamp,
                 'total_users_count': user_data.get('total_users_count', 270000),
-                # Season 1 Tasks
-                'swap_count': user_data['swap_count'],
-                'lp_count': user_data['lp_count'],
-                'faroswap_lp': user_data.get('faroswap_lp', 0),
-                'faroswap_swaps': user_data.get('faroswap_swaps', 0),
-                'mint_domain': user_data.get('mint_domain', 0),
                 # Season 2 Tasks
                 'primuslabs_send': user_data.get('primuslabs_send', 0),
                 'aquaflux': user_data.get('aquaflux', 0),
@@ -748,12 +742,6 @@ class PharosAPIClient:
                 'current_level': current_level,
                 'next_level': next_level,
                 'points_needed': points_needed,
-                # Season 1 Tasks
-                'swap_count': task_counts['swap'],
-                'lp_count': task_counts['lp'],
-                'mint_domain': task_counts['domain'],
-                'faroswap_lp': task_counts['faroswap_lp'],
-                'faroswap_swaps': task_counts['faroswap_swaps'],
                 # Season 2 Tasks  
                 'primuslabs_send': task_counts['primuslabs_send'],
                 'aquaflux': task_counts['aquaflux'],
@@ -781,9 +769,6 @@ class PharosAPIClient:
     def _parse_task_data(self, user_tasks: List[Dict[str, Any]]) -> Dict[str, int]:
         """Parse task completion data with validation."""
         task_counts = {
-            # Season 1
-            'swap': 0, 'lp': 0, 'domain': 0,
-            'faroswap_lp': 0, 'faroswap_swaps': 0,
             # Season 2  
             'primuslabs_send': 0, 'aquaflux': 0, 'autostaking': 0, 
             'brokex': 0, 'bitverse': 0, 'lend_borrow': 0,
@@ -806,17 +791,6 @@ class PharosAPIClient:
                 
                 complete_times = max(0, int(complete_times))  # Ensure non-negative
                 
-                # Season 1 Tasks
-                if task_id == 101:
-                    task_counts['swap'] = complete_times
-                elif task_id == 102:
-                    task_counts['lp'] = complete_times
-                elif task_id == 104:
-                    task_counts['domain'] = complete_times
-                elif task_id == 106:
-                    task_counts['faroswap_lp'] = complete_times
-                elif task_id == 107:
-                    task_counts['faroswap_swaps'] = complete_times
                 # Season 2 Tasks
                 elif task_id == 108:
                     task_counts['primuslabs_send'] = complete_times
