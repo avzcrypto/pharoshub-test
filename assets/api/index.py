@@ -359,7 +359,6 @@ class RedisManager:
                 'aquaflux': user_data.get('aquaflux', 0),
                 'autostaking': user_data.get('autostaking', 0),
                 'brokex': user_data.get('brokex', 0),
-                'bitverse': user_data.get('bitverse', 0),
                 'lend_borrow': user_data.get('lend_borrow', 0),
                 # Atlantic Tasks
                 'invite_friends': user_data.get('invite_friends', 0),
@@ -747,7 +746,6 @@ class PharosAPIClient:
                 'aquaflux': task_counts['aquaflux'],
                 'autostaking': task_counts['autostaking'],
                 'brokex': task_counts['brokex'],
-                'bitverse': task_counts['bitverse'],
                 'lend_borrow': task_counts['lend_borrow'],
                 # Atlantic Tasks
                 'invite_friends': task_counts['invite_friends'],
@@ -771,7 +769,7 @@ class PharosAPIClient:
         task_counts = {
             # Season 2  
             'primuslabs_send': 0, 'aquaflux': 0, 'autostaking': 0, 
-            'brokex': 0, 'bitverse': 0, 'lend_borrow': 0,
+            'brokex': 0, 'lend_borrow': 0,
             # Atlantic
             'invite_friends': 0, 'atlantic_onchain': 0, 'topnod': 0,
             'asseto': 0, 'grandline': 0
@@ -802,8 +800,6 @@ class PharosAPIClient:
                     task_counts['aquaflux'] = complete_times
                 elif task_id == 114:
                     task_counts['lend_borrow'] = complete_times
-                elif task_id == 119:
-                    task_counts['bitverse'] = complete_times
                 # Atlantic Tasks
                 elif task_id == 121:
                     task_counts['asseto'] = complete_times
