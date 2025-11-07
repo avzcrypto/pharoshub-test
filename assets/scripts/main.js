@@ -8,10 +8,9 @@
 const TASK_LIMITS = {
     // Season 2 Tasks 
     'primuslabs_send': 91,
-    'autostaking': 91,          // Stake
+    'autostaking': 91,          
     'lend_borrow': 91,
-    'bitverse': 91,
-    'brokex': 91,               // CFD Trading
+    'brokex': 91,              
     'aquaflux': 1,
 
     // Atlantic Tasks
@@ -99,7 +98,6 @@ const DOMElements = {
     rwafi: document.getElementById('rwafi'),
     stake: document.getElementById('stake'),
     cfdTrading: document.getElementById('cfdTrading'),
-    bitverse: document.getElementById('bitverse'),
     lendBorrow: document.getElementById('lendBorrow'),
 
     // Atlantic task elements
@@ -510,7 +508,6 @@ const PharosAPI = {
         if (DOMElements.stake) TaskProgress.updateTaskWithProgress('autostaking', DOMElements.stake, data.autostaking || 0);
         if (DOMElements.lendBorrow) TaskProgress.updateTaskWithProgress('lend_borrow', DOMElements.lendBorrow, data.lend_borrow || 0);
         if (DOMElements.rwafi) TaskProgress.updateTaskWithProgress('aquaflux', DOMElements.rwafi, data.aquaflux || 0);
-        if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
         if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
 
         // Atlantic tasks with progress bars
