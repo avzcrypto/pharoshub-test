@@ -361,11 +361,14 @@ class RedisManager:
                 'brokex': user_data.get('brokex', 0),
                 'lend_borrow': user_data.get('lend_borrow', 0),
                 # Atlantic Tasks
-                'invite_friends': user_data.get('invite_friends', 0),
                 'atlantic_onchain': user_data.get('atlantic_onchain', 0),
                 'topnod': user_data.get('topnod', 0),
+                'faroswap_swaps': user_data.get('faroswap_swaps', 0),
+                'faroswap_lp': user_data.get('faroswap_lp', 0),
                 'asseto': user_data.get('asseto', 0),
                 'grandline': user_data.get('grandline', 0),
+                'bitverse': user_data.get('bitverse', 0),
+                'zenith_lending': user_data.get('zenith_lending', 0),
             }
             
             # Get existing data
@@ -748,11 +751,14 @@ class PharosAPIClient:
                 'brokex': task_counts['brokex'],
                 'lend_borrow': task_counts['lend_borrow'],
                 # Atlantic Tasks
-                'invite_friends': task_counts['invite_friends'],
                 'atlantic_onchain': task_counts['atlantic_onchain'],
-                'topnod': task_counts['topnod'],
+                'topnod': task_counts['topnod'], 
+                'faroswap_swaps': task_counts['faroswap_swaps'],
+                'faroswap_lp': task_counts['faroswap_lp'],
                 'asseto': task_counts['asseto'],
                 'grandline': task_counts['grandline'],
+                'bitverse': task_counts['bitverse'],
+                'zenith_lending': task_counts['zenith_lending'],
                 # General
                 'member_since': user_info.get('CreateTime'),
                 'total_users_count': total_users_count
@@ -771,8 +777,9 @@ class PharosAPIClient:
             'primuslabs_send': 0, 'aquaflux': 0, 'autostaking': 0, 
             'brokex': 0, 'lend_borrow': 0,
             # Atlantic
-            'invite_friends': 0, 'atlantic_onchain': 0, 'topnod': 0,
-            'asseto': 0, 'grandline': 0
+            'atlantic_onchain': 0, 'topnod': 0, 'faroswap_swaps': 0, 
+            'faroswap_lp': 0, 'asseto': 0, 'grandline': 0, 'bitverse': 0,
+            'zenith_lending': 0
         }
         
         for task in user_tasks:
@@ -800,13 +807,22 @@ class PharosAPIClient:
                     task_counts['aquaflux'] = complete_times
                 elif task_id == 114:
                     task_counts['lend_borrow'] = complete_times
-                # Atlantic Tasks
-                elif task_id == 121:
-                    task_counts['asseto'] = complete_times
+                # Atlantic Tasks  
                 elif task_id == 401:
                     task_counts['atlantic_onchain'] = complete_times
+                elif task_id == 123:
+                    task_counts['topnod'] = complete_times
+                elif task_id == 125:
+                    task_counts['faroswap_swaps'] = complete_times
+                elif task_id == 124:
+                    task_counts['faroswap_lp'] = complete_times
+                elif task_id == 121:
+                    task_counts['asseto'] = complete_times
                 elif task_id == 122:
-                      task_counts['grandline'] = complete_times
+                    task_counts['grandline'] = complete_times
+                elif task_id == 126:
+                    task_counts['bitverse'] = complete_times
+                # Zenith lending - task ID неизвестен, оставляем 0
                     
             except Exception:
                 continue
