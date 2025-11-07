@@ -14,11 +14,14 @@ const TASK_LIMITS = {
     'aquaflux': 1,
 
     // Atlantic Tasks
-    'invite_friends': 91,
     'atlantic_onchain': 91,     // Via Atlantic On-chain Address
-    'topnod': 91,               // Via TopNod
+    'topnod': 1,               // Via TopNod Wallet
+    'faroswap_swaps': 91,       // Faroswap Swap
+    'faroswap_lp': 91,          // Faroswap Provide Liquidity
     'asseto': 91,               // Asseto
-    'grandline': 1             // Grandline
+    'grandline': 1,             // Grandline
+    'bitverse': 91,             // Bitverse
+    'zenith_lending': 91        // Zenith (неактивный)
 };
 
 // === MEMBER SINCE UTILITIES ===
@@ -101,11 +104,14 @@ const DOMElements = {
     lendBorrow: document.getElementById('lendBorrow'),
 
     // Atlantic task elements
-    inviteFriends: document.getElementById('inviteFriends'),
     atlanticOnchain: document.getElementById('atlanticOnchain'),
     topnod: document.getElementById('topnod'),
+    faroswapSwaps: document.getElementById('faroswapSwaps'),
+    faroswapLP: document.getElementById('faroswapLP'),
     asseto: document.getElementById('asseto'),
     grandline: document.getElementById('grandline'),
+    bitverse: document.getElementById('bitverse'),
+    zenithLending: document.getElementById('zenithLending'),
     
     // UI elements
     mainPageFooter: document.getElementById('mainPageFooter'),
@@ -511,11 +517,14 @@ const PharosAPI = {
         if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
 
         // Atlantic tasks with progress bars
-        if (DOMElements.inviteFriends) TaskProgress.updateTaskWithProgress('invite_friends', DOMElements.inviteFriends, data.invite_friends || 0);
         if (DOMElements.atlanticOnchain) TaskProgress.updateTaskWithProgress('atlantic_onchain', DOMElements.atlanticOnchain, data.atlantic_onchain || 0);
         if (DOMElements.topnod) TaskProgress.updateTaskWithProgress('topnod', DOMElements.topnod, data.topnod || 0);
+        if (DOMElements.faroswapSwaps) TaskProgress.updateTaskWithProgress('faroswap_swaps', DOMElements.faroswapSwaps, data.faroswap_swaps || 0);
+        if (DOMElements.faroswapLP) TaskProgress.updateTaskWithProgress('faroswap_lp', DOMElements.faroswapLP, data.faroswap_lp || 0);
         if (DOMElements.asseto) TaskProgress.updateTaskWithProgress('asseto', DOMElements.asseto, data.asseto || 0);
         if (DOMElements.grandline) TaskProgress.updateTaskWithProgress('grandline', DOMElements.grandline, data.grandline || 0);
+        if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
+        if (DOMElements.zenithLending) TaskProgress.updateTaskWithProgress('zenith_lending', DOMElements.zenithLending, data.zenith_lending || 0);
 
         // Show results with animation
         if (DOMElements.results) {
