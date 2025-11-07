@@ -6,13 +6,6 @@
 
 // === CONFIGURATION ===
 const TASK_LIMITS = {
-    // Season 1 Tasks 
-    'swap_count': 91,           // Zenith Swaps
-    'lp_count': 91,             // Zenith LP  
-    'faroswap_swaps': 91,
-    'faroswap_lp': 91,
-    'mint_domain': 91,
-
     // Season 2 Tasks 
     'primuslabs_send': 91,
     'autostaking': 91,          // Stake
@@ -101,13 +94,6 @@ const DOMElements = {
     currentRank: document.getElementById('currentRank'),
     totalUsers: document.getElementById('totalUsers'),
     
-    // Season 1 task elements
-    zenithSwaps: document.getElementById('zenithSwaps'),
-    zenithLP: document.getElementById('zenithLP'),
-    faroswapSwaps: document.getElementById('faroswapSwaps'),
-    faroswapLP: document.getElementById('faroswapLP'),
-    mintDomain: document.getElementById('mintDomain'),
-    
     // Season 2 task elements
     primuslabsSend: document.getElementById('primuslabsSend'),
     rwafi: document.getElementById('rwafi'),
@@ -157,11 +143,6 @@ const Analytics = {
                 total_points: data.total_points,
                 user_level: data.current_level,
                 user_rank: data.exact_rank,
-                custom_parameters: {
-                    send_count: data.send_count,
-                    zenith_swaps: data.zenith_swaps || data.swap_count || 0,
-                    faroswap_swaps: data.faroswap_swaps || 0
-                }
             });
         }
     },
@@ -394,19 +375,15 @@ const SeasonSwitcher = {
         }
 
         // Show/hide content для 3 сезонов
-        const season1Content = document.getElementById('season1-content');
         const season2Content = document.getElementById('season2-content');
         const atlanticContent = document.getElementById('atlantic-content');
         
         // Скрываем все сезоны
-        if (season1Content) season1Content.style.display = 'none';
         if (season2Content) season2Content.style.display = 'none';
         if (atlanticContent) atlanticContent.style.display = 'none';
         
         // Показываем нужный сезон
-        if (season === 'season1') {
-            if (season1Content) season1Content.style.display = 'block';
-        } else if (season === 'season2') {
+        if (season === 'season2') {
             if (season2Content) season2Content.style.display = 'block';
         } else if (season === 'atlantic') {
             if (atlanticContent) atlanticContent.style.display = 'block';
@@ -527,13 +504,6 @@ const PharosAPI = {
                 }, 500);
             }
         }
-
-        // Season 1 tasks with progress bars
-        TaskProgress.updateTaskWithProgress('swap_count', DOMElements.zenithSwaps, data.swap_count || 0);
-        TaskProgress.updateTaskWithProgress('lp_count', DOMElements.zenithLP, data.lp_count || 0);
-        TaskProgress.updateTaskWithProgress('faroswap_swaps', DOMElements.faroswapSwaps, data.faroswap_swaps || 0);
-        TaskProgress.updateTaskWithProgress('faroswap_lp', DOMElements.faroswapLP, data.faroswap_lp || 0);
-        TaskProgress.updateTaskWithProgress('mint_domain', DOMElements.mintDomain, data.mint_domain || 0);
 
         // Season 2 tasks with progress bars
         if (DOMElements.primuslabsSend) TaskProgress.updateTaskWithProgress('primuslabs_send', DOMElements.primuslabsSend, data.primuslabs_send || 0);
