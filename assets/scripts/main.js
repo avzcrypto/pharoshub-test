@@ -552,6 +552,27 @@ const PharosAPI = {
     }
 };
 
+// В конце функции displayResults, после показа результатов
+if (DOMElements.results) {
+    DOMElements.results.classList.add('show');
+}
+
+// Показать Discord баннер с задержкой для эффектности
+const discordBanner = document.getElementById('discordBanner');
+if (discordBanner) {
+    setTimeout(() => {
+        discordBanner.style.display = 'flex';
+        discordBanner.style.opacity = '0';
+        discordBanner.style.transform = 'translateY(20px)';
+        discordBanner.style.transition = 'all 0.6s ease';
+        
+        setTimeout(() => {
+            discordBanner.style.opacity = '1';
+            discordBanner.style.transform = 'translateY(0)';
+        }, 100);
+    }, 1500); // Показать через 1.5 сек после результатов
+}
+
 // === EVENT HANDLERS ===
 const EventHandlers = {
     init() {
