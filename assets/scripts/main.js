@@ -544,14 +544,6 @@ const PharosAPI = {
                 el.style.animationDelay = `${(index + 1) * 0.1}s`;
             });
         }
-
-        // Показать Coraluna баннер после author block
-        const coralunaBanner = document.getElementById('coralunaBanner');
-        if (coralunaBanner) {
-            setTimeout(() => {
-                coralunaBanner.style.display = 'flex';
-            }, 300);
-        }
     }
 };
 
