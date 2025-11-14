@@ -537,11 +537,6 @@ const PharosAPI = {
             tabNavigation.style.display = 'flex';
         }
         
-        // Hide footer on main page when showing results
-        if (DOMElements.mainPageFooter) {
-            DOMElements.mainPageFooter.style.display = 'none';
-        }
-        
         // Trigger animations for result sections
         const animatedElements = DOMElements.results?.querySelectorAll('.animate__fadeInUp');
         if (animatedElements) {
@@ -549,29 +544,16 @@ const PharosAPI = {
                 el.style.animationDelay = `${(index + 1) * 0.1}s`;
             });
         }
+
+        // Показать Coraluna баннер после author block
+        const coralunaBanner = document.getElementById('coralunaBanner');
+        if (coralunaBanner) {
+            setTimeout(() => {
+                coralunaBanner.style.display = 'flex';
+            }, 300);
+        }
     }
 };
-
-// В конце функции displayResults, после показа результатов
-if (DOMElements.results) {
-    DOMElements.results.classList.add('show');
-}
-
-// Показать Discord баннер с задержкой для эффектности
-const discordBanner = document.getElementById('discordBanner');
-if (discordBanner) {
-    setTimeout(() => {
-        discordBanner.style.display = 'flex';
-        discordBanner.style.opacity = '0';
-        discordBanner.style.transform = 'translateY(20px)';
-        discordBanner.style.transition = 'all 0.6s ease';
-        
-        setTimeout(() => {
-            discordBanner.style.opacity = '1';
-            discordBanner.style.transform = 'translateY(0)';
-        }, 100);
-    }, 1500); // Показать через 1.5 сек после результатов
-}
 
 // === EVENT HANDLERS ===
 const EventHandlers = {
