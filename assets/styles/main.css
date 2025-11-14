@@ -1709,12 +1709,15 @@ body {
     letter-spacing: 0.025em;
 }
 
-/* === CORALUNA HELP BANNER === */
+/* === CORALUNA MARINE BANNER (замените весь CSS) === */
 .coraluna-help-banner {
-    background: linear-gradient(135deg, #f6f1e8 0%, #e8f4f8 30%, #d4e8f0 60%, #a8c8e1 100%);
-    border-radius: 20px;
-    padding: 20px 24px;
-    margin: 20px 0;
+    background: linear-gradient(135deg, #e0eaa9 0%, #fcd6cf 40%, rgba(36, 127, 195, 0.8) 100%);
+    border: 2px solid rgba(44, 67, 117, 0.4);
+    box-shadow: 0 15px 40px rgba(44, 67, 117, 0.3);
+    backdrop-filter: blur(30px);
+    border-radius: 24px;
+    padding: 28px 32px;
+    margin: 30px 0;
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -1722,181 +1725,236 @@ body {
     display: none;
     align-items: center;
     justify-content: space-between;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .coraluna-help-banner:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(44, 67, 117, 0.4);
+    border-color: rgba(44, 67, 117, 0.6);
 }
 
+/* Marine decorative elements */
 .coraluna-help-banner::before {
-    content: '🐠';
+    content: '';
     position: absolute;
-    top: 12px;
-    left: 20px;
-    font-size: 16px;
-    opacity: 0.6;
-    animation: swim-left 8s ease-in-out infinite;
+    top: -50%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(252, 214, 207, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
 }
 
 .coraluna-help-banner::after {
-    content: '🌟';
+    content: '🐙';
     position: absolute;
     top: 15px;
-    right: 130px;
-    font-size: 14px;
-    opacity: 0.7;
-    animation: twinkle 3s ease-in-out infinite alternate;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.6;
+    animation: swim 8s ease-in-out infinite;
 }
 
-@keyframes swim-left {
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+@keyframes swim {
     0%, 100% { transform: translateX(0px) translateY(0px); }
-    25% { transform: translateX(8px) translateY(-2px); }
-    50% { transform: translateX(-5px) translateY(-3px); }
-    75% { transform: translateX(12px) translateY(1px); }
+    25% { transform: translateX(5px) translateY(-3px); }
+    50% { transform: translateX(-3px) translateY(-5px); }
+    75% { transform: translateX(8px) translateY(2px); }
 }
 
-@keyframes twinkle {
-    0% { opacity: 0.4; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1.2); }
+/* Gradient line */
+.coraluna-gradient-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2c4375 0%, #3b82f6 25%, #e0eaa9 50%, #fcd6cf 75%, #2c4375 100%);
+    background-size: 300% 100%;
+    animation: gradient-flow 4s ease-in-out infinite;
+}
+
+@keyframes gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
 .coraluna-banner-left {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
     flex: 1;
     z-index: 2;
     position: relative;
 }
 
+/* Marine icon */
 .coraluna-banner-icon {
-    width: 48px;
-    height: 48px;
-    background: #5865f2;
-    border-radius: 12px;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 28px;
+    background: linear-gradient(135deg, #2c4375, #1a2951);
     color: white;
-    box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+    box-shadow: 0 10px 25px rgba(44, 67, 117, 0.4);
+    transition: all 0.4s ease;
     position: relative;
-    transition: all 0.3s ease;
 }
 
 .coraluna-banner-icon::before {
-    content: '🔥';
+    content: '🪸';
     position: absolute;
-    top: -6px;
-    right: -6px;
-    font-size: 12px;
-    background: #ff6b6b;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: pulse-fire 2s infinite;
+    top: -5px;
+    right: -5px;
+    font-size: 16px;
+    animation: coral-glow 3s ease-in-out infinite alternate;
 }
 
-@keyframes pulse-fire {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+@keyframes coral-glow {
+    0% { opacity: 0.5; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.1); }
 }
 
 .coraluna-help-banner:hover .coraluna-banner-icon {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(88, 101, 242, 0.4);
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 15px 35px rgba(44, 67, 117, 0.6);
 }
 
 .coraluna-banner-text {
     flex: 1;
 }
 
+/* Text styles */
 .coraluna-banner-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
-    color: #2d3748;
     margin-bottom: 4px;
     font-family: var(--font-primary);
-    letter-spacing: -0.01em;
+    color: #2c4375;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .coraluna-banner-subtitle {
-    font-size: 14px;
-    color: #4a5568;
-    font-weight: 500;
+    font-size: 16px;
+    color: #1a2951;
+    font-weight: 600;
     font-family: var(--font-primary);
-    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
+/* CTA Button */
 .coraluna-banner-cta {
-    background: linear-gradient(135deg, #48bb78, #38a169);
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+    padding: 16px 28px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 15px;
     color: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     text-decoration: none;
     font-family: var(--font-primary);
-    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+    letter-spacing: 0.025em;
     z-index: 2;
-    position: relative;
 }
 
 .coraluna-banner-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(72, 187, 120, 0.4);
-    background: linear-gradient(135deg, #38a169, #2f855a);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(34, 197, 94, 0.5);
 }
 
+.coraluna-banner-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.coraluna-banner-cta:hover::before {
+    left: 100%;
+}
+
+/* Marine particles */
+.coraluna-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.coraluna-particle {
+    position: absolute;
+    font-size: 14px;
+    opacity: 0.4;
+    animation: bubble 10s linear infinite;
+}
+
+.coraluna-particle:nth-child(1) { left: 10%; animation-delay: -2s; }
+.coraluna-particle:nth-child(2) { left: 20%; animation-delay: -4s; }
+.coraluna-particle:nth-child(3) { left: 30%; animation-delay: -6s; }
+.coraluna-particle:nth-child(4) { left: 80%; animation-delay: -1s; }
+
+@keyframes bubble {
+    0% { 
+        transform: translateY(100px) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.4; }
+    100% { 
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Mobile responsive */
 @media (max-width: 768px) {
     .coraluna-help-banner {
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
         text-align: center;
-        padding: 16px 20px;
+        padding: 20px 16px;
     }
     
     .coraluna-banner-left {
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
         text-align: center;
     }
     
     .coraluna-banner-title {
-        font-size: 16px;
+        font-size: 18px;
     }
     
     .coraluna-banner-subtitle {
-        font-size: 13px;
-    }
-    
-    .coraluna-banner-cta {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .coraluna-help-banner::before {
-        top: 8px;
-        left: 16px;
         font-size: 14px;
     }
 
     .coraluna-help-banner::after {
-        top: 8px;
-        right: 16px;
-        font-size: 12px;
+        font-size: 20px;
+        top: 10px;
+        right: 15px;
     }
 }
