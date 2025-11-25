@@ -537,6 +537,11 @@ const PharosAPI = {
             tabNavigation.style.display = 'flex';
         }
         
+        // Hide footer on main page when showing results
+        if (DOMElements.mainPageFooter) {
+            DOMElements.mainPageFooter.style.display = 'none';
+        }
+        
         // Trigger animations for result sections
         const animatedElements = DOMElements.results?.querySelectorAll('.animate__fadeInUp');
         if (animatedElements) {
@@ -603,9 +608,6 @@ const PharosApp = {
 
         // Track page view
         Analytics.trackPageView();
-        
-        // Initialize Atlantic by default
-        SeasonSwitcher.switchSeason('atlantic');
         
         // Show footer on main page when loading
         if (DOMElements.mainPageFooter) {
