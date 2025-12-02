@@ -362,7 +362,6 @@ class RedisManager:
                 'asseto': user_data.get('asseto', 0),
                 'grandline': user_data.get('grandline', 0),
                 'bitverse': user_data.get('bitverse', 0),
-                'zenith_lending': user_data.get('zenith_lending', 0),
                 'bitverse_swap': user_data.get('bitverse_swap', 0),
                 'bitverse_lp': user_data.get('bitverse_lp', 0),
                 'zenith': user_data.get('zenith', 0),
@@ -751,7 +750,6 @@ class PharosAPIClient:
                 'asseto': task_counts['asseto'],
                 'grandline': task_counts['grandline'],
                 'bitverse': task_counts['bitverse'],
-                'zenith_lending': task_counts['zenith_lending'],
                 'bitverse_swap': task_counts['bitverse_swap'],
                 'bitverse_lp': task_counts['bitverse_lp'],
                 'zenith': task_counts['zenith'],
@@ -774,7 +772,7 @@ class PharosAPIClient:
             # Atlantic
             'atlantic_onchain': 0, 'topnod': 0, 'faroswap_swaps': 0, 
             'faroswap_lp': 0, 'asseto': 0, 'grandline': 0, 'bitverse': 0,
-            'zenith_lending': 0, 'bitverse_swap': 0, 'bitverse_lp': 0, 'zenith': 0,
+            'bitverse_swap': 0, 'bitverse_lp': 0, 'zenith': 0,
             'aquaflux_structure': 0, 'aquaflux_earn': 0
         }
         
