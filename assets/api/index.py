@@ -354,12 +354,6 @@ class RedisManager:
                 'exact_rank': user_data.get('exact_rank'),
                 'rank_calculated_at': timestamp,
                 'total_users_count': user_data.get('total_users_count', 270000),
-                # Season 2 Tasks
-                'primuslabs_send': user_data.get('primuslabs_send', 0),
-                'aquaflux': user_data.get('aquaflux', 0),
-                'autostaking': user_data.get('autostaking', 0),
-                'brokex': user_data.get('brokex', 0),
-                'lend_borrow': user_data.get('lend_borrow', 0),
                 # Atlantic Tasks
                 'atlantic_onchain': user_data.get('atlantic_onchain', 0),
                 'topnod': user_data.get('topnod', 0),
@@ -744,12 +738,6 @@ class PharosAPIClient:
                 'current_level': current_level,
                 'next_level': next_level,
                 'points_needed': points_needed,
-                # Season 2 Tasks  
-                'primuslabs_send': task_counts['primuslabs_send'],
-                'aquaflux': task_counts['aquaflux'],
-                'autostaking': task_counts['autostaking'],
-                'brokex': task_counts['brokex'],
-                'lend_borrow': task_counts['lend_borrow'],
                 # Atlantic Tasks
                 'atlantic_onchain': task_counts['atlantic_onchain'],
                 'topnod': task_counts['topnod'], 
@@ -773,9 +761,6 @@ class PharosAPIClient:
     def _parse_task_data(self, user_tasks: List[Dict[str, Any]]) -> Dict[str, int]:
         """Parse task completion data with validation."""
         task_counts = {
-            # Season 2  
-            'primuslabs_send': 0, 'aquaflux': 0, 'autostaking': 0, 
-            'brokex': 0, 'lend_borrow': 0,
             # Atlantic
             'atlantic_onchain': 0, 'topnod': 0, 'faroswap_swaps': 0, 
             'faroswap_lp': 0, 'asseto': 0, 'grandline': 0, 'bitverse': 0,
@@ -796,17 +781,6 @@ class PharosAPIClient:
                 
                 complete_times = max(0, int(complete_times))  # Ensure non-negative
                 
-                # Season 2 Tasks
-                if task_id == 108:
-                    task_counts['primuslabs_send'] = complete_times
-                elif task_id == 110:
-                    task_counts['autostaking'] = complete_times
-                elif task_id == 111:
-                    task_counts['brokex'] = complete_times
-                elif task_id == 112:
-                    task_counts['aquaflux'] = complete_times
-                elif task_id == 114:
-                    task_counts['lend_borrow'] = complete_times
                 # Atlantic Tasks  
                 elif task_id == 401:
                     task_counts['atlantic_onchain'] = complete_times
