@@ -14,7 +14,12 @@ const TASK_LIMITS = {
     'asseto': 91,               // Asseto
     'grandline': 1,             // Grandline
     'bitverse': 91,             // Bitverse
-    'zenith_lending': 91        // Zenith (неактивный)
+    'zenith_lending': 91,        // Zenith 
+    'bitverse_swap': 91,
+    'bitverse_lp': 91,
+    'zenith': 91,
+    'aquaflux_structure': 91,
+    'aquaflux_earn': 91
 };
 
 // === MEMBER SINCE UTILITIES ===
@@ -98,6 +103,11 @@ const DOMElements = {
     grandline: document.getElementById('grandline'),
     bitverse: document.getElementById('bitverse'),
     zenithLending: document.getElementById('zenithLending'),
+    biverseSwap: document.getElementById('biverseSwap'),
+    biverse_lp: document.getElementById('bitverseLp'),
+    zenith: document.getElementById('zenith'),
+    aquafluxStructure: document.getElementById('aquafluxStructure'),
+    aquafluxEarn: document.getElementById('aquafluxEarn'),
     
     // UI elements
     mainPageFooter: document.getElementById('mainPageFooter'),
@@ -471,7 +481,12 @@ const PharosAPI = {
         if (DOMElements.grandline) TaskProgress.updateTaskWithProgress('grandline', DOMElements.grandline, data.grandline || 0);
         if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
         if (DOMElements.zenithLending) TaskProgress.updateTaskWithProgress('zenith_lending', DOMElements.zenithLending, data.zenith_lending || 0);
-
+        if (DOMElements.biverseSwap) TaskProgress.updateTaskWithProgress('bitverse_swap', DOMElements.biverseSwap, data.bitverse_swap || 0);
+        if (DOMElements.bitverseLp) TaskProgress.updateTaskWithProgress('bitverse_lp', DOMElements.bitverseLp, data.bitverse_lp || 0);
+        if (DOMElements.zenith) TaskProgress.updateTaskWithProgress('zenith', DOMElements.zenith, data.zenith || 0);
+        if (DOMElements.aquafluxStructure) TaskProgress.updateTaskWithProgress('aquaflux_structure', DOMElements.aquafluxStructure, data.aquaflux_structure || 0);
+        if (DOMElements.aquafluxEarn) TaskProgress.updateTaskWithProgress('aquaflux_earn', DOMElements.aquafluxEarn, data.aquaflux_earn || 0);
+        
         // Show results with animation
         if (DOMElements.results) {
             DOMElements.results.classList.add('show');
