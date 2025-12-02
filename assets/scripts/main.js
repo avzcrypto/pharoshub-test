@@ -14,7 +14,6 @@ const TASK_LIMITS = {
     'asseto': 91,               // Asseto
     'grandline': 1,             // Grandline
     'bitverse': 91,             // Bitverse
-    'zenith_lending': 91,        // Zenith 
     'bitverse_swap': 41,
     'bitverse_lp': 41,
     'zenith': 41,
@@ -102,7 +101,6 @@ const DOMElements = {
     asseto: document.getElementById('asseto'),
     grandline: document.getElementById('grandline'),
     bitverse: document.getElementById('bitverse'),
-    zenithLending: document.getElementById('zenithLending'),
     bitverseSwap: document.getElementById('bitverseSwap'),
     bitverseLp: document.getElementById('bitverseLp'),
     zenith: document.getElementById('zenith'),
@@ -480,7 +478,6 @@ const PharosAPI = {
         if (DOMElements.asseto) TaskProgress.updateTaskWithProgress('asseto', DOMElements.asseto, data.asseto || 0);
         if (DOMElements.grandline) TaskProgress.updateTaskWithProgress('grandline', DOMElements.grandline, data.grandline || 0);
         if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
-        if (DOMElements.zenithLending) TaskProgress.updateTaskWithProgress('zenith_lending', DOMElements.zenithLending, data.zenith_lending || 0);
         if (DOMElements.bitverseSwap) TaskProgress.updateTaskWithProgress('bitverse_swap', DOMElements.bitverseSwap, data.bitverse_swap || 0);
         if (DOMElements.bitverseLp) TaskProgress.updateTaskWithProgress('bitverse_lp', DOMElements.bitverseLp, data.bitverse_lp || 0);
         if (DOMElements.zenith) TaskProgress.updateTaskWithProgress('zenith', DOMElements.zenith, data.zenith || 0);
