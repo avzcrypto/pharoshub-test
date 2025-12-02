@@ -782,7 +782,7 @@ class PharosAPIClient:
                 complete_times = max(0, int(complete_times))  # Ensure non-negative
                 
                 # Atlantic Tasks  
-                elif task_id == 401:
+                if task_id == 401:
                     task_counts['atlantic_onchain'] = complete_times
                 elif task_id == 123:
                     task_counts['topnod'] = complete_times
