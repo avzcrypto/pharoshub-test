@@ -363,6 +363,11 @@ class RedisManager:
                 'grandline': user_data.get('grandline', 0),
                 'bitverse': user_data.get('bitverse', 0),
                 'zenith_lending': user_data.get('zenith_lending', 0),
+                'bitverse_swap': user_data.get('bitverse_swap', 0),
+                'bitverse_lp': user_data.get('bitverse_lp', 0),
+                'zenith': user_data.get('zenith', 0),
+                'aquaflux_structure': user_data.get('aquaflux_structure', 0),
+                'aquaflux_earn': user_data.get('aquaflux_earn', 0),
             }
             
             # Get existing data
@@ -747,6 +752,11 @@ class PharosAPIClient:
                 'grandline': task_counts['grandline'],
                 'bitverse': task_counts['bitverse'],
                 'zenith_lending': task_counts['zenith_lending'],
+                'bitverse_swap': task_counts['bitverse_swap'],
+                'bitverse_lp': task_counts['bitverse_lp'],
+                'zenith': task_counts['zenith'],
+                'aquaflux_structure': task_counts['aquaflux_structure'],
+                'aquaflux_earn': task_counts['aquaflux_earn'],
                 # General
                 'member_since': user_info.get('CreateTime'),
                 'total_users_count': total_users_count
@@ -764,7 +774,8 @@ class PharosAPIClient:
             # Atlantic
             'atlantic_onchain': 0, 'topnod': 0, 'faroswap_swaps': 0, 
             'faroswap_lp': 0, 'asseto': 0, 'grandline': 0, 'bitverse': 0,
-            'zenith_lending': 0
+            'zenith_lending': 0, 'bitverse_swap': 0, 'bitverse_lp': 0, 'zenith': 0,
+            'aquaflux_structure': 0, 'aquaflux_earn': 0
         }
         
         for task in user_tasks:
@@ -796,8 +807,16 @@ class PharosAPIClient:
                     task_counts['grandline'] = complete_times
                 elif task_id == 126:
                     task_counts['bitverse'] = complete_times
-                # Zenith lending - task ID неизвестен, оставляем 0
-                    
+                elif task_id == 129:
+                    task_counts['bitverse_swap'] = complete_times
+                elif task_id == 130:
+                    task_counts['bitverse_lp'] = complete_times
+                elif task_id == 131:
+                    task_counts['zenith'] = complete_times
+                elif task_id == 127:
+                    task_counts['aquaflux_structure'] = complete_times
+                elif task_id == 128:
+                    task_counts['aquaflux_earn'] = complete_times                    
             except Exception:
                 continue
         
