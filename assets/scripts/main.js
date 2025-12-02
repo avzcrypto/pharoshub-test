@@ -518,16 +518,6 @@ const EventHandlers = {
             });
         }
 
-        // Season switcher event listeners
-        document.querySelectorAll('.season-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const season = tab.getAttribute('data-season');
-                if (season) {
-                    SeasonSwitcher.switchSeason(season);
-                }
-            });
-        });
-
         // Author link tracking
         const resultsAuthorLink = document.getElementById('resultsAuthorLink');
         const authorLink = document.getElementById('authorLink');
