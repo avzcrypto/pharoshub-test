@@ -6,13 +6,6 @@
 
 // === CONFIGURATION ===
 const TASK_LIMITS = {
-    // Season 2 Tasks 
-    'primuslabs_send': 91,
-    'autostaking': 91,          
-    'lend_borrow': 91,
-    'brokex': 91,              
-    'aquaflux': 1,
-
     // Atlantic Tasks
     'atlantic_onchain': 91,     // Via Atlantic On-chain Address
     'topnod': 1,               // Via TopNod Wallet
@@ -95,13 +88,6 @@ const DOMElements = {
     levelProgress: document.getElementById('levelProgress'),
     currentRank: document.getElementById('currentRank'),
     totalUsers: document.getElementById('totalUsers'),
-    
-    // Season 2 task elements
-    primuslabsSend: document.getElementById('primuslabsSend'),
-    rwafi: document.getElementById('rwafi'),
-    stake: document.getElementById('stake'),
-    cfdTrading: document.getElementById('cfdTrading'),
-    lendBorrow: document.getElementById('lendBorrow'),
 
     // Atlantic task elements
     atlanticOnchain: document.getElementById('atlanticOnchain'),
@@ -362,39 +348,6 @@ const UIState = {
     }
 };
 
-// === SEASON SWITCHER ===
-const SeasonSwitcher = {
-    switchSeason(season) {
-        // Track season switch
-        Analytics.trackSeasonSwitch(season);
-
-        // Update active tab
-        document.querySelectorAll('.season-tab').forEach(tab => {
-            tab.classList.remove('select');
-        });
-        
-        const activeTab = document.querySelector(`[data-season="${season}"]`);
-        if (activeTab) {
-            activeTab.classList.add('select');
-        }
-
-        // Show/hide content для 3 сезонов
-        const season2Content = document.getElementById('season2-content');
-        const atlanticContent = document.getElementById('atlantic-content');
-        
-        // Скрываем все сезоны
-        if (season2Content) season2Content.style.display = 'none';
-        if (atlanticContent) atlanticContent.style.display = 'none';
-        
-        // Показываем нужный сезон
-        if (season === 'season2') {
-            if (season2Content) season2Content.style.display = 'block';
-        } else if (season === 'atlantic') {
-            if (atlanticContent) atlanticContent.style.display = 'block';
-        }
-    }
-};
-
 // === LEVEL PROGRESS CALCULATOR ===
 const LevelCalculator = {
     levels: {
@@ -509,13 +462,6 @@ const PharosAPI = {
             }
         }
 
-        // Season 2 tasks with progress bars
-        if (DOMElements.primuslabsSend) TaskProgress.updateTaskWithProgress('primuslabs_send', DOMElements.primuslabsSend, data.primuslabs_send || 0);
-        if (DOMElements.stake) TaskProgress.updateTaskWithProgress('autostaking', DOMElements.stake, data.autostaking || 0);
-        if (DOMElements.lendBorrow) TaskProgress.updateTaskWithProgress('lend_borrow', DOMElements.lendBorrow, data.lend_borrow || 0);
-        if (DOMElements.rwafi) TaskProgress.updateTaskWithProgress('aquaflux', DOMElements.rwafi, data.aquaflux || 0);
-        if (DOMElements.cfdTrading) TaskProgress.updateTaskWithProgress('brokex', DOMElements.cfdTrading, data.brokex || 0);
-
         // Atlantic tasks with progress bars
         if (DOMElements.atlanticOnchain) TaskProgress.updateTaskWithProgress('atlantic_onchain', DOMElements.atlanticOnchain, data.atlantic_onchain || 0);
         if (DOMElements.topnod) TaskProgress.updateTaskWithProgress('topnod', DOMElements.topnod, data.topnod || 0);
@@ -571,16 +517,6 @@ const EventHandlers = {
                 UIState.hideError();
             });
         }
-
-        // Season switcher event listeners
-        document.querySelectorAll('.season-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const season = tab.getAttribute('data-season');
-                if (season) {
-                    SeasonSwitcher.switchSeason(season);
-                }
-            });
-        });
 
         // Author link tracking
         const resultsAuthorLink = document.getElementById('resultsAuthorLink');
