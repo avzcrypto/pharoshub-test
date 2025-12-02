@@ -103,8 +103,8 @@ const DOMElements = {
     grandline: document.getElementById('grandline'),
     bitverse: document.getElementById('bitverse'),
     zenithLending: document.getElementById('zenithLending'),
-    biverseSwap: document.getElementById('biverseSwap'),
-    biverseLp: document.getElementById('bitverseLp'),
+    bitverseSwap: document.getElementById('bitverseSwap'),
+    bitverseLp: document.getElementById('bitverseLp'),
     zenith: document.getElementById('zenith'),
     aquafluxStructure: document.getElementById('aquafluxStructure'),
     aquafluxEarn: document.getElementById('aquafluxEarn'),
@@ -481,7 +481,7 @@ const PharosAPI = {
         if (DOMElements.grandline) TaskProgress.updateTaskWithProgress('grandline', DOMElements.grandline, data.grandline || 0);
         if (DOMElements.bitverse) TaskProgress.updateTaskWithProgress('bitverse', DOMElements.bitverse, data.bitverse || 0);
         if (DOMElements.zenithLending) TaskProgress.updateTaskWithProgress('zenith_lending', DOMElements.zenithLending, data.zenith_lending || 0);
-        if (DOMElements.biverseSwap) TaskProgress.updateTaskWithProgress('bitverse_swap', DOMElements.biverseSwap, data.bitverse_swap || 0);
+        if (DOMElements.bitverseSwap) TaskProgress.updateTaskWithProgress('bitverse_swap', DOMElements.bitverseSwap, data.bitverse_swap || 0);
         if (DOMElements.bitverseLp) TaskProgress.updateTaskWithProgress('bitverse_lp', DOMElements.bitverseLp, data.bitverse_lp || 0);
         if (DOMElements.zenith) TaskProgress.updateTaskWithProgress('zenith', DOMElements.zenith, data.zenith || 0);
         if (DOMElements.aquafluxStructure) TaskProgress.updateTaskWithProgress('aquaflux_structure', DOMElements.aquafluxStructure, data.aquaflux_structure || 0);
