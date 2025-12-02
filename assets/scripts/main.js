@@ -15,11 +15,11 @@ const TASK_LIMITS = {
     'grandline': 1,             // Grandline
     'bitverse': 91,             // Bitverse
     'zenith_lending': 91,        // Zenith 
-    'bitverse_swap': 91,
-    'bitverse_lp': 91,
-    'zenith': 91,
-    'aquaflux_structure': 91,
-    'aquaflux_earn': 91
+    'bitverse_swap': 41,
+    'bitverse_lp': 41,
+    'zenith': 41,
+    'aquaflux_structure': 41,
+    'aquaflux_earn': 41
 };
 
 // === MEMBER SINCE UTILITIES ===
