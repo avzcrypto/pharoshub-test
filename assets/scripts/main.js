@@ -104,7 +104,7 @@ const DOMElements = {
     bitverse: document.getElementById('bitverse'),
     zenithLending: document.getElementById('zenithLending'),
     biverseSwap: document.getElementById('biverseSwap'),
-    biverse_lp: document.getElementById('bitverseLp'),
+    biverseLp: document.getElementById('bitverseLp'),
     zenith: document.getElementById('zenith'),
     aquafluxStructure: document.getElementById('aquafluxStructure'),
     aquafluxEarn: document.getElementById('aquafluxEarn'),
