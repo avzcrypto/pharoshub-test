@@ -188,7 +188,24 @@
             </div>
         </a>
 
+                <!-- Season Switcher -->
+                <div class="season-switcher-container">
+                    <div class="season-switcher" role="tablist" aria-label="Season selection">
+                        <div class="season-tab select" data-season="atlantic" role="tab" aria-selected="true" tabindex="0">
+                            Atlantic
+                            <div class="live-badge" aria-label="Currently live">
+                                <div class="live-dot" aria-hidden="true"></div>
+                                <span class="live-text">Live</span>
+                            </div>
+                        </div>
+                        <div class="season-tab" data-season="season2" role="tab" aria-selected="false" tabindex="-1">
+                            Season 2
+                        </div>
+                    </div>
+                </div>
+
               <!-- ATLANTIC CONTENT -->
+<div id="atlantic-content" role="tabpanel" aria-labelledby="atlantic-tab">
     <!-- Send Token To Friends CATEGORY -->
     <section class="tasks-section">
         <h3 class="section-title">
@@ -322,6 +339,105 @@
             </div>
         </div>
     </section>
+</div>
+               <!-- SEASON 2 CONTENT -->
+<div id="season2-content" role="tabpanel" aria-labelledby="season2-tab">
+    <!-- Send Token To Friends CATEGORY -->
+    <section class="tasks-section">
+        <h3 class="section-title">
+            <img src="https://static.pharosnetwork.xyz/experience/send-new.png" alt="" class="protocol-icon-img" width="32" height="32">
+            Send Token To Friends
+        </h3>
+        <div class="task-card">
+            <div class="task-main">
+                <div class="task-left">
+                    <img src="https://static.pharosnetwork.xyz/ecosystem/primus.png" alt="" class="task-icon" width="60" height="60">
+                    <div class="task-name">Via Social Media Account</div>
+                </div>
+                <div class="task-count" id="primuslabsSend" aria-label="Primuslabs sends completed">0</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RWAfi + Stake GRID -->
+    <section class="tasks-section">
+        <div class="protocol-grid">
+            <!-- RWAfi -->
+            <div class="category-block">
+                <h3 class="section-title">
+                    <img src="https://static.pharosnetwork.xyz/experience/rwa@2x.png" alt="" class="protocol-icon-img" width="32" height="32">
+                    RWAfi
+                </h3>
+                <div class="task-card">
+                    <div class="task-main">
+                        <div class="task-left">
+                            <img src="https://static.pharosnetwork.xyz/ecosystem/aqua.png" alt="" class="task-icon" width="60" height="60">
+                            <div class="task-name">AquaFlux</div>
+                        </div>
+                        <div class="task-count" id="rwafi" aria-label="AquaFlux activities completed">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stake -->
+            <div class="category-block">
+                <h3 class="section-title">
+                    <img src="https://static.pharosnetwork.xyz/home/staking-new.png" alt="" class="protocol-icon-img" width="32" height="32">
+                    Stake
+                </h3>
+                <div class="task-card">
+                    <div class="task-main">
+                        <div class="task-left">
+                            <img src="https://static.pharosnetwork.xyz/ecosystem/autostaking.png" alt="" class="task-icon" width="60" height="60">
+                            <div class="task-name">AutoStaking</div>
+                        </div>
+                        <div class="task-count" id="stake" aria-label="AutoStaking activities completed">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading + Lend & Borrow GRID -->
+    <section class="tasks-section">
+        <div class="protocol-grid">
+            <!-- Trading -->
+            <div class="category-block">
+                <h3 class="section-title">
+                    <img src="https://static.pharosnetwork.xyz/experience/trade@2x.png" alt="" class="protocol-icon-img" width="32" height="32">
+                    Trading
+                </h3>
+                <div class="task-card">
+                    <div class="task-main">
+                        <div class="task-left">
+                            <img src="https://static.pharosnetwork.xyz/ecosystem/brokex.png" alt="" class="task-icon" width="60" height="60">
+                            <div class="task-name">Brokex</div>
+                        </div>
+                        <div class="task-count" id="cfdTrading" aria-label="Brokex CFD trading activities">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lend & Borrow -->
+            <div class="category-block">
+                <h3 class="section-title">
+                    <img src="https://static.pharosnetwork.xyz/home/lending-new.png" alt="" class="protocol-icon-img" width="32" height="32">
+                    Lend & Borrow
+                </h3>
+                <div class="task-card">
+                    <div class="task-main">
+                        <div class="task-left">
+                            <img src="https://static.pharosnetwork.xyz/ecosystem/openFi.png" alt="" class="task-icon" width="60" height="60">
+                            <div class="task-name">OpenFi</div>
+                        </div>
+                        <div class="task-count" id="lendBorrow" aria-label="OpenFi lending activities completed">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
                 <!-- Cache Disclaimer -->
                 <div class="cache-disclaimer">
                     <div class="disclaimer-icon" aria-hidden="true">⏱️</div>
