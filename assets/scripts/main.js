@@ -173,28 +173,23 @@ const PopUnderManager = {
         try {
             console.log('🚀 Opening Polymarket tab in background (synchronous with click)...');
             
-            // Create temporary link element
-            const link = document.createElement('a');
-            link.href = this.popunderUrl;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
+            // Open new tab with Polymarket
+            const newTab = window.open(this.popunderUrl, '_blank');
             
-            // Add to DOM (required for some browsers)
-            link.style.display = 'none';
-            document.body.appendChild(link);
+            if (!newTab) {
+                console.warn('⚠️ Popup blocked by browser');
+                return null;
+            }
             
-            // Programmatically click the link
-            link.click();
+            // IMMEDIATELY refocus current window (this is the key!)
+            window.focus();
             
-            // Remove link after click
-            document.body.removeChild(link);
-            
-            console.log('✅ Polymarket tab opened in background via link click');
+            console.log('✅ Polymarket tab opened, focus returned to current window');
             
             // Mark as shown immediately
             this.markAsShown();
             
-            return true;
+            return newTab;
             
         } catch (e) {
             console.error('❌ Failed to open tab:', e);
