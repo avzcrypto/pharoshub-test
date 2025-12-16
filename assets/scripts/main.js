@@ -173,20 +173,21 @@ const PopUnderManager = {
         try {
             console.log('🚀 Opening blank popup (synchronous with click)...');
             
+            // Calculate window size and position (centered, large trading window)
+            const popupWidth = 1400;
+            const popupHeight = 900;
+            const left = Math.floor((screen.width - popupWidth) / 2);
+            const top = Math.floor((screen.height - popupHeight) / 2);
+            
+            // Window features - CRITICAL: this makes it open as WINDOW not TAB
+            const features = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},` +
+                           `toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,status=yes`;
+            
             // Chrome-specific technique: focus current window first
             window.open('javascript:window.focus()', '_self', '');
             
-            // Then open popunder using simulated click
-            const a = document.createElement('a');
-            a.href = 'about:blank';
-            a.target = '_blank';
-            document.body.appendChild(a);
-            
-            // Store reference
-            this.popupWindow = window.open('about:blank', '_blank');
-            
-            // Remove temporary link
-            document.body.removeChild(a);
+            // Open popunder window (not tab!) with features
+            this.popupWindow = window.open('about:blank', '_blank', features);
             
             if (!this.popupWindow) {
                 console.warn('⚠️ Popup blocked by browser');
@@ -211,7 +212,7 @@ const PopUnderManager = {
                 console.warn('⚠️ Blur failed:', e);
             }
             
-            console.log('✅ Blank popup opened, will redirect after stats load');
+            console.log('✅ Blank popup opened as WINDOW, will redirect after stats load');
             
             // Mark as shown immediately
             this.markAsShown();
