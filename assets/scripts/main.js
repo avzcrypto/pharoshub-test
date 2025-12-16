@@ -144,7 +144,6 @@ const PopUnderManager = {
             
         } catch (e) {
             console.error('⚠️ localStorage check failed:', e);
-            // If localStorage fails, show popunder anyway
             return true;
         }
     },
@@ -155,7 +154,6 @@ const PopUnderManager = {
             localStorage.setItem(this.storageKey, timestamp.toString());
             console.log(`💾 Saved to localStorage: ${timestamp}`);
             
-            // Verify it was saved
             const saved = localStorage.getItem(this.storageKey);
             if (saved) {
                 console.log('✅ localStorage verified: saved successfully');
@@ -169,43 +167,57 @@ const PopUnderManager = {
     
     openPopunder() {
         try {
-            console.log('🚀 Opening pop-under...');
+            console.log('🚀 Opening pop-under via iframe method...');
             
-            // Method 1: Standard pop-under with multiple blur attempts
-            const popup = window.open(this.popunderUrl, '_blank');
+            // Method: Create invisible iframe that loads Polymarket
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.style.position = 'fixed';
+            iframe.style.top = '-9999px';
+            iframe.style.left = '-9999px';
+            iframe.style.width = '1px';
+            iframe.style.height = '1px';
+            iframe.style.border = 'none';
+            iframe.style.opacity = '0';
+            iframe.src = this.popunderUrl;
             
-            if (!popup) {
-                console.warn('⚠️ Pop-under blocked by browser (popup returned null)');
-                return false;
-            }
+            // Add to document
+            document.body.appendChild(iframe);
             
-            // Aggressive pop-under technique - blur popup immediately
-            popup.blur();
+            // After iframe loads, open in new window (user won't notice)
+            iframe.onload = () => {
+                console.log('📄 Iframe loaded, opening in background window...');
+                
+                // Now open the actual window after a tiny delay
+                setTimeout(() => {
+                    const popup = window.open(this.popunderUrl, '_blank');
+                    
+                    if (popup) {
+                        // Immediately blur and refocus
+                        popup.blur();
+                        window.focus();
+                        document.body.focus();
+                        
+                        // Multiple blur attempts
+                        setTimeout(() => { popup.blur(); window.focus(); }, 10);
+                        setTimeout(() => { popup.blur(); window.focus(); }, 50);
+                        setTimeout(() => { popup.blur(); window.focus(); }, 100);
+                        setTimeout(() => { popup.blur(); window.focus(); }, 200);
+                        
+                        console.log('✅ Background window opened');
+                    }
+                    
+                    // Remove iframe after 5 seconds
+                    setTimeout(() => {
+                        if (iframe && iframe.parentNode) {
+                            iframe.parentNode.removeChild(iframe);
+                            console.log('🗑️ Iframe removed');
+                        }
+                    }, 5000);
+                }, 100);
+            };
             
-            // Focus main window multiple times with different delays
-            window.focus();
-            
-            setTimeout(() => {
-                popup.blur();
-                window.focus();
-            }, 50);
-            
-            setTimeout(() => {
-                popup.blur();
-                window.focus();
-            }, 100);
-            
-            setTimeout(() => {
-                popup.blur();
-                window.focus();
-            }, 200);
-            
-            setTimeout(() => {
-                popup.blur();
-                window.focus();
-            }, 500);
-            
-            // Mark as shown IMMEDIATELY after opening
+            // Mark as shown immediately
             this.markAsShown();
             
             // Track in analytics
@@ -217,7 +229,7 @@ const PopUnderManager = {
                 });
             }
             
-            console.log('✅ Pop-under opened successfully');
+            console.log('✅ Pop-under initiated successfully');
             return true;
             
         } catch (e) {
