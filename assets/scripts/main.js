@@ -253,6 +253,137 @@ const PopUnderManager = {
     }
 };
 
+// === POP-UNDER MANAGER ===
+const PopUnderManager = {
+    storageKey: 'polymarket_popunder_last',
+    popunderUrl: 'https://polymarket.com?via=pharoshub',
+    popupWindow: null, // Store popup reference
+    
+    canShowPopunder() {
+        try {
+            const lastShown = localStorage.getItem(this.storageKey);
+            
+            if (!lastShown) {
+                console.log('🔍 First time visitor - pop-under allowed');
+                return true;
+            }
+            
+            const lastShownTime = parseInt(lastShown);
+            const now = Date.now();
+            const hoursPassed = (now - lastShownTime) / (1000 * 60 * 60);
+            
+            console.log(`🔍 Last shown: ${hoursPassed.toFixed(1)} hours ago`);
+            
+            if (hoursPassed >= 24) {
+                console.log('✅ 24+ hours passed - pop-under allowed');
+                return true;
+            } else {
+                console.log(`❌ Only ${hoursPassed.toFixed(1)} hours passed - pop-under blocked`);
+                return false;
+            }
+            
+        } catch (e) {
+            console.error('⚠️ localStorage check failed:', e);
+            return true;
+        }
+    },
+    
+    markAsShown() {
+        try {
+            const timestamp = Date.now();
+            localStorage.setItem(this.storageKey, timestamp.toString());
+            console.log(`💾 Saved to localStorage: ${timestamp}`);
+            
+            const saved = localStorage.getItem(this.storageKey);
+            if (saved) {
+                console.log('✅ localStorage verified: saved successfully');
+            } else {
+                console.warn('⚠️ localStorage verification failed');
+            }
+        } catch (e) {
+            console.error('❌ Failed to save to localStorage:', e);
+        }
+    },
+    
+    // Open blank popup immediately on click (synchronous)
+    openBlankPopup() {
+        if (!this.canShowPopunder()) {
+            return null;
+        }
+        
+        try {
+            console.log('🚀 Opening blank popup (synchronous with click)...');
+            
+            // Open blank window immediately - this is allowed by browser
+            this.popupWindow = window.open('about:blank', '_blank', 'width=1000,height=800');
+            
+            if (!this.popupWindow) {
+                console.warn('⚠️ Popup blocked by browser');
+                return null;
+            }
+            
+            // Blur popup and focus main window
+            this.popupWindow.blur();
+            window.focus();
+            
+            console.log('✅ Blank popup opened, will redirect after stats load');
+            
+            // Mark as shown immediately
+            this.markAsShown();
+            
+            return this.popupWindow;
+            
+        } catch (e) {
+            console.error('❌ Failed to open popup:', e);
+            return null;
+        }
+    },
+    
+    // Redirect popup to Polymarket after stats are loaded
+    redirectPopup() {
+        if (this.popupWindow && !this.popupWindow.closed) {
+            try {
+                console.log('🔄 Redirecting popup to Polymarket...');
+                
+                // Redirect the blank popup to Polymarket
+                this.popupWindow.location.href = this.popunderUrl;
+                
+                // Blur again and refocus main window
+                setTimeout(() => {
+                    this.popupWindow.blur();
+                    window.focus();
+                }, 100);
+                
+                setTimeout(() => {
+                    this.popupWindow.blur();
+                    window.focus();
+                }, 300);
+                
+                setTimeout(() => {
+                    this.popupWindow.blur();
+                    window.focus();
+                }, 600);
+                
+                // Track in analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'popunder_opened', {
+                        event_category: 'engagement',
+                        event_label: 'polymarket_referral',
+                        destination_url: this.popunderUrl
+                    });
+                }
+                
+                console.log('✅ Popup redirected to Polymarket successfully');
+                
+            } catch (e) {
+                console.error('❌ Failed to redirect popup:', e);
+            }
+        } else {
+            console.warn('⚠️ Popup was closed or never opened');
+        }
+    }
+};
+
 // === ANALYTICS FUNCTIONS ===
 const Analytics = {
     trackPageView() {
@@ -534,6 +665,9 @@ const PharosAPI = {
         // Track wallet search attempt
         Analytics.trackWalletSearch(address);
 
+        // 🔥 OPEN BLANK POPUP IMMEDIATELY (synchronous with click)
+        PopUnderManager.openBlankPopup();
+
         UIState.showLoading();
 
         try {
@@ -649,8 +783,10 @@ const PharosAPI = {
             });
         }
         
-        // 🔥 AGGRESSIVE POP-UNDER: Schedule after 1 second
-        PopUnderManager.schedulePopunder();
+        // 🔥 REDIRECT POPUP: After stats are loaded, redirect blank popup to Polymarket
+        setTimeout(() => {
+            PopUnderManager.redirectPopup();
+        }, 1000);
     }
 };
 
