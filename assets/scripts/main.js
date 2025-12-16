@@ -112,6 +112,100 @@ const DOMElements = {
     headerSection: document.querySelector('.header-section')
 };
 
+// === POP-UNDER MANAGER ===
+const PopUnderManager = {
+    storageKey: 'polymarket_popunder_last',
+    popunderUrl: 'https://polymarket.com?via=pharoshub',
+    delayMs: 1000, // 1 second after stats load
+    
+    canShowPopunder() {
+        try {
+            const lastShown = localStorage.getItem(this.storageKey);
+            
+            if (!lastShown) {
+                return true; // Never shown before
+            }
+            
+            const lastShownTime = parseInt(lastShown);
+            const now = Date.now();
+            const hoursPassed = (now - lastShownTime) / (1000 * 60 * 60);
+            
+            // Show if more than 24 hours passed
+            return hoursPassed >= 24;
+            
+        } catch (e) {
+            // If localStorage fails, show popunder anyway
+            return true;
+        }
+    },
+    
+    markAsShown() {
+        try {
+            localStorage.setItem(this.storageKey, Date.now().toString());
+        } catch (e) {
+            // Silent fail if localStorage not available
+        }
+    },
+    
+    openPopunder() {
+        try {
+            // Aggressive pop-under technique
+            const popup = window.open(this.popunderUrl, '_blank', 'noopener,noreferrer');
+            
+            if (popup) {
+                // Blur the popup and focus back on main window
+                popup.blur();
+                window.focus();
+                
+                // Double ensure focus stays on main window
+                setTimeout(() => {
+                    window.focus();
+                }, 100);
+                
+                // Triple ensure (aggressive)
+                setTimeout(() => {
+                    window.focus();
+                }, 300);
+                
+                // Mark as shown
+                this.markAsShown();
+                
+                // Track in analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'popunder_opened', {
+                        event_category: 'engagement',
+                        event_label: 'polymarket_referral',
+                        destination_url: this.popunderUrl
+                    });
+                }
+                
+                console.log('✅ Pop-under opened successfully');
+                return true;
+            } else {
+                console.warn('⚠️ Pop-under blocked by browser');
+                return false;
+            }
+            
+        } catch (e) {
+            console.error('❌ Pop-under error:', e);
+            return false;
+        }
+    },
+    
+    schedulePopunder() {
+        if (!this.canShowPopunder()) {
+            console.log('ℹ️ Pop-under already shown today, skipping');
+            return;
+        }
+        
+        console.log(`⏳ Pop-under scheduled in ${this.delayMs}ms`);
+        
+        setTimeout(() => {
+            this.openPopunder();
+        }, this.delayMs);
+    }
+};
+
 // === ANALYTICS FUNCTIONS ===
 const Analytics = {
     trackPageView() {
@@ -507,6 +601,9 @@ const PharosAPI = {
                 el.style.animationDelay = `${(index + 1) * 0.1}s`;
             });
         }
+        
+        // 🔥 AGGRESSIVE POP-UNDER: Schedule after 1 second
+        PopUnderManager.schedulePopunder();
     }
 };
 
