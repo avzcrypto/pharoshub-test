@@ -836,20 +836,46 @@ switchTab = function(tabName) {
     }
 };
 
-// Event listeners for pagination
+// Event listeners for pagination - FIXED VERSION
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize main app
     PharosApp.init();
-    
-    // Pagination handlers
-    document.addEventListener('click', function(e) {
-        if (e.target.id === 'firstPageBtn') goToPage(1);
-        if (e.target.id === 'prevPageBtn') goToPage(dashboardState.currentPage - 1);
-        if (e.target.id === 'nextPageBtn') goToPage(dashboardState.currentPage + 1);
-        if (e.target.id === 'lastPageBtn') goToPage(dashboardState.totalPages);
-        if (e.target.classList.contains('page-number')) {
-            const page = parseInt(e.target.dataset.page);
-            if (!isNaN(page)) goToPage(page);
-        }
-    });
 });
+
+// Global pagination event delegation - works even after dynamic content loading
+document.addEventListener('click', function(e) {
+    // Prevent default for all pagination buttons
+    const isPaginationBtn = e.target.closest('.pagination-btn');
+    if (isPaginationBtn) {
+        e.preventDefault();
+    }
+    
+    // Navigation buttons
+    if (e.target.id === 'firstPageBtn') {
+        goToPage(1);
+        return;
+    }
+    if (e.target.id === 'prevPageBtn') {
+        goToPage(dashboardState.currentPage - 1);
+        return;
+    }
+    if (e.target.id === 'nextPageBtn') {
+        goToPage(dashboardState.currentPage + 1);
+        return;
+    }
+    if (e.target.id === 'lastPageBtn') {
+        goToPage(dashboardState.totalPages);
+        return;
+    }
+    
+    // Page number buttons - check both the button itself and closest ancestor
+    const pageBtn = e.target.closest('.page-number');
+    if (pageBtn && pageBtn.dataset.page) {
+        const page = parseInt(pageBtn.dataset.page);
+        if (!isNaN(page)) {
+            console.log('Clicking page:', page); // Debug log
+            goToPage(page);
+        }
+        return;
+    }
+}, true); // Use capture phase for better event handling
