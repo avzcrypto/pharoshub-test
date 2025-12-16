@@ -733,15 +733,10 @@ function updatePageNumbers() {
     
     const { totalPages } = dashboardState;
     
+    // Show all page numbers (1 to 10 for top 100 users with 10 per page)
     let pagesHtml = '';
     for (let i = 1; i <= totalPages; i++) {
         pagesHtml += '<button class="pagination-btn page-number" data-page="' + i + '">' + i + '</button>';
-        
-        // Add dots after 3rd page if more than 5 pages
-        if (i === 3 && totalPages > 5) {
-            pagesHtml += '<span class="page-dots">...</span>';
-            i = totalPages - 1; // Jump to second-to-last page
-        }
     }
     
     pageNumbers.innerHTML = pagesHtml;
