@@ -123,17 +123,27 @@ const PopUnderManager = {
             const lastShown = localStorage.getItem(this.storageKey);
             
             if (!lastShown) {
-                return true; // Never shown before
+                console.log('🔍 First time visitor - pop-under allowed');
+                return true;
             }
             
             const lastShownTime = parseInt(lastShown);
             const now = Date.now();
             const hoursPassed = (now - lastShownTime) / (1000 * 60 * 60);
             
+            console.log(`🔍 Last shown: ${hoursPassed.toFixed(1)} hours ago`);
+            
             // Show if more than 24 hours passed
-            return hoursPassed >= 24;
+            if (hoursPassed >= 24) {
+                console.log('✅ 24+ hours passed - pop-under allowed');
+                return true;
+            } else {
+                console.log(`❌ Only ${hoursPassed.toFixed(1)} hours passed - pop-under blocked`);
+                return false;
+            }
             
         } catch (e) {
+            console.error('⚠️ localStorage check failed:', e);
             // If localStorage fails, show popunder anyway
             return true;
         }
@@ -141,50 +151,74 @@ const PopUnderManager = {
     
     markAsShown() {
         try {
-            localStorage.setItem(this.storageKey, Date.now().toString());
+            const timestamp = Date.now();
+            localStorage.setItem(this.storageKey, timestamp.toString());
+            console.log(`💾 Saved to localStorage: ${timestamp}`);
+            
+            // Verify it was saved
+            const saved = localStorage.getItem(this.storageKey);
+            if (saved) {
+                console.log('✅ localStorage verified: saved successfully');
+            } else {
+                console.warn('⚠️ localStorage verification failed');
+            }
         } catch (e) {
-            // Silent fail if localStorage not available
+            console.error('❌ Failed to save to localStorage:', e);
         }
     },
     
     openPopunder() {
         try {
-            // Aggressive pop-under technique
-            const popup = window.open(this.popunderUrl, '_blank', 'noopener,noreferrer');
+            console.log('🚀 Opening pop-under...');
             
-            if (popup) {
-                // Blur the popup and focus back on main window
-                popup.blur();
-                window.focus();
-                
-                // Double ensure focus stays on main window
-                setTimeout(() => {
-                    window.focus();
-                }, 100);
-                
-                // Triple ensure (aggressive)
-                setTimeout(() => {
-                    window.focus();
-                }, 300);
-                
-                // Mark as shown
-                this.markAsShown();
-                
-                // Track in analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'popunder_opened', {
-                        event_category: 'engagement',
-                        event_label: 'polymarket_referral',
-                        destination_url: this.popunderUrl
-                    });
-                }
-                
-                console.log('✅ Pop-under opened successfully');
-                return true;
-            } else {
-                console.warn('⚠️ Pop-under blocked by browser');
+            // Method 1: Standard pop-under with multiple blur attempts
+            const popup = window.open(this.popunderUrl, '_blank');
+            
+            if (!popup) {
+                console.warn('⚠️ Pop-under blocked by browser (popup returned null)');
                 return false;
             }
+            
+            // Aggressive pop-under technique - blur popup immediately
+            popup.blur();
+            
+            // Focus main window multiple times with different delays
+            window.focus();
+            
+            setTimeout(() => {
+                popup.blur();
+                window.focus();
+            }, 50);
+            
+            setTimeout(() => {
+                popup.blur();
+                window.focus();
+            }, 100);
+            
+            setTimeout(() => {
+                popup.blur();
+                window.focus();
+            }, 200);
+            
+            setTimeout(() => {
+                popup.blur();
+                window.focus();
+            }, 500);
+            
+            // Mark as shown IMMEDIATELY after opening
+            this.markAsShown();
+            
+            // Track in analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'popunder_opened', {
+                    event_category: 'engagement',
+                    event_label: 'polymarket_referral',
+                    destination_url: this.popunderUrl
+                });
+            }
+            
+            console.log('✅ Pop-under opened successfully');
+            return true;
             
         } catch (e) {
             console.error('❌ Pop-under error:', e);
@@ -193,8 +227,9 @@ const PopUnderManager = {
     },
     
     schedulePopunder() {
+        console.log('🔄 Checking if pop-under should be shown...');
+        
         if (!this.canShowPopunder()) {
-            console.log('ℹ️ Pop-under already shown today, skipping');
             return;
         }
         
