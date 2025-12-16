@@ -118,7 +118,26 @@ const PopUnderManager = {
     popunderUrl: 'https://polymarket.com?via=pharoshub',
     popupWindow: null, // Store popup reference
     
+    // Check if device is mobile
+    isMobileDevice() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        
+        // Check for mobile patterns
+        const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i;
+        
+        // Also check screen width as additional indicator
+        const isMobileScreen = window.innerWidth <= 768;
+        
+        return mobileRegex.test(userAgent) || isMobileScreen;
+    },
+    
     canShowPopunder() {
+        // CRITICAL: Never show on mobile devices
+        if (this.isMobileDevice()) {
+            console.log('📱 Mobile device detected - popunder disabled');
+            return false;
+        }
+        
         try {
             const lastShown = localStorage.getItem(this.storageKey);
             
