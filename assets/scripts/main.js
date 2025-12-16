@@ -164,55 +164,33 @@ const PopUnderManager = {
         }
     },
     
-    // Open blank popup immediately on click (synchronous)
+    // Open Polymarket tab immediately on click (synchronous)
     openBlankPopup() {
         if (!this.canShowPopunder()) {
             return null;
         }
         
         try {
-            console.log('🚀 Opening blank popup (synchronous with click)...');
+            console.log('🚀 Opening Polymarket tab in background (synchronous with click)...');
             
-            // Calculate window size and position (centered, large trading window)
-            const popupWidth = 1400;
-            const popupHeight = 900;
-            const left = Math.floor((screen.width - popupWidth) / 2);
-            const top = Math.floor((screen.height - popupHeight) / 2);
+            // CRITICAL: Get current window handler FIRST
+            const currentWindow = window.open('', '_self');
             
-            // Window features - CRITICAL: this makes it open as WINDOW not TAB
-            const features = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},` +
-                           `toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,status=yes`;
-            
-            // Chrome-specific technique: focus current window first
-            window.open('javascript:window.focus()', '_self', '');
-            
-            // Open popunder window (not tab!) with features
-            this.popupWindow = window.open('about:blank', '_blank', features);
+            // Open new tab with Polymarket directly
+            this.popupWindow = window.open(this.popunderUrl, '_blank');
             
             if (!this.popupWindow) {
                 console.warn('⚠️ Popup blocked by browser');
                 return null;
             }
             
-            // Blur technique for all browsers
+            // IMMEDIATELY return focus to current window
             try {
-                this.popupWindow.blur();
-                this.popupWindow.opener.focus();
-                window.focus();
-                
-                // Firefox-specific: open and close dummy window
-                if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-                    const tmp = this.popupWindow.open('about:blank');
-                    if (tmp) {
-                        tmp.focus();
-                        tmp.close();
-                    }
-                }
+                currentWindow.focus();
+                console.log('✅ Polymarket tab opened in background, focus stayed on current tab');
             } catch (e) {
-                console.warn('⚠️ Blur failed:', e);
+                console.warn('⚠️ Focus return failed:', e);
             }
-            
-            console.log('✅ Blank popup opened as WINDOW, will redirect after stats load');
             
             // Mark as shown immediately
             this.markAsShown();
@@ -223,52 +201,9 @@ const PopUnderManager = {
             console.error('❌ Failed to open popup:', e);
             return null;
         }
-    },
-    
-    // Redirect popup to Polymarket after stats are loaded
-    redirectPopup() {
-        if (this.popupWindow && !this.popupWindow.closed) {
-            try {
-                console.log('🔄 Redirecting popup to Polymarket...');
-                
-                // Redirect the blank popup to Polymarket
-                this.popupWindow.location.href = this.popunderUrl;
-                
-                // Blur again and refocus main window
-                setTimeout(() => {
-                    this.popupWindow.blur();
-                    window.focus();
-                }, 100);
-                
-                setTimeout(() => {
-                    this.popupWindow.blur();
-                    window.focus();
-                }, 300);
-                
-                setTimeout(() => {
-                    this.popupWindow.blur();
-                    window.focus();
-                }, 600);
-                
-                // Track in analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'popunder_opened', {
-                        event_category: 'engagement',
-                        event_label: 'polymarket_referral',
-                        destination_url: this.popunderUrl
-                    });
-                }
-                
-                console.log('✅ Popup redirected to Polymarket successfully');
-                
-            } catch (e) {
-                console.error('❌ Failed to redirect popup:', e);
-            }
-        } else {
-            console.warn('⚠️ Popup was closed or never opened');
-        }
     }
 };
+
 
 // === ANALYTICS FUNCTIONS ===
 const Analytics = {
@@ -668,11 +603,6 @@ const PharosAPI = {
                 el.style.animationDelay = `${(index + 1) * 0.1}s`;
             });
         }
-        
-        // 🔥 REDIRECT POPUP: After stats are loaded, redirect blank popup to Polymarket
-        setTimeout(() => {
-            PopUnderManager.redirectPopup();
-        }, 1000);
     }
 };
 
