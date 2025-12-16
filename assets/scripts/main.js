@@ -173,17 +173,43 @@ const PopUnderManager = {
         try {
             console.log('🚀 Opening blank popup (synchronous with click)...');
             
-            // Open blank window immediately - this is allowed by browser
-            this.popupWindow = window.open('about:blank', '_blank', 'width=1000,height=800');
+            // Chrome-specific technique: focus current window first
+            window.open('javascript:window.focus()', '_self', '');
+            
+            // Then open popunder using simulated click
+            const a = document.createElement('a');
+            a.href = 'about:blank';
+            a.target = '_blank';
+            document.body.appendChild(a);
+            
+            // Store reference
+            this.popupWindow = window.open('about:blank', '_blank');
+            
+            // Remove temporary link
+            document.body.removeChild(a);
             
             if (!this.popupWindow) {
                 console.warn('⚠️ Popup blocked by browser');
                 return null;
             }
             
-            // Blur popup and focus main window
-            this.popupWindow.blur();
-            window.focus();
+            // Blur technique for all browsers
+            try {
+                this.popupWindow.blur();
+                this.popupWindow.opener.focus();
+                window.focus();
+                
+                // Firefox-specific: open and close dummy window
+                if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                    const tmp = this.popupWindow.open('about:blank');
+                    if (tmp) {
+                        tmp.focus();
+                        tmp.close();
+                    }
+                }
+            } catch (e) {
+                console.warn('⚠️ Blur failed:', e);
+            }
             
             console.log('✅ Blank popup opened, will redirect after stats load');
             
