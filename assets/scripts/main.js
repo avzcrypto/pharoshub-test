@@ -115,7 +115,7 @@ const DOMElements = {
 // === POP-UNDER MANAGER ===
 const PopUnderManager = {
     storageKey: 'polymarket_popunder_last',
-    popunderUrl: 'https://polymarket.com?via=pharoshub',
+    popunderUrl: 'https://poly.market/pharoshub',
     popupWindow: null, // Store popup reference
     
     // Check if device is mobile
@@ -190,25 +190,34 @@ const PopUnderManager = {
         }
         
         try {
-            console.log('🚀 Opening Polymarket tab in background (synchronous with click)...');
+            console.log('🚀 Opening Polymarket tab with referrer tracking...');
             
-            // Open new tab with Polymarket
-            const newTab = window.open(this.popunderUrl, '_blank');
+            // Create a temporary link element to preserve referrer
+            const link = document.createElement('a');
+            link.href = this.popunderUrl;
+            link.target = '_blank';
+            link.rel = 'noopener'; // Security but keeps referrer
             
-            if (!newTab) {
-                console.warn('⚠️ Popup blocked by browser');
-                return null;
-            }
+            // Add to document (required for some browsers)
+            document.body.appendChild(link);
             
-            // IMMEDIATELY refocus current window (this is the key!)
+            // Programmatically click the link
+            link.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(link);
+            }, 100);
+            
+            // Try to return focus to current window
             window.focus();
             
-            console.log('✅ Polymarket tab opened, focus returned to current window');
+            console.log('✅ Polymarket tab opened with referrer from pharoshub.xyz');
             
             // Mark as shown immediately
             this.markAsShown();
             
-            return newTab;
+            return true;
             
         } catch (e) {
             console.error('❌ Failed to open tab:', e);
