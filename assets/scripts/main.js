@@ -508,8 +508,8 @@ const PharosAPI = {
         // Track wallet search attempt
         Analytics.trackWalletSearch(address);
 
-        // 🔥 OPEN BLANK POPUP IMMEDIATELY (synchronous with click)
-        PopUnderManager.openBlankPopup();
+        // 🔥 POPUNDER DISABLED
+        // PopUnderManager.openBlankPopup();  // ← ДОБАВИЛ // В НАЧАЛЕ
 
         UIState.showLoading();
 
