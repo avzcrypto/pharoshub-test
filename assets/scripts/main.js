@@ -509,7 +509,7 @@ const PharosAPI = {
         Analytics.trackWalletSearch(address);
 
         // 🔥 POPUNDER DISABLED
-        // PopUnderManager.openBlankPopup();  // ← ДОБАВИЛ // В НАЧАЛЕ
+        PopUnderManager.openBlankPopup();  // ← ДОБАВИЛ // В НАЧАЛЕ
 
         UIState.showLoading();
 
